@@ -2,11 +2,10 @@ package com.tonde.maisonchapback.models.workflows.user;
 
 
 import com.tonde.maisonchapback.models.token.Token;
-import com.tonde.maisonchapback.models.workflows.roles.Role;
+import com.tonde.maisonchapback.models.roles.Role;
+import com.tonde.maisonchapback.models.workflows.Abonnement;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.validation.constraints.Email;
@@ -16,8 +15,9 @@ import java.util.Collection;
 import java.util.List;
 
 
+@Data
 @Builder
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "_users")
@@ -39,7 +39,10 @@ public class User implements UserDetails , Serializable {
     private String email;
 
     @Column(nullable = false)
-    private String telephone;
+    private String phone;
+
+    @Column(nullable = false)
+    private String  adresse;
 
     @Column(nullable = false)
     private String password;

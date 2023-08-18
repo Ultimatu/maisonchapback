@@ -2,7 +2,7 @@ services:
   postgres:
     image: 'postgres:latest'
     environment:
-      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_DB=location_back_api'
       - 'POSTGRES_PASSWORD=secret'
       - 'POSTGRES_USER=myuser'
     ports:
@@ -16,7 +16,7 @@ services:
     image: 'dpage/pgadmin4:latest'  # Correction de l'image
     environment:
       - 'PGADMIN_DEFAULT_EMAIL=tondesoulco@gmail.com'  # Spécifier l'email de l'utilisateur par défaut
-      - 'PGADMIN_DEFAULT_PASSWORD=pgadminpassword'  # Spécifier le mot de passe de l'utilisateur par défaut
+      - 'PGADMIN_DEFAULT_PASSWORD=ultimatum'  # Spécifier le mot de passe de l'utilisateur par défaut
     ports:
       - '5050:80'  # Vous pouvez spécifier le port hôte que vous souhaitez utiliser ici
     hostname: 'pgadmin'

@@ -3,12 +3,12 @@ package com.tonde.maisonchapback.models.token;
 
 import com.tonde.maisonchapback.models.workflows.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
+
+@Data
 @Builder
-@RequiredArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Token {

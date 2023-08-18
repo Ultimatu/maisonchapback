@@ -3,12 +3,15 @@ package com.tonde.maisonchapback.models.workflows;
 
 import com.tonde.maisonchapback.models.workflows.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.springframework.data.jpa.repository.query.Procedure;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Builder
-@RequiredArgsConstructor
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "_houses")
@@ -22,6 +25,14 @@ public class House {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_ID"))
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_TYPE_ID"))
+    private TypeHouse typeHouse;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "status_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_STATUS_ID"))
+    private Status statusHouse;
 
     @Column(nullable = false)
     private String title;
@@ -49,5 +60,12 @@ public class House {
 
     @Column(nullable = false)
     private String price;
+
+    @Column(nullable = false)
+    private String surface;
+
+    @Column(nullable = false)
+    private String disponibility;
+
 
 }
