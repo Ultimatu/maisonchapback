@@ -67,5 +67,7 @@ public class House {
     @Column(nullable = false)
     private String disponibility;
 
+    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL)
+    private List<Photo> photos;
 
 }

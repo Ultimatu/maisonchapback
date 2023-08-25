@@ -2,6 +2,8 @@ package com.tonde.maisonchapback.auths.requests;
 
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -14,6 +16,19 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Schema(
+        name = "AuthenticationRequest",
+        description = "Request body for authentication",
+
+        oneOf = AuthenticationRequest.class,
+        example = """
+                {
+                  "email": "string",
+                  "password": "string"
+                }""",
+        implementation = AuthenticationRequest.class
+
+)
 public class AuthenticationRequest {
 
     @Column(nullable = false)

@@ -4,6 +4,9 @@ package com.tonde.maisonchapback.models.workflows.user;
 import com.tonde.maisonchapback.models.token.Token;
 import com.tonde.maisonchapback.models.roles.Role;
 import com.tonde.maisonchapback.models.workflows.Abonnement;
+import com.tonde.maisonchapback.models.workflows.Photo;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +24,25 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "_users")
+@Schema(
+        name = "User",
+        description = "User model",
+        example = """
+                {
+                  "id": "integer",
+                  "nom": "string",
+                  "prenom": "string",
+                  "email": "string",
+                  "phone": "string",
+                  "adresse": "string",
+                  "password": "string",
+                  "role": "Role",
+                  "tokens": "List<Token>",
+                  "locked": "boolean",
+                  "photoPath": "string"
+                }"""
+)
+
 public class User implements UserDetails , Serializable {
 
     @Id
@@ -52,6 +74,9 @@ public class User implements UserDetails , Serializable {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Token> tokens;
+
+
+
 
     @Column(nullable = false)
     private boolean locked = false;

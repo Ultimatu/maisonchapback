@@ -6,6 +6,7 @@ import com.tonde.maisonchapback.repositories.CommentRepository;
 import com.tonde.maisonchapback.repositories.HouseRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.services.interfaces.CommentService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,14 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Hidden
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
 
     private final UserRepository userRepository;
 
-    private HouseRepository houseRepository;
+    private final HouseRepository houseRepository;
 
     @Override
     public List<Comments> getAllComments() {

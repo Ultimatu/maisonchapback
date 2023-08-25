@@ -2,6 +2,7 @@ package com.tonde.maisonchapback.services.interfaces;
 
 import com.tonde.maisonchapback.models.workflows.Abonnement;
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Service
+@Hidden
 public interface UserService {
 
     public ResponseEntity<List<User>> getAllUsers();

@@ -11,6 +11,10 @@ import com.tonde.maisonchapback.models.workflows.user.User;
 import com.tonde.maisonchapback.repositories.TokenRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.auths.response.AuthenticationResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.*;
@@ -25,6 +29,23 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
+@Validated
+@Schema(
+        name = "AuthenticationService",
+        description = "Authentication service",
+
+        oneOf = AuthenticationService.class,
+        example = """
+                {
+                  "register": "AuthenticationResponse",
+                  "authenticate": "AuthenticationResponse",
+                  "savedUserToken": "void",
+                  "revokeAllUserTokens": "void",
+                  "refreshToken": "void"
+                }""",
+        implementation = AuthenticationService.class
+
+)
 public class AuthenticationService {
 
     private final UserRepository repository;
@@ -67,6 +88,8 @@ public class AuthenticationService {
                 .build();
 
     }
+
+
 
     public AuthenticationResponse authenticate(
             @Validated

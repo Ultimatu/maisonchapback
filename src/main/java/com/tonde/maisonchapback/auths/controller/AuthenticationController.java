@@ -33,10 +33,11 @@ public class AuthenticationController {
     private final CheckIfUserAlreadyExists check;
 
 
-   /* @Operation(
+   @Operation(
             summary = "Inscription d'un utilisateur",
             description = "Permet à un nouvel utilisateur de s'inscrire.",
-            responses = {
+           tags = {"Authentification"},
+           responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Inscription réussie",
@@ -49,7 +50,7 @@ public class AuthenticationController {
                     )
             }
 
-    )*/
+    )
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@Valid @RequestBody RegisterRequest request, HttpServletResponse response) {
@@ -60,7 +61,7 @@ public class AuthenticationController {
         return ResponseEntity.ok( authentificationService.register(request));
     }
 
-    /*@Operation(
+    @Operation(
             summary = "Authentification d'un utilisateur",
             description = "Permet à un utilisateur de s'authentifier.",
             responses = {
@@ -82,7 +83,7 @@ public class AuthenticationController {
                     )
             },
             tags = {"Authentification"}
-    )*/
+    )
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody AuthenticationRequest request) {
 
@@ -90,9 +91,11 @@ public class AuthenticationController {
     }
 
 
-    /*@Operation(
+    @Operation(
             summary = "Renouvellement du jeton d'authentification",
             description = "Permet de renouveler le jeton d'authentification expiré.",
+            tags = {"Authentification"},
+
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -102,7 +105,7 @@ public class AuthenticationController {
                     )
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content = @Content(schema = @Schema(hidden = true))
+                    content = @Content(schema = @Schema(hidden = false))
             ),
             parameters = {
                     @Parameter(
@@ -113,7 +116,7 @@ public class AuthenticationController {
                     )
             }
 
-    )*/
+    )
 
     @PostMapping("/refresh-token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -124,6 +127,7 @@ public class AuthenticationController {
 
     @Operation(
             summary = "Déconnexion de l'utilisateur",
+            tags = {"Authentification"},
             description = "Permet à un utilisateur de se déconnecter.",
             responses = {
                     @ApiResponse(

@@ -19,40 +19,11 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
                         url = "http://localhost:8080"
                 )
         },
-        tags = {
-                @io.swagger.v3.oas.annotations.tags.Tag(
-                        name = "User",
-                        description = "User API"
-                ),
-                @io.swagger.v3.oas.annotations.tags.Tag(
-                        name = "House",
-                        description = "House API"
-                ),
-                @io.swagger.v3.oas.annotations.tags.Tag(
-                        name = "Rate",
-                        description = "Rate API"
-                ),
-                @io.swagger.v3.oas.annotations.tags.Tag(
-                        name = "Stat",
-                        description = "Stat API"
-                )
-        },
+
         security = {
                 @io.swagger.v3.oas.annotations.security.SecurityRequirement(
                         name = "bearerAuth",
                         scopes = {"global"}
-                )
-        },
-
-        extensions = {
-                @io.swagger.v3.oas.annotations.extensions.Extension(
-                        name = "x-internal-id",
-                        properties = {
-                                @io.swagger.v3.oas.annotations.extensions.ExtensionProperty(
-                                        name = "id",
-                                        value = "123456789"
-                                )
-                        }
                 )
         }
 

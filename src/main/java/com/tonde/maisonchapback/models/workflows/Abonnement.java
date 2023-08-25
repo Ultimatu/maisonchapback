@@ -2,6 +2,7 @@ package com.tonde.maisonchapback.models.workflows;
 
 
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.models.annotations.OpenAPI31;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "abonnement")
+@OpenAPI31
+
 public class Abonnement {
 
     @Id

@@ -152,7 +152,6 @@ public class UserServiceImpl implements UserService {
             user.setRole(newRole);
             userRepository.save(user);
 
-            abonnementService.getAllAbonnementsByUserId(id);
             abonnementService.addAbonnement(abonnement);
 
             String successMessage = String.format("User upgraded to %s successfully", newRole);

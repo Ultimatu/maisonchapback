@@ -6,6 +6,7 @@ import com.tonde.maisonchapback.models.workflows.user.User;
 import com.tonde.maisonchapback.repositories.AbonnementRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.services.interfaces.AbonnementService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,11 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Hidden
 public class AbonnementServiceImpl implements AbonnementService {
 
-    private AbonnementRepository repository;
-    private UserRepository userRepository;
+    private final AbonnementRepository repository;
+    private final UserRepository userRepository;
     @Override
     public List<Abonnement> getAllAbonnements() {
 
@@ -33,10 +35,10 @@ public class AbonnementServiceImpl implements AbonnementService {
     }
 
     @Override
-    public ResponseEntity<?> addAbonnement(Abonnement abonnement) {
+    public void addAbonnement(Abonnement abonnement) {
         repository.save(abonnement);
 
-        return ResponseEntity.ok().body("Abonnement activer");
+        ResponseEntity.ok().body("Abonnement activer");
 
     }
 

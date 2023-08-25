@@ -1,6 +1,7 @@
 package com.tonde.maisonchapback.services.interfaces;
 
 import com.tonde.maisonchapback.models.workflows.Statistique;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
+@Hidden
 public interface StatsService {
 
     public ResponseEntity<List<Statistique>> getAllStats();
