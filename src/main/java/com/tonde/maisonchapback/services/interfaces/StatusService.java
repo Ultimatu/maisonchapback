@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 public interface StatusService {
 
 
-    public ResponseEntity<?> getAllStatus();
+    ResponseEntity<?> getAllStatus();
 
-    public ResponseEntity<?> getStatusById(Integer id);
+    ResponseEntity<?> getStatusById(Integer id);
 
-    public ResponseEntity<?> createStatus(Status status);
+    ResponseEntity<?> createStatus(Status status);
 
-    public ResponseEntity<?> updateStatus(Status status);
+    ResponseEntity<?> updateStatus(Status status);
 
-    public ResponseEntity<?> deleteStatus(Integer id);
+    ResponseEntity<?> deleteStatus(Integer id);
 }

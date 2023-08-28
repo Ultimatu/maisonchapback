@@ -12,15 +12,15 @@ import java.util.Objects;
 @Hidden
 public interface StatsService {
 
-    public ResponseEntity<List<Statistique>> getAllStats();
+    ResponseEntity<List<Statistique>> getAllStats();
 
-    public ResponseEntity<Statistique> getStatById(Long id);
+    ResponseEntity<Statistique> getStatById(Long id);
 
-    public ResponseEntity<?> createStat(Statistique statistique);
+    ResponseEntity<?> createStat(Statistique statistique);
 
-    public ResponseEntity<?> updateStat(Statistique statistique);
+    ResponseEntity<?> updateStat(Statistique statistique);
 
-    public ResponseEntity<?> deleteStat(Long id);
+    ResponseEntity<?> deleteStat(Long id);
 
-    public ResponseEntity<Objects> getStatByHouseId(int id);
+    ResponseEntity<Objects> getStatByHouseId(int id);
 }

@@ -11,20 +11,20 @@ import java.util.List;
 @Hidden
 public interface RateService {
 
-    public ResponseEntity<?> addRate(Rates rate);
+    ResponseEntity<?> addRate(Rates rate);
 
-    public ResponseEntity<?> updateRate(Rates rates);
+    ResponseEntity<?> updateRate(Rates rates);
 
-    public ResponseEntity<?> deleteRate(int id);
+    ResponseEntity<?> deleteRate(int id);
 
-    public Rates getRateById(int id);
+    Rates getRateById(int id);
 
-    public List<Rates> getRateByHouseId(int houseId);
+    List<Rates> getRateByHouseId(int houseId);
 
-    public List<Rates> getRateByUserId(int userId);
+    List<Rates> getRateByUserId(int userId);
 
-    public Rates getRateByHouseIdAndUserId(int houseId, int userId);
+    Rates getRateByHouseIdAndUserId(int houseId, int userId);
 
-    public List<Rates> getAllRates();
+    List<Rates> getAllRates();
 
 }

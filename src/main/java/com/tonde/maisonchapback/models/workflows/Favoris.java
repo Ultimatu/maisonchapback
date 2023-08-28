@@ -1,13 +1,12 @@
 package com.tonde.maisonchapback.models.workflows;
 
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 @NoArgsConstructor
 @Data
@@ -15,6 +14,13 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "_favoris")
+@Schema(
+        name = "Favoris",
+        description = "Favoris model",
+        requiredMode = Schema.RequiredMode.REQUIRED,
+        implementation = Favoris.class,
+        requiredProperties = {"id", "house", "user"}
+)
 public class Favoris  {
 
     @Id

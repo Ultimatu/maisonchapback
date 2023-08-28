@@ -11,10 +11,7 @@ import com.tonde.maisonchapback.models.workflows.user.User;
 import com.tonde.maisonchapback.repositories.TokenRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.auths.response.AuthenticationResponse;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.*;
@@ -58,7 +55,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(@Valid RegisterRequest request)
             throws RuntimeException
     {
-        //verifier s'il a un role vide si oui on lui attribue le role USER
+        //verifier s'il a un role vide si oui, on lui attribue le role USER
         if (request.getRole() == null){
             request.setRole(Role.FREE_USER);
         }

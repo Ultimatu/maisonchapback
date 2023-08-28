@@ -105,7 +105,7 @@ public class AuthenticationController {
                     )
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content = @Content(schema = @Schema(hidden = false))
+                    content = @Content(schema = @Schema(hidden = true))
             ),
             parameters = {
                     @Parameter(

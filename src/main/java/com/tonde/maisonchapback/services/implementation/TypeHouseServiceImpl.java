@@ -3,6 +3,7 @@ package com.tonde.maisonchapback.services.implementation;
 import com.tonde.maisonchapback.models.workflows.TypeHouse;
 import com.tonde.maisonchapback.repositories.TypeHouseRepository;
 import com.tonde.maisonchapback.services.interfaces.TypeHouseService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Hidden
 public class TypeHouseServiceImpl implements TypeHouseService {
 
     private final TypeHouseRepository typeHouseRepository;

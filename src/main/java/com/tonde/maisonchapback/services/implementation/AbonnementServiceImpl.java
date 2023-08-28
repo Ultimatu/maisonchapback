@@ -84,6 +84,6 @@ public class AbonnementServiceImpl implements AbonnementService {
     @Override
     public List<Abonnement> getAllAbonnementsByUserId(int userId) {
         Optional<User> user = userRepository.findById(userId);
-        return user.map(value -> repository.findAllByUser(value)).orElse(null);
+        return user.map(repository::findAllByUser).orElse(null);
     }
 }

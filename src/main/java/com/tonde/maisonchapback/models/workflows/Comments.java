@@ -2,13 +2,13 @@ package com.tonde.maisonchapback.models.workflows;
 
 
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,6 +17,14 @@ import java.time.LocalDateTime;
 @Entity
 @Builder
 @Table(name = "_comments")
+@Schema(
+        name = "Comments",
+        description = "Comments model",
+        requiredMode = Schema.RequiredMode.REQUIRED,
+        implementation = Comments.class,
+        requiredProperties = {"id", "house", "user", "comment", "dateCreation"}
+
+)
 public class Comments {
 
     @Id

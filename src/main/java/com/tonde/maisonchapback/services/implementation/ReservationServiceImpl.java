@@ -7,6 +7,7 @@ import com.tonde.maisonchapback.repositories.HouseRepository;
 import com.tonde.maisonchapback.repositories.ReservationRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.services.interfaces.ReservationService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Hidden
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;

@@ -1,11 +1,9 @@
 package com.tonde.maisonchapback.models.workflows;
 
 
-import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.io.Serializable;
 
 
 @NoArgsConstructor
@@ -14,6 +12,13 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "_photos")
+@Schema(
+        name = "Photo",
+        description = "Photo model",
+        requiredMode = Schema.RequiredMode.REQUIRED,
+        implementation = Photo.class,
+        requiredProperties = {"id", "house", "url", "description"}
+)
 public class Photo{
 
     @Id

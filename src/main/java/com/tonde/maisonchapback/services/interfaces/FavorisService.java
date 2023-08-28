@@ -12,19 +12,19 @@ import java.util.List;
 @Hidden
 public interface FavorisService {
 
-    public ResponseEntity<?> addFavoris(Favoris favoris);
+    ResponseEntity<?> addFavoris(Favoris favoris);
 
-    public ResponseEntity<?> updateFavoris(Favoris favoris);
+    ResponseEntity<?> updateFavoris(Favoris favoris);
 
-    public ResponseEntity<?> deleteFavoris(Favoris favoris);
+    ResponseEntity<?> deleteFavoris(Favoris favoris);
 
-    public Favoris getFavorisById(int id);
+    Favoris getFavorisById(int id);
 
-    public List<Favoris> getAllFavoris();
+    List<Favoris> getAllFavoris();
 
-    public List<Favoris> getAllFavorisByUserId(int userId);
+    List<Favoris> getAllFavorisByUserId(int userId);
 
-    public List<Favoris> getAllFavorisByHouseId(int houseId);
+    List<Favoris> getAllFavorisByHouseId(int houseId);
 
 
 }

@@ -3,9 +3,6 @@ package com.tonde.maisonchapback.models.workflows.user;
 
 import com.tonde.maisonchapback.models.token.Token;
 import com.tonde.maisonchapback.models.roles.Role;
-import com.tonde.maisonchapback.models.workflows.Abonnement;
-import com.tonde.maisonchapback.models.workflows.Photo;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;

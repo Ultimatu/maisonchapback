@@ -1,6 +1,7 @@
 package com.tonde.maisonchapback.models.workflows;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +16,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "_status")
+@Schema(
+        name = "Status",
+        description = "Status model",
+        requiredMode = Schema.RequiredMode.REQUIRED,
+        implementation = Status.class,
+        requiredProperties = {"id", "status", "description"}
+)
 public class Status {
 
     @Id

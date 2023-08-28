@@ -2,6 +2,7 @@ package com.tonde.maisonchapback.models.token;
 
 
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Schema(hidden = true)
 public class Token {
 
     @Id

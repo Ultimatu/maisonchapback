@@ -11,21 +11,21 @@ import java.util.List;
 @Hidden
 public interface ReservationService {
 
-    public ResponseEntity<List<Reservation>> getAllReservations();
+    ResponseEntity<List<Reservation>> getAllReservations();
 
-    public ResponseEntity<Reservation> getReservationById(int id);
+    ResponseEntity<Reservation> getReservationById(int id);
 
-    public ResponseEntity<?> createReservation(Reservation reservation);
+    ResponseEntity<?> createReservation(Reservation reservation);
 
-    public ResponseEntity<?> updateReservation(Reservation reservation);
+    ResponseEntity<?> updateReservation(Reservation reservation);
 
-    public ResponseEntity<?> deleteReservation(int id);
+    ResponseEntity<?> deleteReservation(int id);
 
-    public ResponseEntity<?> getReservationByHouseId(int id);
+    ResponseEntity<?> getReservationByHouseId(int id);
 
-    public ResponseEntity<?> getReservationByUserId(int id);
+    ResponseEntity<?> getReservationByUserId(int id);
 
-    public ResponseEntity<?> getReservationByHouseIdAndUserId(int houseId, int userId);
+    ResponseEntity<?> getReservationByHouseIdAndUserId(int houseId, int userId);
 
 
 }

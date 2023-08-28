@@ -6,7 +6,6 @@ import com.tonde.maisonchapback.models.workflows.Photo;
 import com.tonde.maisonchapback.models.workflows.Reservation;
 import com.tonde.maisonchapback.services.implementation.*;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.websocket.OnError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +20,6 @@ import java.util.List;
 @RequestMapping("/api/proprio")
 @PreAuthorize("hasRole('ROLE_FREE_PROPRIO') or hasRole('ROLE_PREMIUM_PROPRIO') or hasRole('ROLE_STANDARD_PROPRIO')")
 @CrossOrigin(origins = "http://localhost:4200")
-
 public class ProprioController {
 
     private final UserServiceImpl userService;
@@ -39,7 +37,7 @@ public class ProprioController {
 
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Ajouter une maison",
             description = "Ajouter une maison",
             operationId = "addHouse",
@@ -88,7 +86,7 @@ public class ProprioController {
 
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Modifier une maison",
             description = "Modifier une maison",
             operationId = "updateHouse",
@@ -135,7 +133,7 @@ public class ProprioController {
 
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Supprimer une maison",
             description = "Supprimer une maison",
             operationId = "deleteHouse",
@@ -181,7 +179,7 @@ public class ProprioController {
 
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Récupérer une maison par son id",
             description = "Récupérer une maison par son id",
             operationId = "getHouseById",
@@ -229,7 +227,7 @@ public class ProprioController {
 
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Récupérer une maison par son status",
             description = "Récupérer une maison par son status",
             operationId = "getAllHousesByStatus",
@@ -276,7 +274,7 @@ public class ProprioController {
     //by disponibility
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Récupérer une maison par sa disponibilité",
             description = "Récupérer une maison par sa disponibilité",
             operationId = "getAllHousesByDisponibility",
@@ -329,7 +327,7 @@ public class ProprioController {
 
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Ajouter une photo",
             description = "Ajouter une photo",
             operationId = "addPhoto",
@@ -375,7 +373,7 @@ public class ProprioController {
 
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Supprimer une photo",
             description = "Supprimer une photo",
             operationId = "deletePhoto",
@@ -420,7 +418,7 @@ public class ProprioController {
 
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Récupérer une photo par l'id de la maison",
             description = "Récupérer une photo par l'id de la maison",
             operationId = "getAllPhotosByHouseId",
@@ -470,7 +468,7 @@ public class ProprioController {
      */
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Ajouter une réservation",
             description = "Ajouter une réservation",
             operationId = "addReservation",
@@ -503,7 +501,7 @@ public class ProprioController {
     //update reservation
 
     @Operation(
-            tags = "{ProprioController}",
+            tags = "Proprio API",
             summary = "Modifier une réservation",
             description = "Modifier une réservation",
             operationId = "updateReservation",

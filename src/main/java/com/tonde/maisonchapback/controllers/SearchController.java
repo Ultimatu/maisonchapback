@@ -7,9 +7,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -41,7 +39,7 @@ public class SearchController {
         return service.searchHouseByCity(city);
     }
 
-        @Operation(
+    @Operation(
             summary = "Public API to search house by price",
             description = "This API is used to search house by price",
             tags = {"search API"},

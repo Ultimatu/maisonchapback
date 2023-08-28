@@ -10,27 +10,27 @@ import org.springframework.stereotype.Service;
 public interface SearchService {
 
 
-    public ResponseEntity<?> searchHouseByCity(String city);
+    ResponseEntity<?> searchHouseByCity(String city);
 
-    public ResponseEntity<?> searchHouseByPrice(String price);
+    ResponseEntity<?> searchHouseByPrice(String price);
 
-    public ResponseEntity<?> searchHouseByStatus(int status);
+    ResponseEntity<?> searchHouseByStatus(int status);
 
-    public ResponseEntity<?> searchHouseByTypeAndCityAndPrice(int type, String city, String price);
+    ResponseEntity<?> searchHouseByTypeAndCityAndPrice(int type, String city, String price);
 
-    public ResponseEntity<?> searchHouseByAnyWord(String word);
+    ResponseEntity<?> searchHouseByAnyWord(String word);
 
-    public ResponseEntity<?> searchHouseByType(int type);
+    ResponseEntity<?> searchHouseByType(int type);
 
-    public ResponseEntity<?> searchHouseByCityAndPrice(String city, String price);
+    ResponseEntity<?> searchHouseByCityAndPrice(String city, String price);
 
-    public ResponseEntity<?> searchHouseByTypeAndPrice(int type, String price);
+    ResponseEntity<?> searchHouseByTypeAndPrice(int type, String price);
 
-    public ResponseEntity<?> searchByAll(int type, String city, String price, String surface, int status, String rooms);
+    ResponseEntity<?> searchByAll(int type, String city, String price, String surface, int status, String rooms);
 
-    public ResponseEntity<?> searchByTitleOrDescription(String word);
+    ResponseEntity<?> searchByTitleOrDescription(String word);
 
-    public ResponseEntity<?> searchByTitleAndDescription(String word1, String word2);
+    ResponseEntity<?> searchByTitleAndDescription(String word1, String word2);
 
 
 

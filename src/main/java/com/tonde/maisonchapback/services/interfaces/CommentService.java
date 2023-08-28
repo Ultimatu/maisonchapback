@@ -12,15 +12,15 @@ import java.util.List;
 @Hidden
 public interface CommentService {
 
-    public List<Comments> getAllComments();
+    List<Comments> getAllComments();
 
-    public Comments getCommentById(int id);
+    Comments getCommentById(int id);
 
-    public ResponseEntity<?> addComment(Comments comments);
+    ResponseEntity<?> addComment(Comments comments);
 
-    public ResponseEntity<?> updateComment(Comments comments);
+    ResponseEntity<?> updateComment(Comments comments);
 
-    public ResponseEntity<?> deleteComment(int id);
+    ResponseEntity<?> deleteComment(int id);
 
-    public List<Comments> getAllCommentsByUserId(int userId);
+    List<Comments> getAllCommentsByUserId(int userId);
 }

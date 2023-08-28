@@ -72,8 +72,14 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comments> getAllCommentsByUserId(int userId) {
-        Optional<User> user = userRepository.findById(userId);
-        return user.map(value -> (List<Comments>) commentRepository.findAllByUser(value).get()).orElse(null);
+        Optional<User> userOptional = userRepository.findById(userId);
 
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return commentRepository.findAllByUser(user);
+        } else {
+            return null;
+        }
     }
+
 }

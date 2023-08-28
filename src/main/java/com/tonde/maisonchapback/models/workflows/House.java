@@ -2,11 +2,10 @@ package com.tonde.maisonchapback.models.workflows;
 
 
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.jpa.repository.query.Procedure;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Builder
@@ -15,6 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "_houses")
+@Schema(
+        name = "House",
+        description = "House model",
+        requiredMode = Schema.RequiredMode.REQUIRED,
+        implementation = House.class,
+        requiredProperties = {"id", "user", "typeHouse", "statusHouse", "title", "description", "address", "city", "country", "numberOfRooms", "numberOfBathrooms", "numberOfFloors", "price", "surface", "disponibility", "photos"}
+)
 public class House {
 
     @Id

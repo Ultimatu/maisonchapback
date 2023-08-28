@@ -4,14 +4,16 @@ import com.tonde.maisonchapback.models.workflows.House;
 import com.tonde.maisonchapback.models.workflows.Status;
 import com.tonde.maisonchapback.models.workflows.TypeHouse;
 import com.tonde.maisonchapback.models.workflows.user.User;
+
+import io.swagger.v3.oas.annotations.Hidden;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Map;
 
+@Hidden
 public interface HouseRepository  extends JpaRepository<House, Integer> {
 
     List<House> findAllByUser(User user);

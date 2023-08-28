@@ -21,15 +21,16 @@ import lombok.RequiredArgsConstructor;
         description = "Request body for registration",
 
         oneOf = RegisterRequest.class,
-        example = "{\n" +
-                "  \"nom\": \"string\",\n" +
-                "  \"prenom\": \"string\",\n" +
-                "  \"email\": \"string\",\n" +
-                "  \"phone\": \"string\",\n" +
-                "  \"adresse\": \"string\",\n" +
-                "  \"role\": \"string\",\n" +
-                "  \"password\": \"string\"\n" +
-                "}",
+        example = """
+                {
+                  "nom": "string",
+                  "prenom": "string",
+                  "email": "string",
+                  "phone": "string",
+                  "adresse": "string",
+                  "role": "string",
+                  "password": "string"
+                }""",
         implementation = RegisterRequest.class
 
 )

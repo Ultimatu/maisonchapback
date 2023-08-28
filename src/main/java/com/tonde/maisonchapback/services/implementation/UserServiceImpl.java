@@ -3,12 +3,11 @@ package com.tonde.maisonchapback.services.implementation;
 
 import com.tonde.maisonchapback.models.roles.Role;
 import com.tonde.maisonchapback.models.workflows.Abonnement;
-import com.tonde.maisonchapback.models.workflows.Photo;
 import com.tonde.maisonchapback.models.workflows.user.User;
-import com.tonde.maisonchapback.repositories.AbonnementRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.services.interfaces.AbonnementService;
 import com.tonde.maisonchapback.services.interfaces.UserService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Hidden
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;

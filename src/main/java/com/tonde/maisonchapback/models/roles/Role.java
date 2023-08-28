@@ -1,6 +1,7 @@
 package com.tonde.maisonchapback.models.roles;
 
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +12,7 @@ import java.util.Set;
 import static com.tonde.maisonchapback.models.roles.Permission.*;
 
 @RequiredArgsConstructor
+@Hidden
 public enum Role {
 
 
@@ -114,6 +116,7 @@ public enum Role {
      * Convert the permissions to a list of SimpleGrantedAuthority
      * @return List<SimpleGrantedAuthority>
      */
+
     public List<SimpleGrantedAuthority> getAuthorities() {
         var authorities = new java.util.ArrayList<>(
                 getPermissions()

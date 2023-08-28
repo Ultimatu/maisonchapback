@@ -9,21 +9,21 @@ import org.springframework.stereotype.Service;
 @Hidden
 public interface HouseService {
 
-    public ResponseEntity<?> getAllHouses();
+    ResponseEntity<?> getAllHouses();
 
-    public ResponseEntity<?> getHouseById(int id);
+    ResponseEntity<?> getHouseById(int id);
 
 
-    public ResponseEntity<?> addHouse(House house);
+    ResponseEntity<?> addHouse(House house);
 
-    public ResponseEntity<?> updateHouse(House house);
+    ResponseEntity<?> updateHouse(House house);
 
-    public ResponseEntity<?> deleteHouse(int house);
+    ResponseEntity<?> deleteHouse(int house);
 
-    public ResponseEntity<?> getAllHousesByUserId(int userId);
+    ResponseEntity<?> getAllHousesByUserId(int userId);
 
-    public ResponseEntity<?> getAllHousesByStatus(int status);
+    ResponseEntity<?> getAllHousesByStatus(int status);
 
-    public ResponseEntity<?> getAllHousesByDisponibility(String disponibility);
+    ResponseEntity<?> getAllHousesByDisponibility(String disponibility);
 
 }

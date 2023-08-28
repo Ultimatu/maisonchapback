@@ -5,6 +5,7 @@ import com.tonde.maisonchapback.models.workflows.user.User;
 import com.tonde.maisonchapback.repositories.MessageRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.services.interfaces.MessageService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Hidden
 public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;

@@ -24,8 +24,9 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
                 @io.swagger.v3.oas.annotations.security.SecurityRequirement(
                         name = "bearerAuth",
                         scopes = {"global"}
-                )
+                ),
         }
+
 
 
 )

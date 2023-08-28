@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 @Hidden
 public interface MessageService {
 
-    public ResponseEntity<?> sendMessage(Message message);
+    ResponseEntity<?> sendMessage(Message message);
 
-    public ResponseEntity<?> receiveMessage(Message message);
+    ResponseEntity<?> receiveMessage(Message message);
 
-    public ResponseEntity<?> updateMessage(Message message);
+    ResponseEntity<?> updateMessage(Message message);
 
-    public ResponseEntity<?> deleteMessage(int id);
+    ResponseEntity<?> deleteMessage(int id);
 
 
-    public ResponseEntity<?> getAllMessages();
+    ResponseEntity<?> getAllMessages();
 
-    public ResponseEntity<?> getMessageById(int id);
+    ResponseEntity<?> getMessageById(int id);
 
-    public ResponseEntity<?> getMessageBySender(int senderId);
+    ResponseEntity<?> getMessageBySender(int senderId);
 
-    public ResponseEntity<?> getMessageByReceiver(int receiverId);
+    ResponseEntity<?> getMessageByReceiver(int receiverId);
 
 
 }

@@ -7,6 +7,7 @@ import com.tonde.maisonchapback.repositories.HouseRepository;
 import com.tonde.maisonchapback.repositories.PhotoRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.services.interfaces.PhotoService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Hidden
 public class PhotoServiceImpl implements PhotoService {
 
     private final PhotoRepository photoRepository;

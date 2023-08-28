@@ -11,15 +11,15 @@ import java.util.List;
 @Hidden
 public interface AbonnementService {
 
-    public List<Abonnement> getAllAbonnements();
+    List<Abonnement> getAllAbonnements();
 
-    public Abonnement getAbonnementById(int id);
+    Abonnement getAbonnementById(int id);
 
-    public void addAbonnement(Abonnement abonnement);
+    void addAbonnement(Abonnement abonnement);
 
-    public ResponseEntity<?> updateAbonnement(Abonnement abonnement);
+    ResponseEntity<?> updateAbonnement(Abonnement abonnement);
 
-    public ResponseEntity<?> deleteAbonnement(int id);
+    ResponseEntity<?> deleteAbonnement(int id);
 
-    public List<Abonnement> getAllAbonnementsByUserId(int userId);
+    List<Abonnement> getAllAbonnementsByUserId(int userId);
 }

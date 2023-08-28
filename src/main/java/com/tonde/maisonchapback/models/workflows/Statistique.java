@@ -1,6 +1,7 @@
 package com.tonde.maisonchapback.models.workflows;
 
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "_statistique")
+@Schema(
+        name = "Statistique",
+        description = "Statistique model",
+        requiredMode = Schema.RequiredMode.REQUIRED,
+        implementation = Statistique.class,
+        requiredProperties = {"id", "house", "user", "nbrvisite", "nbrLike"}
+)
 public class Statistique{
 
     @Id

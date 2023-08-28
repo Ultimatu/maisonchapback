@@ -14,19 +14,19 @@ import java.util.List;
 @Hidden
 public interface PhotoService {
 
-    public ResponseEntity<?> addPhotos(List<MultipartFile> photoFiles, Photo photo) throws IOException;
+    ResponseEntity<?> addPhotos(List<MultipartFile> photoFiles, Photo photo) throws IOException;
 
-    public ResponseEntity<?> updatePhoto(Photo photo, MultipartFile photoFile);
+    ResponseEntity<?> updatePhoto(Photo photo, MultipartFile photoFile);
 
-    public ResponseEntity<?> deletePhoto(int id);
+    ResponseEntity<?> deletePhoto(int id);
 
-    public Photo getPhotoById(int id);
+    Photo getPhotoById(int id);
 
-    public List<Photo> getAllPhotos();
+    List<Photo> getAllPhotos();
 
-    public List<Photo> getAllPhotosByHouseId(int houseId);
+    List<Photo> getAllPhotosByHouseId(int houseId);
 
-    public ResponseEntity<?> getAllByHouseUser(int userId);
+    ResponseEntity<?> getAllByHouseUser(int userId);
 
 
 }

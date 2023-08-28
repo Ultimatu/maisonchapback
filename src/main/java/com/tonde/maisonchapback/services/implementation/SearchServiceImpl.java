@@ -7,6 +7,7 @@ import com.tonde.maisonchapback.repositories.HouseRepository;
 import com.tonde.maisonchapback.repositories.StatusRepository;
 import com.tonde.maisonchapback.repositories.TypeHouseRepository;
 import com.tonde.maisonchapback.services.interfaces.SearchService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Hidden
 public class SearchServiceImpl implements SearchService {
 
     private final HouseRepository houseRepository;
