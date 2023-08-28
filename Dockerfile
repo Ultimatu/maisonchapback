@@ -1,7 +1,7 @@
 FROM eclipse-temurin:17-jdk-alpine
 
-ADD target/simplonapp.jar simplonapp.jar
+ADD target/*.jar maisonchap.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/simplonapp.jar"]
+ENTRYPOINT ["java", "-jar", "/maisonchap.jar"]
