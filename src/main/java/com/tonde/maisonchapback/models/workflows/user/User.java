@@ -37,7 +37,9 @@ import java.util.List;
                   "tokens": "List<Token>",
                   "locked": "boolean",
                   "photoPath": "string"
-                }"""
+                }""",
+        requiredProperties = {"nom", "prenom", "email", "phone", "adresse", "password", "role", "locked", "photoPath"}
+        
 )
 
 public class User implements UserDetails , Serializable {

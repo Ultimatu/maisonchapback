@@ -22,7 +22,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProprioController {
 
-    private final UserServiceImpl userService;
 
     private final HouseServiceImpl houseService;
 

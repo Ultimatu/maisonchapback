@@ -28,7 +28,6 @@ public class UserController {
      */
     public final UserServiceImpl userService;
     private final CommentServiceImpl commentService;
-    private final SearchServiceImpl searchService;
     private final FavorisServiceImpl favorisService;
     private final HouseServiceImpl houseService;
     private final ReservationServiceImpl reservationService;

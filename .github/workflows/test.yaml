@@ -1,0 +1,35 @@
+name: Unit Tests
+
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ultimatum
+          MYSQL_DATABASE: ultimatum
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build and run tests
+      run: |
+        docker-compose up -d
+        docker-compose ps
+        docker-compose logs -f &
+        mvn clean test -Dspring.datasource.url=jdbc:mysql://localhost:3306/maison_chap
+
+    - name: Stop services
+      run: docker-compose down
