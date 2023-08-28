@@ -26,6 +26,7 @@ jobs:
 
     - name: Build and run tests
       run: |
+        mvn clean install -DskipTests
         docker-compose up -d
         docker-compose ps
         docker-compose logs -f &
