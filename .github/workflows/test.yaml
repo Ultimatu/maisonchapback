@@ -1,14 +1,27 @@
-name: Unit Tests
+name: Docker ci/cd github action
 
-on: 
+on: #ce qui déclenche le workflow
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
-jobs:
+jobs: #ce que le workflow fait 
   build:
-    runs-on: ubuntu-latest
+
+    runs-on: ubuntu-latest #on indique que l'on va utiliser une machine ubuntu
+    steps:
+
+    - name: Checkout #on récupère le code source de notre projet
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 17 #on installe java 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Build with Maven #on build le projet avec maven
+      run: mvn -B package --file pom.xml -DskipTests
 
     services:
       mysql:
@@ -20,13 +33,9 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
 
-    - name: Build and run tests
+    - name: Start services
       run: |
-        mvn clean install -DskipTests
         docker-compose up -d
         docker-compose ps
         docker-compose logs -f &
