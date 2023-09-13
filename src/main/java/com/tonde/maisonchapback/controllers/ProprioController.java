@@ -362,12 +362,14 @@ public class ProprioController {
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
                                     implementation = Photo.class
                             )
+
                     )
             )
     )
-    @PostMapping("/addPhoto")
-    public ResponseEntity<?> addPhotos(List<MultipartFile>  files, Photo photo) throws IOException {
-        return photoService.addPhotos(files, photo);
+    @PostMapping("/addPhoto/{houseId}")
+    public ResponseEntity<?> addPhotos(MultipartFile  files, @PathVariable int houseId) throws IOException {
+        System.out.println("Hello from add photos"+files);
+        return null;
     }
 
 

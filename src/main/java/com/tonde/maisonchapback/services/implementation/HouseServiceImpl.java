@@ -92,6 +92,18 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public ResponseEntity<?> getAllRentingHouses() {
+        Status status = statusRepository.findById(1).get();
+        return ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(status));
+    }
+
+    @Override
+    public ResponseEntity<?> getAllSellingHouses() {
+        Status status = statusRepository.findById(2).get();
+        return ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(status));
+    }
+
+    @Override
     public ResponseEntity<?> getAllHousesByUserId(int userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if(userOptional.isPresent()){

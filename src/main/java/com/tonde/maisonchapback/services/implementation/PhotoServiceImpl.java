@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,14 +31,21 @@ public class PhotoServiceImpl implements PhotoService {
     private final UserRepository userRepository;
     @Override
 
-    public ResponseEntity<?> addPhotos(List<MultipartFile> photoFiles, Photo photo) throws IOException {
-
+    public ResponseEntity<?> addPhotos(List<MultipartFile> photoFiles, int houseId) throws IOException {
+        House house = houseRepository.findById(houseId).orElse(null);
+        if(house == null){
+            return ResponseEntity.badRequest().body("Maison non trouvée");
+        }
        try {
            boolean finish = false;
            int count = 0;
+           System.out.println("Hello from add photos");
+           System.out.println("Multipart files: "+photoFiles);
+
            for (MultipartFile photoFile : photoFiles) {
                // Récupérer les données de la photo à partir du MultipartFile
                byte[] photoData = photoFile.getBytes();
+               System.out.println("photo data: "+ Arrays.toString(photoData));
 
                // Générer un chemin de fichier unique pour chaque photo
                String fileName = photoFile.getOriginalFilename();
@@ -48,8 +56,13 @@ public class PhotoServiceImpl implements PhotoService {
                Files.write(filePath, photoData);
 
 
-               photo.setUrl(uniqueFileName);
-               photoRepository.save(photo);
+
+                // Créer une nouvelle photo
+                Photo photo = new Photo();
+                photo.setUrl(uniqueFileName);
+                photo.setHouse(house);
+                System.out.println("house id: "+house.getId());
+                photoRepository.save(photo);
 
                count++;
 

@@ -31,32 +31,7 @@ public enum Role {
                     PROPRIO_DELETE
             )
     ),
-    ADMIN(
-            Set.of(
-                    ADMIN_READ,
-                    ADMIN_CREATE,
-                    ADMIN_UPDATE,
-                    ADMIN_DELETE,
-                    PROPRIO_CREATE,
-                    PROPRIO_UPDATE,
-                    PROPRIO_READ,
-                    PROPRIO_DELETE,
-                    USER_READ,
-                    USER_UPDATE,
-                    USER_DELETE,
-                    PROPRIO_PREMIUM,
-                    PROPRIO_STANDARD,
-                    PROPRIO_FREE,
-                    USER_PREMIUM,
-                    USER_STANDARD,
-                    USER_FREE,
-                    SEND_MESSAGE,
-                    READ_MESSAGE,
-                    DELETE_MESSAGE
 
-
-            )
-    ),
     PREMIUM_USER(
             Set.of(
                     USER_PREMIUM,
@@ -107,7 +82,32 @@ public enum Role {
                     FAVORIS_ACCESS,
                     ACTIVE_NOTIFICATION
             )
-    ),;
+    ), ADMIN(
+            Set.of(
+                    ADMIN_READ,
+                    ADMIN_CREATE,
+                    ADMIN_UPDATE,
+                    ADMIN_DELETE,
+                    PROPRIO_CREATE,
+                    PROPRIO_UPDATE,
+                    PROPRIO_READ,
+                    PROPRIO_DELETE,
+                    USER_READ,
+                    USER_UPDATE,
+                    USER_DELETE,
+                    PROPRIO_PREMIUM,
+                    PROPRIO_STANDARD,
+                    PROPRIO_FREE,
+                    USER_PREMIUM,
+                    USER_STANDARD,
+                    USER_FREE,
+                    SEND_MESSAGE,
+                    READ_MESSAGE,
+                    DELETE_MESSAGE
+
+
+            )
+    );
 
     @Getter
     private final Set<Permission> permissions;

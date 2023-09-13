@@ -18,6 +18,10 @@ public class SearchController {
 
     private final SearchServiceImpl service;
 
+
+
+
+
     @Operation(
             summary = "Public API to search house by city",
             description = "This API is used to search house by city",

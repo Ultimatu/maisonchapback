@@ -138,7 +138,7 @@ public class AuthenticationController {
             }
     )
     @PostMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void logout(HttpServletRequest request, HttpServletResponse response){
         logoutService.logout(request, response, null);
     }
 

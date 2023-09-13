@@ -5,6 +5,7 @@ import com.tonde.maisonchapback.models.token.Token;
 import com.tonde.maisonchapback.models.roles.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -75,11 +76,10 @@ public class User implements UserDetails , Serializable {
     private List<Token> tokens;
 
 
-
-
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean locked = false;
 
+    @Column(nullable = false, columnDefinition = "varchar(1000) default 'default.png'")
     private String photoPath;
 
 

@@ -1,5 +1,6 @@
 package com.tonde.maisonchapback.exceptions;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -150,6 +151,7 @@ public class CustomRestControllerHandler extends ResponseEntityExceptionHandler 
 
 
     }
+
 
 
 

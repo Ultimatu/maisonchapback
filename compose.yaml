@@ -10,7 +10,7 @@ services:
       MYSQL_DATABASE: maison_chap
       MYSQL_USER: ultimatum
       MYSQL_PASSWORD: ultimatum
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/maison_chap
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb/maison_chap
 
     volumes:
       - mysql-data:/var/lib/mysql

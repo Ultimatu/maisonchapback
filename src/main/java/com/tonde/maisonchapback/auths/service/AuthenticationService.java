@@ -53,7 +53,7 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse register(@Valid RegisterRequest request)
-            throws RuntimeException
+            throws  RuntimeException
     {
         //verifier s'il a un role vide si oui, on lui attribue le role USER
         if (request.getRole() == null){
@@ -66,15 +66,11 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .phone(request.getPhone())
                 .adresse(request.getAdresse())
-                .locked(false)
-
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
-        System.out.println("builded, going to insert");
         var savedUser = repository.save(user);
 
-        System.out.println("user saved");
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         savedUserToken(savedUser, jwtToken);
@@ -101,7 +97,6 @@ public class AuthenticationService {
             );
         }
         catch (Exception e){
-            System.out.println("Request: " + request);
             throw new RuntimeException("Bad credentials");
         }
         var user = repository.findByEmail(request.getEmail()).orElseThrow(null);

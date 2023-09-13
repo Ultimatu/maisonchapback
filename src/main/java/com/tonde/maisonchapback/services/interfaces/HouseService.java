@@ -20,6 +20,11 @@ public interface HouseService {
 
     ResponseEntity<?> deleteHouse(int house);
 
+    ResponseEntity<?> getAllRentingHouses();
+
+    ResponseEntity<?> getAllSellingHouses();
+
+
     ResponseEntity<?> getAllHousesByUserId(int userId);
 
     ResponseEntity<?> getAllHousesByStatus(int status);

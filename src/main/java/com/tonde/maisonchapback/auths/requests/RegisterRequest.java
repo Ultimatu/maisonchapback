@@ -49,7 +49,6 @@ public class RegisterRequest {
     private String phone;
     private String adresse;
     private Role role;
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "Password should be valid") // min 8 chars, 1 uppercase, 1 lowercase, 1 number
     private String password;
 
 }

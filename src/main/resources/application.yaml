@@ -13,7 +13,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
   application:
     name: maison-chap
-
+  servlet:
+    multipart:
+      max-file-size: 12000000
+      max-request-size: 12000000
 application:
   security:
     jwt:

@@ -14,7 +14,7 @@ import java.util.List;
 @Hidden
 public interface PhotoService {
 
-    ResponseEntity<?> addPhotos(List<MultipartFile> photoFiles, Photo photo) throws IOException;
+    ResponseEntity<?> addPhotos(List<MultipartFile> photoFiles, int houseId) throws IOException;
 
     ResponseEntity<?> updatePhoto(Photo photo, MultipartFile photoFile);
 

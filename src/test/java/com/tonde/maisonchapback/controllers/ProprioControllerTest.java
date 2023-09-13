@@ -43,6 +43,7 @@ class ProprioControllerTest {
 
     @Test
     void getAllPhotosByHouseId() {
+
     }
 
     @Test

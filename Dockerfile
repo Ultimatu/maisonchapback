@@ -1,7 +1,4 @@
 FROM eclipse-temurin:17-jdk-alpine
-
-ADD target/*.jar maisonchap.jar
-
-EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "/maisonchap.jar"]
+VOLUME /tmp
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

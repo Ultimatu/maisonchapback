@@ -18,7 +18,7 @@ public interface HouseRepository  extends JpaRepository<House, Integer> {
 
     List<House> findAllByUser(User user);
 
-    Object findAllHouseByStatusHouse(Status status);
+    List<House> findAllHouseByStatusHouse(Status status);
 
     List<House> findAllByDisponibility(String disponibility);
 

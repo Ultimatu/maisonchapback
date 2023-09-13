@@ -49,7 +49,10 @@ public class SecurityConfig {
                                         "/swagger-ui/**",
                                         "/webjars/**",
                                         "/swagger-ui.html",
-                                        "/actuator/**"
+                                        "/actuator/**",
+                                        "/api/houses/**",
+                                        "/api/search/**"
+
                                 )
                                 .permitAll()
                                 .requestMatchers(GET, "/api/v1/management/**")
