@@ -2,7 +2,7 @@ package com.tonde.maisonchapback.models.workflows;
 
 
 import com.tonde.maisonchapback.models.workflows.user.User;
-import io.swagger.v3.oas.models.annotations.OpenAPI31;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +17,23 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "abonnement")
-@OpenAPI31
-
+@Schema(
+        name = "Abonnement",
+        description = "Abonnement model",
+        example = """
+                {
+                  "id": "integer",
+                  "typeAbonnement": "TypeAbonnement",
+                  "duree": "string",
+                  "type": "string",
+                  "etat": "string",
+                  "dateDebut": "LocalDateTime",
+                  "dateFin": "LocalDateTime",
+                  "dateCreation": "LocalDateTime",
+                  "user": "User"
+                }""",
+        requiredProperties = {"typeAbonnement", "duree", "type", "etat", "dateDebut", "dateFin", "dateCreation", "user"}
+)
 public class Abonnement {
 
     @Id
@@ -44,7 +59,7 @@ public class Abonnement {
     @Column(columnDefinition = "TIMESTAMP", name = "date_fin")
     private LocalDateTime dateFin;
 
-    @Column(nullable = false , columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
     private LocalDateTime dateCreation;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

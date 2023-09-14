@@ -17,9 +17,9 @@ public interface AbonnementService {
 
     void addAbonnement(Abonnement abonnement);
 
-    ResponseEntity<?> updateAbonnement(Abonnement abonnement);
+    ResponseEntity<String> updateAbonnement(Abonnement abonnement);
 
-    ResponseEntity<?> deleteAbonnement(int id);
+    ResponseEntity<String> deleteAbonnement(int id);
 
     List<Abonnement> getAllAbonnementsByUserId(int userId);
 }

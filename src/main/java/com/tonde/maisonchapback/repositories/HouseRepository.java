@@ -4,9 +4,7 @@ import com.tonde.maisonchapback.models.workflows.House;
 import com.tonde.maisonchapback.models.workflows.Status;
 import com.tonde.maisonchapback.models.workflows.TypeHouse;
 import com.tonde.maisonchapback.models.workflows.user.User;
-
 import io.swagger.v3.oas.annotations.Hidden;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 @Hidden
-public interface HouseRepository  extends JpaRepository<House, Integer> {
+public interface HouseRepository extends JpaRepository<House, Integer> {
 
     List<House> findAllByUser(User user);
 
@@ -43,7 +41,6 @@ public interface HouseRepository  extends JpaRepository<House, Integer> {
     @Query(value = "SELECT * FROM _houses " +
             "WHERE title LIKE %:keyword% OR description LIKE %:keyword% OR address LIKE %:keyword% OR city LIKE %:keyword% OR country LIKE %:keyword% OR numberOfRooms LIKE %:keyword% OR numberOfBathrooms LIKE %:keyword% OR numberOfFloors LIKE %:keyword% OR price LIKE %:keyword% OR disponibility LIKE %:keyword% OR surface LIKE %:keyword% OR type_id LIKE %:keyword% OR status_id LIKE %:keyword%",
             nativeQuery = true)
-
     List<House> searchByTitleOrDescription(@Param("keyword") String keyword);
 
 

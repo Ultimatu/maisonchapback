@@ -114,6 +114,7 @@ public enum Role {
 
     /**
      * Convert the permissions to a list of SimpleGrantedAuthority
+     *
      * @return List<SimpleGrantedAuthority>
      */
 
@@ -121,10 +122,10 @@ public enum Role {
         var authorities = new java.util.ArrayList<>(
                 getPermissions()
                         .stream().map(
-                        permission -> new SimpleGrantedAuthority(
-                                permission.getPermission()
-                        )
-                ).toList()
+                                permission -> new SimpleGrantedAuthority(
+                                        permission.getPermission()
+                                )
+                        ).toList()
         );
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
 

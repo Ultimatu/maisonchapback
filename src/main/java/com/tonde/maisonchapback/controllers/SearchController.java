@@ -19,15 +19,12 @@ public class SearchController {
     private final SearchServiceImpl service;
 
 
-
-
-
     @Operation(
             summary = "Public API to search house by city",
             description = "This API is used to search house by city",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "city", description = "city of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "city", description = "city of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -39,7 +36,7 @@ public class SearchController {
             operationId = "searchByCity"
     )
     @GetMapping("/byCity/{city}")
-    public ResponseEntity<?> searchByCity(@PathVariable String city){
+    public ResponseEntity<?> searchByCity(@PathVariable String city) {
         return service.searchHouseByCity(city);
     }
 
@@ -48,7 +45,7 @@ public class SearchController {
             description = "This API is used to search house by price",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -58,8 +55,9 @@ public class SearchController {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "Internal Server Error")
             },
             operationId = "searchByPrice"
-    ) @GetMapping("/byPrice/{price}")
-    public ResponseEntity<?> searchByPrice(@PathVariable String price){
+    )
+    @GetMapping("/byPrice/{price}")
+    public ResponseEntity<?> searchByPrice(@PathVariable String price) {
         return service.searchHouseByPrice(price);
     }
 
@@ -71,7 +69,7 @@ public class SearchController {
             description = "This API is used to search house by status",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "status", description = "status of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int") )
+                    @Parameter(name = "status", description = "status of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int"))
 
             },
             responses = {
@@ -83,7 +81,7 @@ public class SearchController {
             operationId = "searchByStatus"
     )
     @GetMapping("/byStatus/{status}")
-    public ResponseEntity<?> searchByStatus(@PathVariable int status){
+    public ResponseEntity<?> searchByStatus(@PathVariable int status) {
         return service.searchHouseByStatus(status);
     }
 
@@ -95,9 +93,9 @@ public class SearchController {
             description = "This API is used to search house by type, status and price",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "type", description = "type of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int") ),
-                    @Parameter(name = "status", description = "status of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int") ),
-                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "type", description = "type of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int")),
+                    @Parameter(name = "status", description = "status of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int")),
+                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -109,7 +107,7 @@ public class SearchController {
             operationId = "searchByTypeAndStatusAndPrice"
     )
     @GetMapping("/byTypeAndCityAndPrice/{type}/{city}/{price}")
-    public ResponseEntity<?> searchByTypeAndCityAndPrice(@PathVariable int type, @PathVariable String city, @PathVariable String price){
+    public ResponseEntity<?> searchByTypeAndCityAndPrice(@PathVariable int type, @PathVariable String city, @PathVariable String price) {
         return service.searchHouseByTypeAndCityAndPrice(type, city, price);
     }
 
@@ -121,7 +119,7 @@ public class SearchController {
             description = "This API is used to search house by any word",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "word", description = "word of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "word", description = "word of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -133,7 +131,7 @@ public class SearchController {
             operationId = "searchByAnyWord"
     )
     @GetMapping("/byAnyWord/{word}")
-    public ResponseEntity<?> searchByAnyWord(@PathVariable String word){
+    public ResponseEntity<?> searchByAnyWord(@PathVariable String word) {
         return service.searchHouseByAnyWord(word);
     }
 
@@ -145,7 +143,7 @@ public class SearchController {
             description = "This API is used to search house by type",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "type", description = "type of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int") )
+                    @Parameter(name = "type", description = "type of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int"))
 
             },
             responses = {
@@ -157,10 +155,9 @@ public class SearchController {
             operationId = "searchByType"
     )
     @GetMapping("/byType/{type}")
-    public ResponseEntity<?> searchByType(@PathVariable int type){
+    public ResponseEntity<?> searchByType(@PathVariable int type) {
         return service.searchHouseByType(type);
     }
-
 
 
     @Operation(
@@ -169,8 +166,8 @@ public class SearchController {
             description = "This API is used to search house by city and price",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "city", description = "city of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") ),
-                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "city", description = "city of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string")),
+                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -182,7 +179,7 @@ public class SearchController {
             operationId = "searchByCityAndPrice"
     )
     @GetMapping("/byCityAndPrice/{city}/{price}")
-    public ResponseEntity<?> searchByCityAndPrice(@PathVariable String city, @PathVariable String price){
+    public ResponseEntity<?> searchByCityAndPrice(@PathVariable String city, @PathVariable String price) {
         return service.searchHouseByCityAndPrice(city, price);
     }
 
@@ -194,8 +191,8 @@ public class SearchController {
             description = "This API is used to search house by type and price",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "type", description = "type of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int") ),
-                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "type", description = "type of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int")),
+                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -207,10 +204,9 @@ public class SearchController {
             operationId = "searchByTypeAndPrice"
     )
     @GetMapping("/byTypeAndPrice/{type}/{price}")
-    public ResponseEntity<?> searchByTypeAndPrice(@PathVariable int type, @PathVariable String price){
+    public ResponseEntity<?> searchByTypeAndPrice(@PathVariable int type, @PathVariable String price) {
         return service.searchHouseByTypeAndPrice(type, price);
     }
-
 
 
     @Operation(
@@ -218,12 +214,12 @@ public class SearchController {
             description = "This API is used to search house by type, city, price, surface, status and rooms",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "type", description = "type of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int") ),
-                    @Parameter(name = "city", description = "city of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") ),
-                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") ),
-                    @Parameter(name = "surface", description = "surface of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") ),
-                    @Parameter(name = "status", description = "status of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int") ),
-                    @Parameter(name = "rooms", description = "rooms of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "type", description = "type of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int")),
+                    @Parameter(name = "city", description = "city of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string")),
+                    @Parameter(name = "price", description = "price of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string")),
+                    @Parameter(name = "surface", description = "surface of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string")),
+                    @Parameter(name = "status", description = "status of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "int")),
+                    @Parameter(name = "rooms", description = "rooms of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -235,7 +231,7 @@ public class SearchController {
             operationId = "searchByAll"
     )
     @GetMapping("/byAll/{type}/{city}/{price}/{surface}/{status}/{rooms}")
-    public ResponseEntity<?> searchByAll(@PathVariable int type, @PathVariable String city, @PathVariable String price, @PathVariable String surface, @PathVariable int status, @PathVariable String rooms){
+    public ResponseEntity<?> searchByAll(@PathVariable int type, @PathVariable String city, @PathVariable String price, @PathVariable String surface, @PathVariable int status, @PathVariable String rooms) {
         return service.searchByAll(type, city, price, surface, status, rooms);
     }
 
@@ -245,7 +241,7 @@ public class SearchController {
             description = "This API is used to search house by word",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "word", description = "word of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "word", description = "word of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -258,7 +254,7 @@ public class SearchController {
     )
 
     @GetMapping("/byTitleOrDescription/{word}")
-    public ResponseEntity<?> searchByTitleOrDescription(@PathVariable String word){
+    public ResponseEntity<?> searchByTitleOrDescription(@PathVariable String word) {
         return service.searchByTitleOrDescription(word);
     }
 
@@ -268,8 +264,8 @@ public class SearchController {
             description = "This API is used to search house by title and description",
             tags = {"search API"},
             parameters = {
-                    @Parameter(name = "word1", description = "word1 of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") ),
-                    @Parameter(name = "word2", description = "word2 of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string") )
+                    @Parameter(name = "word1", description = "word1 of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string")),
+                    @Parameter(name = "word2", description = "word2 of the house", required = true, in = ParameterIn.PATH, schema = @Schema(type = "string"))
 
             },
             responses = {
@@ -281,7 +277,7 @@ public class SearchController {
             operationId = "searchByTitleAndDescription"
     )
     @GetMapping("/byTitleAndDescription/{word1}/{word2}")
-    public ResponseEntity<?> searchByTitleAndDescription(@PathVariable String word1, @PathVariable String word2){
+    public ResponseEntity<?> searchByTitleAndDescription(@PathVariable String word1, @PathVariable String word2) {
         return service.searchByTitleAndDescription(word1, word2);
     }
 

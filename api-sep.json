@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Ultimatum MaisonChap",
+    "description": "Les API de MaisonChap",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Environnement local"
+    },
+    {
+      "url": "https://votre-domaine-prod.com",
+      "description": "Environnement de production"
+    }
+  ],
+  "paths": {
+
+    "/api/user/{id}": {
+      "get": {
+        "summary": "Récupérer un utilisateur par son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur récupéré avec succès"
+          },
+          "404": {
+            "description": "Utilisateur non trouvé"
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur mis à jour avec succès"
+          },
+          "404": {
+            "description": "Utilisateur non trouvé"
+          }
+        }
+      }
+    },
+    "/api/user/{id}/upgrade-user/standard": {
+      "put": {
+        "summary": "Mettre à jour un utilisateur en standard",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  }
+}

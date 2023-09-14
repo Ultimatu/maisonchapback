@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,40 +33,39 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comments getCommentById(int id) {
-        return commentRepository.findById(id).isPresent() ? commentRepository.findById(id).get() : null;
+        Optional<Comments> comments = commentRepository.findById(id);
+        return comments.orElse(null);
     }
 
     @Override
-    public ResponseEntity<?> addComment(Comments comments) {
+    public ResponseEntity<String> addComment(Comments comments) {
         commentRepository.save(comments);
         return ResponseEntity.ok("Commentaire ajouté avec succès");
     }
 
     @Override
-    public ResponseEntity<?> updateComment(Comments comments) {
+    public ResponseEntity<String> updateComment(Comments comments) {
         Optional<Comments> comments1 = commentRepository.findById(comments.getId());
-        if(comments1.isPresent()){
+        if (comments1.isPresent()) {
             comments1.get().setDateModification(comments.getDateModification());
             comments1.get().setUser(comments.getUser());
             comments1.get().setHouse(comments.getHouse());
             comments1.get().setComment(comments.getComment());
             commentRepository.save(comments1.get());
             return ResponseEntity.ok("Commentaire modifié avec succès");
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Commentaire non trouvé");
         }
     }
 
     @Override
-    public ResponseEntity<?> deleteComment(int id) {
+    public ResponseEntity<String> deleteComment(int id) {
 
         Optional<Comments> comments1 = commentRepository.findById(id);
-        if(comments1.isPresent()){
+        if (comments1.isPresent()) {
             commentRepository.delete(comments1.get());
             return ResponseEntity.ok("Commentaire supprimé avec succès");
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Commentaire non trouvé");
         }
     }
@@ -78,7 +78,7 @@ public class CommentServiceImpl implements CommentService {
             User user = userOptional.get();
             return commentRepository.findAllByUser(user);
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 

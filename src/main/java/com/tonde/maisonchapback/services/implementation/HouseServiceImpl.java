@@ -25,35 +25,31 @@ public class HouseServiceImpl implements HouseService {
     private final StatusRepository statusRepository;
 
     private final PhotoServiceImpl service;
+
     @Override
     public ResponseEntity<List<House>> getAllHouses() {
         return houseRepository.findAll().isEmpty() ? null : ResponseEntity.ok(houseRepository.findAll());
     }
 
     @Override
-    public ResponseEntity<?> getHouseById(int id) {
+    public ResponseEntity<House> getHouseById(int id) {
 
         Optional<House> houseOptional = houseRepository.findById(id);
-        if(houseOptional.isPresent()){
-            return ResponseEntity.ok(houseOptional.get());
-        }
-        else{
-            return ResponseEntity.badRequest().body("Maison non trouvée");
-        }
+        return houseOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
 
     }
 
     @Override
-    public ResponseEntity<?> addHouse(House house) {
+    public ResponseEntity<String> addHouse(House house) {
         houseRepository.save(house);
         return ResponseEntity.ok("Maison ajoutée avec succès");
 
     }
 
     @Override
-    public ResponseEntity<?> updateHouse(House house) {
+    public ResponseEntity<String> updateHouse(House house) {
         Optional<House> houseOptional = houseRepository.findById(house.getId());
-        if(houseOptional.isPresent()){
+        if (houseOptional.isPresent()) {
             houseOptional.get().setAddress(house.getAddress());
             houseOptional.get().setCity(house.getCity());
             houseOptional.get().setCountry(house.getCountry());
@@ -71,68 +67,56 @@ public class HouseServiceImpl implements HouseService {
             houseOptional.get().setDisponibility(house.getDisponibility());
             houseRepository.save(houseOptional.get());
             return ResponseEntity.ok("Maison modifiée avec succès");
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Maison non trouvée");
         }
 
     }
 
     @Override
-    public ResponseEntity<?> deleteHouse(int id) {
+    public ResponseEntity<String> deleteHouse(int id) {
         Optional<House> houseOptional = houseRepository.findById(id);
-        if(houseOptional.isPresent()){
+        if (houseOptional.isPresent()) {
             houseRepository.delete(houseOptional.get());
             return ResponseEntity.ok("Maison supprimée avec succès");
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Maison non trouvée");
         }
 
     }
 
     @Override
-    public ResponseEntity<?> getAllRentingHouses() {
-        Status status = statusRepository.findById(1).get();
-        return ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(status));
+    public ResponseEntity<List<House>> getAllRentingHouses() {
+        Optional<Status> status = statusRepository.findById(1);
+        return ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(status.orElseThrow()));
     }
 
     @Override
-    public ResponseEntity<?> getAllSellingHouses() {
-        Status status = statusRepository.findById(2).get();
-        return ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(status));
+    public ResponseEntity<List<House>> getAllSellingHouses() {
+        Optional<Status> status;
+        status = statusRepository.findById(2);
+        return ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(status.orElseThrow()));
     }
 
     @Override
-    public ResponseEntity<?> getAllHousesByUserId(int userId) {
+    public ResponseEntity<List<House>> getAllHousesByUserId(int userId) {
         Optional<User> userOptional = userRepository.findById(userId);
-        if(userOptional.isPresent()){
-            return ResponseEntity.ok(houseRepository.findAllByUser(userOptional.get()));
-        }
-        else{
-            return ResponseEntity.badRequest().body("Utilisateur non trouvé");
-        }
+        return userOptional.map(user -> ResponseEntity.ok(houseRepository.findAllByUser(user))).orElseGet(() -> ResponseEntity.badRequest().body(null));
 
     }
 
     @Override
-    public ResponseEntity<?> getAllHousesByStatus(int status) {
+    public ResponseEntity<List<House>> getAllHousesByStatus(int status) {
         Optional<Status> optional = statusRepository.findById(status);
-        if(optional.isPresent()){
-            return ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(optional.get()));
-        }
-        else{
-            return ResponseEntity.badRequest().body("Status non trouvé");
-        }
+        return optional.map(value -> ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(value))).orElseGet(() -> ResponseEntity.badRequest().body(null));
     }
 
     @Override
-    public ResponseEntity<?> getAllHousesByDisponibility(String disponibility) {
+    public ResponseEntity<List<House>> getAllHousesByDisponibility(String disponibility) {
         List<House> houses = houseRepository.findAllByDisponibility(disponibility);
-        if(houses.isEmpty()){
-            return ResponseEntity.badRequest().body("Aucune maison disponible");
-        }
-        else{
+        if (houses.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        } else {
             return ResponseEntity.ok(houses);
         }
     }

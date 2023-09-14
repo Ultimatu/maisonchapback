@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +24,13 @@ public class RateServiceImpl implements RateService {
     private final RateRepository rateRepository;
     private final UserRepository userRepository;
     private final HouseRepository houseRepository;
+
     @Override
     public ResponseEntity<?> addRate(Rates rate) {
-        try{
+        try {
             rateRepository.save(rate);
             return ResponseEntity.ok("Rate added");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Rate not added");
         }
 
@@ -37,7 +39,7 @@ public class RateServiceImpl implements RateService {
     @Override
     public ResponseEntity<?> updateRate(Rates rate) {
         Optional<Rates> optionalRates = rateRepository.findById(rate.getId());
-        if (optionalRates.isPresent()){
+        if (optionalRates.isPresent()) {
             Rates rates = optionalRates.get();
             rates.setRate(rate.getRate());
             rates.setDescription(rate.getDescription());
@@ -53,7 +55,7 @@ public class RateServiceImpl implements RateService {
     public ResponseEntity<?> deleteRate(int id) {
 
         Optional<Rates> optionalRates = rateRepository.findById(id);
-        if (optionalRates.isPresent()){
+        if (optionalRates.isPresent()) {
             rateRepository.delete(optionalRates.get());
             return ResponseEntity.ok("rate deleted");
         }
@@ -70,29 +72,29 @@ public class RateServiceImpl implements RateService {
     @Override
     public List<Rates> getRateByHouseId(int id) {
         Optional<House> optionalHouse = houseRepository.findById(id);
-        if (optionalHouse.isPresent()){
+        if (optionalHouse.isPresent()) {
             House house = optionalHouse.get();
             return rateRepository.findAllByHouse(house);
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<Rates> getRateByUserId(int userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isPresent()){
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             return rateRepository.findAllByUser(user);
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public Rates getRateByHouseIdAndUserId(int houseId, int userId) {
         Optional<House> optionalHouse = houseRepository.findById(houseId);
         Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalHouse.isPresent() && optionalUser.isPresent()){
+        if (optionalHouse.isPresent() && optionalUser.isPresent()) {
             House house = optionalHouse.get();
             User user = optionalUser.get();
             return rateRepository.findByHouseAndUser(house, user);

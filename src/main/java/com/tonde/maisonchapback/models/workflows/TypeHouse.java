@@ -23,9 +23,15 @@ import java.time.LocalDateTime;
         description = "TypeHouse model",
         requiredMode = Schema.RequiredMode.REQUIRED,
         implementation = TypeHouse.class,
+        example = """
+                {
+                  "id": "integer",
+                  "type": "string",
+                  "description": "string"
+                }""",
         requiredProperties = {"id", "type", "description"}
 )
-public class TypeHouse{
+public class TypeHouse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +43,7 @@ public class TypeHouse{
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false , columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
     private LocalDateTime dateCreation;
 
     @Column(columnDefinition = "TIMESTAMP", name = "updated_at")

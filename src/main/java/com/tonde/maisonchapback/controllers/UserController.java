@@ -46,18 +46,16 @@ public class UserController {
 
 
     /**
-     *
      * @param id utilisateur id
      * @return ResponseEntity
      */
 
 
     //get user by id
-
     @Operation(
             summary = "Récupérer un utilisateur par son id",
             description = "Récupérer un utilisateur par son id",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur trouvé"),
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
@@ -70,14 +68,14 @@ public class UserController {
     )
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable int id){
+    public ResponseEntity<?> getUserById(@PathVariable int id) {
         return userService.getUserById(id);
     }
 
     @Operation(
             summary = "Mettre à jour un utilisateur",
             description = "Mettre à jour un utilisateur",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur mis à jour"),
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
@@ -89,7 +87,7 @@ public class UserController {
 
     )
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody User user){
+    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 
@@ -98,7 +96,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour la photo d'un utilisateur",
             description = "Mettre à jour la photo d'un utilisateur",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Photo mise à jour"),
@@ -112,7 +110,7 @@ public class UserController {
 
     )
     @PutMapping("/{id}/photo")
-    public ResponseEntity<?> updatePhoto(@PathVariable int id, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<?> updatePhoto(@PathVariable int id, @RequestParam("file") MultipartFile file) {
         return userService.updatePhoto(id, file);
     }
 
@@ -122,7 +120,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour un utilisateur en standard",
             description = "Mettre à jour un utilisateur en standard",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur mis à jour"),
@@ -145,7 +143,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour un utilisateur en gratuit",
             description = "Mettre à jour un utilisateur en gratuit",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur mis à jour"),
@@ -163,13 +161,12 @@ public class UserController {
     }
 
 
-
     //update user to premium
 
     @Operation(
             summary = "Mettre à jour un utilisateur en premium",
             description = "Mettre à jour un utilisateur en premium",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur mis à jour"),
@@ -189,7 +186,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour un propriétaire en standard",
             description = "Mettre à jour un propriétaire en standard",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur mis à jour"),
@@ -211,7 +208,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour un propriétaire en premium",
             description = "Mettre à jour un propriétaire en premium",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur mis à jour"),
@@ -233,7 +230,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour un propriétaire en gratuit",
             description = "Mettre à jour un propriétaire en gratuit",
-            tags = { "Utilisateurs" },
+            tags = {"Utilisateurs"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur mis à jour"),
@@ -269,7 +266,7 @@ public class UserController {
     @Operation(
             summary = "Récupérer tous les commentaires",
             description = "Récupérer tous les commentaires",
-            tags = { "Commentaires" },
+            tags = {"Commentaires"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Commentaires trouvés"),
@@ -278,8 +275,8 @@ public class UserController {
 
     )
     @GetMapping("/{id}/comments")
-    public List<Comments> getAllCommentsByUserId(@PathVariable int id){
-        return  commentService.getAllCommentsByUserId(id);
+    public List<Comments> getAllCommentsByUserId(@PathVariable int id) {
+        return commentService.getAllCommentsByUserId(id);
     }
 
 
@@ -288,7 +285,7 @@ public class UserController {
     @Operation(
             summary = "Ajouter un commentaire",
             description = "Ajouter un commentaire",
-            tags = { "Commentaires" },
+            tags = {"Commentaires"},
             method = "POST",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Commentaire ajouté"),
@@ -301,7 +298,7 @@ public class UserController {
 
     )
     @PostMapping("/{id}/comments")
-    public ResponseEntity<?> addComment(@RequestBody Comments comments){
+    public ResponseEntity<?> addComment(@RequestBody Comments comments) {
         return commentService.addComment(comments);
     }
 
@@ -312,7 +309,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour un commentaire",
             description = "Mettre à jour un commentaire",
-            tags = { "Commentaires" },
+            tags = {"Commentaires"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Commentaire mis à jour"),
@@ -325,7 +322,7 @@ public class UserController {
 
     )
     @PutMapping("/{id}/comments")
-    public ResponseEntity<?> updateComment(@RequestBody Comments comments){
+    public ResponseEntity<?> updateComment(@RequestBody Comments comments) {
         return commentService.updateComment(comments);
     }
 
@@ -335,7 +332,7 @@ public class UserController {
     @Operation(
             summary = "Supprimer un commentaire",
             description = "Supprimer un commentaire",
-            tags = { "Commentaires" },
+            tags = {"Commentaires"},
             method = "DELETE",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Commentaire supprimé"),
@@ -349,7 +346,7 @@ public class UserController {
     )
 
     @DeleteMapping("/{id}/comments")
-    public ResponseEntity<?> deleteComment(@PathVariable int id){
+    public ResponseEntity<?> deleteComment(@PathVariable int id) {
         return commentService.deleteComment(id);
     }
 
@@ -366,7 +363,7 @@ public class UserController {
     @Operation(
             summary = "Ajouter un favoris",
             description = "Ajouter un favoris",
-            tags = { "Favoris" },
+            tags = {"Favoris"},
             method = "POST",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Favoris ajouté"),
@@ -381,8 +378,8 @@ public class UserController {
 
     @PostMapping("/{id}/favoris")
     @PreAuthorize("hasRole('ROLE_STANDARD_PROPRIO') or hasRole('ROLE_PREMIUM_PROPRIO') or hasRole('ROLE_STANDARD_USER') or hasRole('ROLE_PREMIUM_USER')")
-    public ResponseEntity<?> addtoFavoris(@PathVariable int id, @RequestBody @Valid Favoris favoris){
-        return  favorisService.addFavoris(favoris);
+    public ResponseEntity<?> addtoFavoris(@PathVariable int id, @RequestBody @Valid Favoris favoris) {
+        return favorisService.addFavoris(favoris);
     }
 
 
@@ -391,7 +388,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour un favoris",
             description = "Mettre à jour un favoris",
-            tags = { "Favoris" },
+            tags = {"Favoris"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Favoris mis à jour"),
@@ -415,7 +412,7 @@ public class UserController {
     @Operation(
             summary = "Supprimer un favoris",
             description = "Supprimer un favoris",
-            tags = { "Favoris" },
+            tags = {"Favoris"},
             method = "DELETE",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Favoris supprimé"),
@@ -438,7 +435,7 @@ public class UserController {
     @Operation(
             summary = "Récupérer un favoris par son id",
             description = "Récupérer un favoris par son id",
-            tags = { "Favoris" },
+            tags = {"Favoris"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Favoris trouvé"),
@@ -467,7 +464,7 @@ public class UserController {
     @Operation(
             summary = "Récupérer tous les favoris d'un utilisateur",
             description = "Récupérer tous les favoris d'un utilisateur",
-            tags = { "Favoris" },
+            tags = {"Favoris"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Favoris trouvés"),
@@ -497,7 +494,7 @@ public class UserController {
     @Operation(
             summary = "Récupérer une maison par son id",
             description = "Récupérer une maison par son id",
-            tags = { "Maison" },
+            tags = {"Maison"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Maison trouvée"),
@@ -510,7 +507,7 @@ public class UserController {
 
     )
     @GetMapping("/house/{id}")
-    public ResponseEntity<?> getHouseByIdAndGetPhotoByHouseId(@PathVariable int id){
+    public ResponseEntity<?> getHouseByIdAndGetPhotoByHouseId(@PathVariable int id) {
         ResponseEntity<?> house = houseService.getHouseById(1);
 
         List<Photo> photos = photoService.getAllPhotosByHouseId(1);
@@ -538,7 +535,7 @@ public class UserController {
     @Operation(
             summary = "Récupérer une réservation par son id",
             description = "Récupérer une réservation par son id",
-            tags = { "Réservation" },
+            tags = {"Réservation"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Réservation trouvée"),
@@ -551,14 +548,14 @@ public class UserController {
 
     )
     @GetMapping("/reservation/{id}")
-    public ResponseEntity<?> getReservationById(@PathVariable int id){
+    public ResponseEntity<?> getReservationById(@PathVariable int id) {
         return reservationService.getReservationById(id);
     }
 
     @Operation(
             summary = "Récupérer toutes les réservations d'un utilisateur",
             description = "Récupérer toutes les réservations d'un utilisateur",
-            tags = { "Réservation" },
+            tags = {"Réservation"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Réservations trouvées"),
@@ -572,17 +569,15 @@ public class UserController {
     )
     @GetMapping("/reservation/user/{userId}")
     @PreAuthorize("hasRole('ROLE_STANDARD_PROPRIO') or hasRole('ROLE_PREMIUM_PROPRIO') or hasRole('ROLE_STANDARD_USER') or hasRole('ROLE_PREMIUM_USER')")
-    public ResponseEntity<?> getAllReservationsByUserId(@PathVariable int userId){
-        return  reservationService.getReservationByUserId(userId);
+    public ResponseEntity<?> getAllReservationsByUserId(@PathVariable int userId) {
+        return reservationService.getReservationByUserId(userId);
     }
-
-    
 
 
     @Operation(
             summary = "Récupérer toutes les réservations d'une maison",
             description = "Récupérer toutes les réservations d'une maison",
-            tags = { "Réservation" },
+            tags = {"Réservation"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Réservations trouvées"),
@@ -595,7 +590,7 @@ public class UserController {
 
     )
     @GetMapping("/reservation/house/{houseId}")
-    public ResponseEntity<?> getAllReservationsByHouseId(@PathVariable int houseId){
+    public ResponseEntity<?> getAllReservationsByHouseId(@PathVariable int houseId) {
         return reservationService.getReservationByHouseId(houseId);
     }
 
@@ -603,7 +598,7 @@ public class UserController {
     @Operation(
             summary = "Ajouter une réservation",
             description = "Ajouter une réservation",
-            tags = { "Réservation" },
+            tags = {"Réservation"},
             method = "POST",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Réservation ajoutée"),
@@ -616,7 +611,7 @@ public class UserController {
 
     )
     @PostMapping("/reservation")
-    public ResponseEntity<?> addReservation(@RequestBody Reservation reservation){
+    public ResponseEntity<?> addReservation(@RequestBody Reservation reservation) {
         return reservationService.createReservation(reservation);
     }
 
@@ -624,7 +619,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour une réservation",
             description = "Mettre à jour une réservation",
-            tags = { "Réservation" },
+            tags = {"Réservation"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Réservation mise à jour"),
@@ -637,14 +632,14 @@ public class UserController {
 
     )
     @PutMapping("/reservation")
-    public ResponseEntity<?> updateReservation(@RequestBody Reservation reservation){
+    public ResponseEntity<?> updateReservation(@RequestBody Reservation reservation) {
         return reservationService.updateReservation(reservation);
     }
 
     @Operation(
             summary = "Supprimer une réservation",
             description = "Supprimer une réservation",
-            tags = { "Réservation" },
+            tags = {"Réservation"},
             method = "DELETE",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Réservation supprimée"),
@@ -657,7 +652,7 @@ public class UserController {
 
     )
     @DeleteMapping("/reservation/{id}")
-    public ResponseEntity<?> deleteReservation(@PathVariable int id){
+    public ResponseEntity<?> deleteReservation(@PathVariable int id) {
         return reservationService.deleteReservation(id);
     }
 
@@ -674,7 +669,7 @@ public class UserController {
     @Operation(
             summary = "Récupérer un message par son id",
             description = "Récupérer un message par son id",
-            tags = { "Message" },
+            tags = {"Message"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Message trouvé"),
@@ -688,14 +683,14 @@ public class UserController {
     )
     @GetMapping("/message/{id}")
     @PreAuthorize("hasRole('ROLE_STANDARD_PROPRIO') or hasRole('ROLE_PREMIUM_PROPRIO') or hasRole('ROLE_STANDARD_USER') or hasRole('ROLE_PREMIUM_USER')")
-    public ResponseEntity<?> getMessageById(@PathVariable int id){
+    public ResponseEntity<?> getMessageById(@PathVariable int id) {
         return messageService.getMessageById(id);
     }
 
     @Operation(
             summary = "Récupérer tous les messages d'un utilisateur",
             description = "Récupérer tous les messages d'un utilisateur",
-            tags = { "Message" },
+            tags = {"Message"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Messages trouvés"),
@@ -708,14 +703,14 @@ public class UserController {
 
     )
     @GetMapping("/message/user-receiver/{userId}")
-    public ResponseEntity<?> getAllMessagesByUserId(@PathVariable int userId){
+    public ResponseEntity<?> getAllMessagesByUserId(@PathVariable int userId) {
         return messageService.getMessageByReceiver(userId);
     }
 
     @Operation(
             summary = "Récupérer tous les messages envoyés par un utilisateur",
             description = "Récupérer tous les messages envoyés par un utilisateur",
-            tags = { "Message" },
+            tags = {"Message"},
             method = "GET",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Messages trouvés"),
@@ -728,7 +723,7 @@ public class UserController {
 
     )
     @GetMapping("/message/user-sender/{userId}")
-    public ResponseEntity<?> getAllMessagesBySenderId(@PathVariable int userId){
+    public ResponseEntity<?> getAllMessagesBySenderId(@PathVariable int userId) {
         return messageService.getMessageBySender(userId);
     }
 
@@ -736,7 +731,7 @@ public class UserController {
     @Operation(
             summary = "Ajouter un message",
             description = "Ajouter un message",
-            tags = { "Message" },
+            tags = {"Message"},
             method = "POST",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Message ajouté"),
@@ -749,7 +744,7 @@ public class UserController {
 
     )
     @PostMapping("/message")
-    public ResponseEntity<?> sendMessage(@RequestBody Message message){
+    public ResponseEntity<?> sendMessage(@RequestBody Message message) {
         return messageService.sendMessage(message);
     }
 
@@ -757,7 +752,7 @@ public class UserController {
     @Operation(
             summary = "Mettre à jour un message",
             description = "Mettre à jour un message",
-            tags = { "Message" },
+            tags = {"Message"},
             method = "PUT",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Message mis à jour"),
@@ -770,7 +765,7 @@ public class UserController {
 
     )
     @PutMapping("/message")
-    public ResponseEntity<?> receiveMessage(@RequestBody Message message){
+    public ResponseEntity<?> receiveMessage(@RequestBody Message message) {
         return messageService.receiveMessage(message);
     }
 
@@ -778,7 +773,7 @@ public class UserController {
     @Operation(
             summary = "Supprimer un message",
             description = "Supprimer un message",
-            tags = { "Message" },
+            tags = {"Message"},
             method = "DELETE",
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Message supprimé"),
@@ -791,7 +786,7 @@ public class UserController {
 
     )
     @DeleteMapping("/message/{id}")
-    public ResponseEntity<?> deleteMessage(@PathVariable int id){
+    public ResponseEntity<?> deleteMessage(@PathVariable int id) {
         return messageService.deleteMessage(id);
     }
 

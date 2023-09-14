@@ -4,7 +4,10 @@ package com.tonde.maisonchapback.models.workflows;
 import com.tonde.maisonchapback.models.workflows.user.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -19,6 +22,25 @@ import java.util.List;
         description = "House model",
         requiredMode = Schema.RequiredMode.REQUIRED,
         implementation = House.class,
+        example = """
+                {
+                  "id": "integer",
+                  "user": "User",
+                  "typeHouse": "TypeHouse",
+                  "statusHouse": "Status",
+                  "title": "string",
+                  "description": "string",
+                  "address": "string",
+                  "city": "string",
+                  "country": "string",
+                  "numberOfRooms": "string",
+                  "numberOfBathrooms": "string",
+                  "numberOfFloors": "string",
+                  "price": "string",
+                  "surface": "string",
+                  "disponibility": "string",
+                  "photos": "List<Photo>"
+                }""",
         requiredProperties = {"id", "user", "typeHouse", "statusHouse", "title", "description", "address", "city", "country", "numberOfRooms", "numberOfBathrooms", "numberOfFloors", "price", "surface", "disponibility", "photos"}
 )
 public class House {

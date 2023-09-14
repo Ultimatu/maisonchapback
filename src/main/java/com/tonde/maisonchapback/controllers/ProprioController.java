@@ -1,10 +1,13 @@
 package com.tonde.maisonchapback.controllers;
 
 
+import com.tonde.maisonchapback.exceptions.CustomLogger;
 import com.tonde.maisonchapback.models.workflows.House;
 import com.tonde.maisonchapback.models.workflows.Photo;
 import com.tonde.maisonchapback.models.workflows.Reservation;
-import com.tonde.maisonchapback.services.implementation.*;
+import com.tonde.maisonchapback.services.implementation.HouseServiceImpl;
+import com.tonde.maisonchapback.services.implementation.PhotoServiceImpl;
+import com.tonde.maisonchapback.services.implementation.ReservationServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -70,18 +73,17 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "application/json",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = House.class
+                                    ref = "#/components/schemas/House"
                             )
                     )
             )
     )
 
     @PostMapping("/addHouse")
-    public ResponseEntity<?> addHouse(House house) {
+    public ResponseEntity<String> addHouse(House house) {
         return houseService.addHouse(house);
 
     }
-
 
 
     @Operation(
@@ -119,16 +121,15 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "application/json",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = House.class
+                                    ref = "#/components/schemas/House"
                             )
                     )
             )
     )
     @PostMapping("/updateHouse")
-    public ResponseEntity<?> updateHouse(House house) {
+    public ResponseEntity<String> updateHouse(House house) {
         return houseService.updateHouse(house);
     }
-
 
 
     @Operation(
@@ -166,13 +167,13 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "application/json",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = House.class
+                                    ref = "#/components/schemas/House"
                             )
                     )
             )
     )
     @DeleteMapping("/deleteHouse")
-    public ResponseEntity<?> deleteHouse(int id) {
+    public ResponseEntity<String> deleteHouse(int id) {
         return houseService.deleteHouse(id);
     }
 
@@ -212,17 +213,16 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "application/json",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = House.class
+                                    ref = "#/components/schemas/House"
                             )
                     )
             )
     )
 
     @GetMapping("/getAllHousesByUserId")
-    public ResponseEntity<?> getAllHousesByUserId(int userId) {
+    public ResponseEntity<List<House>> getAllHousesByUserId(int userId) {
         return houseService.getAllHousesByUserId(userId);
     }
-
 
 
     @Operation(
@@ -260,12 +260,12 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "application/json",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = House.class
+                                    ref = "#/components/schemas/House"
                             )
                     )
             )
     )
-    public ResponseEntity<?> getAllHousesByStatus(int status) {
+    public ResponseEntity<List<House>> getAllHousesByStatus(int status) {
         return houseService.getAllHousesByStatus(status);
     }
 
@@ -307,14 +307,14 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "application/json",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = House.class
+                                    ref = "#/components/schemas/House"
                             )
                     )
             )
     )
     @GetMapping("/getAllHousesByDisponibility")
 
-    public ResponseEntity<?> getAllHousesByDisponibility(String disponibility) {
+    public ResponseEntity<List<House>> getAllHousesByDisponibility(String disponibility) {
         return houseService.getAllHousesByDisponibility(disponibility);
     }
 
@@ -360,16 +360,22 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "multipart/form-data",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = Photo.class
+                                    ref = "#/components/schemas/Photo"
+
                             )
 
                     )
             )
     )
     @PostMapping("/addPhoto/{houseId}")
-    public ResponseEntity<?> addPhotos(MultipartFile  files, @PathVariable int houseId) throws IOException {
-        System.out.println("Hello from add photos"+files);
-        return null;
+    public ResponseEntity<List<String>> addPhotos(
+            @RequestParam("files") MultipartFile[] files,
+            @PathVariable int houseId
+    ) throws IOException {
+        CustomLogger.log("INFO", "Starting add photos controller service");
+
+
+        return photoService.addPhotos(List.of(files), houseId);
     }
 
 
@@ -408,12 +414,13 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "multipart/form-data",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = Photo.class
+                                    ref = "#/components/schemas/Photo"
                             )
                     )
             )
     )
-    public ResponseEntity<?> deletePhoto(int id) {
+    @DeleteMapping("photo/del/{id}")
+    public ResponseEntity<String> deletePhoto(@PathVariable("id") int id) {
         return photoService.deletePhoto(id);
     }
 
@@ -453,15 +460,15 @@ public class ProprioController {
                     content = @io.swagger.v3.oas.annotations.media.Content(
                             mediaType = "multipart/form-data",
                             schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    implementation = Photo.class
+                                    ref = "#/components/schemas/Photo"
                             )
                     )
             )
     )
 
     @GetMapping("/getAllPhotosByHouseId")
-    public ResponseEntity<?> getAllPhotosByHouseId(int houseId) {
-        return (ResponseEntity<?>) photoService.getAllPhotosByHouseId(houseId);
+    public List<Photo> getAllPhotosByHouseId(int houseId) {
+        return photoService.getAllPhotosByHouseId(houseId);
     }
 
     /*
@@ -491,9 +498,10 @@ public class ProprioController {
                             )
                     ),
             }
+
     )
     @PostMapping("/addReservation")
-    public ResponseEntity<?> addReservation(@RequestBody Reservation reservation) {
+    public ResponseEntity<String> addReservation(@RequestBody Reservation reservation) {
         return reservationService.createReservation(reservation);
 
     }
@@ -526,7 +534,7 @@ public class ProprioController {
             }
     )
     @PutMapping("/updateReservation")
-    public ResponseEntity<?> updateReservation(@RequestBody Reservation reservation) {
+    public ResponseEntity<String> updateReservation(@RequestBody Reservation reservation) {
         return reservationService.updateReservation(reservation);
     }
 

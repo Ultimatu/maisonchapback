@@ -20,9 +20,18 @@ import lombok.NoArgsConstructor;
         description = "Statistique model",
         requiredMode = Schema.RequiredMode.REQUIRED,
         implementation = Statistique.class,
+        example = """
+                {
+                  "id": "integer",
+                  "house": "House",
+                  "user": "User",
+                  "nbrvisite": "string",
+                  "nbrLike": "string"
+                }""",
         requiredProperties = {"id", "house", "user", "nbrvisite", "nbrLike"}
 )
-public class Statistique{
+
+public class Statistique {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -21,8 +21,15 @@ import java.time.LocalDateTime;
         description = "Status model",
         requiredMode = Schema.RequiredMode.REQUIRED,
         implementation = Status.class,
+        example = """
+                {
+                  "id": "integer",
+                  "status": "string",
+                  "description": "string"
+                }""",
         requiredProperties = {"id", "status", "description"}
 )
+
 public class Status {
 
     @Id

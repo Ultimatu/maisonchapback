@@ -18,10 +18,11 @@ import java.util.Optional;
 public class TypeHouseServiceImpl implements TypeHouseService {
 
     private final TypeHouseRepository typeHouseRepository;
+
     @Override
     public ResponseEntity<List<TypeHouse>> getAllTypeHouse() {
         List<TypeHouse> typeHouseList = typeHouseRepository.findAll();
-        if (typeHouseList.isEmpty()){
+        if (typeHouseList.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
         }
         return ResponseEntity.ok(typeHouseList);
@@ -40,7 +41,7 @@ public class TypeHouseServiceImpl implements TypeHouseService {
     @Override
     public ResponseEntity<?> createTypeHouse(TypeHouse typeHouse) {
         Optional<TypeHouse> typeHouseOptional = typeHouseRepository.findByTypeAndDescription(typeHouse.getType(), typeHouse.getDescription());
-        if (typeHouseOptional.isPresent()){
+        if (typeHouseOptional.isPresent()) {
             return ResponseEntity.badRequest().body("Type already exists");
         }
         typeHouseRepository.save(typeHouse);
@@ -51,7 +52,7 @@ public class TypeHouseServiceImpl implements TypeHouseService {
     @Override
     public ResponseEntity<?> updateTypeHouse(TypeHouse typeHouse) {
         Optional<TypeHouse> typeHouseOptional = typeHouseRepository.findById(typeHouse.getId());
-        if (typeHouseOptional.isPresent()){
+        if (typeHouseOptional.isPresent()) {
             TypeHouse typeHouse1 = typeHouseOptional.get();
             typeHouse1.setType(typeHouse.getType());
             typeHouse1.setDescription(typeHouse.getDescription());
@@ -65,7 +66,7 @@ public class TypeHouseServiceImpl implements TypeHouseService {
     @Override
     public ResponseEntity<?> deleteTypeHouse(int id) {
         Optional<TypeHouse> typeHouseOptional = typeHouseRepository.findById(id);
-        if (typeHouseOptional.isPresent()){
+        if (typeHouseOptional.isPresent()) {
             typeHouseRepository.deleteById(id);
             return ResponseEntity.ok("Type deleted");
         }

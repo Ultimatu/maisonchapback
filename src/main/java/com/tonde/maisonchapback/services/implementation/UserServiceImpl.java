@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> getUserById(int id) {
         Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         }
         return ResponseEntity.badRequest().body("User not found");
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> updateUser(int id, User user) {
         Optional<User> userOptional = userRepository.findById(id);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             User user1 = userOptional.get();
             user1.setNom(user.getNom());
             user1.setPrenom(user.getPrenom());
@@ -82,15 +82,14 @@ public class UserServiceImpl implements UserService {
                 Files.write(filePath, photoData);
 
                 //supprimer l'ancienne photo
-                if (userOptional.get().getPhotoPath() != null){
+                if (userOptional.get().getPhotoPath() != null) {
                     Files.delete(Paths.get("src/main/resources/photos/" + userOptional.get().getPhotoPath()));
 
                 }
                 userOptional.get().setPhotoPath(uniqueFileName);
                 userRepository.save(userOptional.get());
                 return ResponseEntity.ok("Photo modifiée avec succès");
-            }
-            else{
+            } else {
                 return ResponseEntity.badRequest().body("Photo non trouvée");
             }
 
@@ -105,7 +104,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> deleteUser(int id) {
         Optional<User> userOptional = userRepository.findById(id);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             userRepository.deleteById(id);
             return ResponseEntity.ok("User deleted successfully");
         }
@@ -121,7 +120,6 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<?> upgradeUserToPremium(int id, Abonnement abonnement) {
         return updateUserRoleAndAddAbonnement(id, Role.PREMIUM_USER, abonnement);
     }
-
 
 
     @Override

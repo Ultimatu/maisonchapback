@@ -15,8 +15,8 @@ spring:
     name: maison-chap
   servlet:
     multipart:
-      max-file-size: 12000000
-      max-request-size: 12000000
+      max-file-size: 50MB
+      max-request-size: 50MB
 application:
   security:
     jwt:

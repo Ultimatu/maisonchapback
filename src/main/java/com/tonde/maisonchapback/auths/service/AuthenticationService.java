@@ -3,18 +3,20 @@ package com.tonde.maisonchapback.auths.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tonde.maisonchapback.auths.requests.AuthenticationRequest;
 import com.tonde.maisonchapback.auths.requests.RegisterRequest;
+import com.tonde.maisonchapback.auths.response.AuthenticationResponse;
 import com.tonde.maisonchapback.config.JwtService;
+import com.tonde.maisonchapback.exceptions.BadCredentialsException;
+import com.tonde.maisonchapback.models.roles.Role;
 import com.tonde.maisonchapback.models.token.Token;
 import com.tonde.maisonchapback.models.token.TokenType;
-import com.tonde.maisonchapback.models.roles.Role;
 import com.tonde.maisonchapback.models.workflows.user.User;
 import com.tonde.maisonchapback.repositories.TokenRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
-import com.tonde.maisonchapback.auths.response.AuthenticationResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.*;
+import jakarta.validation.Valid;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+
 import java.io.IOException;
 
 @Service
@@ -53,10 +56,9 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse register(@Valid RegisterRequest request)
-            throws  RuntimeException
-    {
+            throws BadCredentialsException {
         //verifier s'il a un role vide si oui, on lui attribue le role USER
-        if (request.getRole() == null){
+        if (request.getRole() == null) {
             request.setRole(Role.FREE_USER);
         }
 
@@ -83,11 +85,10 @@ public class AuthenticationService {
     }
 
 
-
     public AuthenticationResponse authenticate(
             @Validated
             AuthenticationRequest request
-    ){
+    ) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -95,9 +96,8 @@ public class AuthenticationService {
                             request.getPassword()
                     )
             );
-        }
-        catch (Exception e){
-            throw new RuntimeException("Bad credentials");
+        } catch (Exception e) {
+            throw new BadCredentialsException("Bad credentials");
         }
         var user = repository.findByEmail(request.getEmail()).orElseThrow(null);
         var jwtToken = jwtService.generateToken(user);
@@ -114,9 +114,10 @@ public class AuthenticationService {
     }
 
     public void savedUserToken(
-            User user,
-            String jwtToken
-    ){
+            @NonNull User user,
+            @NonNull String jwtToken
+    ) {
+
         var token = Token.builder()
                 .user(user)
                 .token(jwtToken)
@@ -128,9 +129,9 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
-    private void revokeAllUserTokens(User user){
+    private void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
-        if (validUserTokens.isEmpty()){
+        if (validUserTokens.isEmpty()) {
             return;
         }
 
@@ -144,7 +145,7 @@ public class AuthenticationService {
     public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
-    )throws IOException {
+    ) throws IOException {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
         final String userEmail;

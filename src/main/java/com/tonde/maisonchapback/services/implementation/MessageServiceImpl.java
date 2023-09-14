@@ -20,15 +20,15 @@ public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
+
     @Override
     public ResponseEntity<?> sendMessage(Message message) {
-       try {
-           messageRepository.save(message);
-           return ResponseEntity.ok("Message envoyé avec succès");
-       }
-         catch (Exception e){
-              return ResponseEntity.badRequest().body("Erreur lors de l'envoi du message");
-         }
+        try {
+            messageRepository.save(message);
+            return ResponseEntity.ok("Message envoyé avec succès");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erreur lors de l'envoi du message");
+        }
     }
 
     @Override
@@ -36,44 +36,41 @@ public class MessageServiceImpl implements MessageService {
 
         //update response status
         Optional<Message> messageOptional = messageRepository.findById(message.getId());
-        if(messageOptional.isPresent()){
+        if (messageOptional.isPresent()) {
             messageOptional.get().setResponse(message.getResponse());
             messageOptional.get().setDateResponse(message.getDateResponse());
             messageRepository.save(messageOptional.get());
             return ResponseEntity.ok("Message reçu avec succès");
-        }
-        else{
-            return ResponseEntity.badRequest().body("Message non trouvé");
+        } else {
+            return ResponseEntity.badRequest().build();
         }
 
     }
 
     @Override
     public ResponseEntity<?> updateMessage(Message message) {
-          Optional<Message> messageOptional = messageRepository.findById(message.getId());
-        if(messageOptional.isPresent()) {
+        Optional<Message> messageOptional = messageRepository.findById(message.getId());
+        if (messageOptional.isPresent()) {
             messageOptional.get().setSender(message.getSender());
             messageOptional.get().setReceiver(message.getReceiver());
             messageOptional.get().setSentAt(message.getSentAt());
             messageOptional.get().setResponse(message.getResponse());
             messageOptional.get().setDateResponse(message.getDateResponse());
-            messageOptional.get().setMessage(message.getMessage());
+            messageOptional.get().setContent(message.getContent());
             messageRepository.save(messageOptional.get());
             return ResponseEntity.ok("Message modifié avec succès");
-        }
-        else{
-            return ResponseEntity.badRequest().body("Message non trouvé");
+        } else {
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @Override
     public ResponseEntity<?> deleteMessage(int id) {
         Optional<Message> messageOptional = messageRepository.findById(id);
-        if(messageOptional.isPresent()){
+        if (messageOptional.isPresent()) {
             messageRepository.delete(messageOptional.get());
             return ResponseEntity.ok("Message supprimé avec succès");
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Message non trouvé");
         }
     }
@@ -86,10 +83,9 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public ResponseEntity<?> getMessageById(int id) {
         Optional<Message> messageOptional = messageRepository.findById(id);
-        if(messageOptional.isPresent()){
+        if (messageOptional.isPresent()) {
             return ResponseEntity.ok(messageOptional.get());
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Message non trouvé");
         }
 
@@ -98,10 +94,9 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public ResponseEntity<?> getMessageBySender(int senderId) {
         Optional<User> userOptional = userRepository.findById(senderId);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             return ResponseEntity.ok(messageRepository.findBySender(userOptional.get()));
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Utilisateur non trouvé");
         }
 
@@ -110,10 +105,9 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public ResponseEntity<?> getMessageByReceiver(int receiverId) {
         Optional<User> userOptional = userRepository.findById(receiverId);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             return ResponseEntity.ok(messageRepository.findByReceiver(userOptional.get()));
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Utilisateur non trouvé");
         }
 

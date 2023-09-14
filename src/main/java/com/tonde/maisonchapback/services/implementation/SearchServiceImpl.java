@@ -23,6 +23,7 @@ public class SearchServiceImpl implements SearchService {
     private final HouseRepository houseRepository;
     private final StatusRepository statusRepository;
     private final TypeHouseRepository typeHouseRepository;
+
     @Override
     public ResponseEntity<?> searchHouseByCity(String city) {
         return houseRepository.findAllByCity(city).isEmpty() ? null : ResponseEntity.ok(houseRepository.findAllByCity(city));
@@ -36,21 +37,19 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public ResponseEntity<?> searchHouseByStatus(int status) {
         Optional<Status> statusOptional = statusRepository.findById(status);
-        if(statusOptional.isPresent()){
+        if (statusOptional.isPresent()) {
             return ResponseEntity.ok(houseRepository.findAllHouseByStatusHouse(statusOptional.get()));
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Status non trouvé");
         }
     }
 
     @Override
     public ResponseEntity<?> searchHouseByTypeAndCityAndPrice(int type, String city, String price) {
-        Optional< TypeHouse> typeHouseOptional = typeHouseRepository.findById(type);
-        if(typeHouseOptional.isPresent()){
+        Optional<TypeHouse> typeHouseOptional = typeHouseRepository.findById(type);
+        if (typeHouseOptional.isPresent()) {
             return ResponseEntity.ok(houseRepository.findAllByTypeHouseAndCityAndPrice(typeHouseOptional.get(), city, price));
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Type non trouvé");
         }
     }
@@ -62,11 +61,10 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public ResponseEntity<?> searchHouseByType(int type) {
-        Optional< TypeHouse> typeHouseOptional = typeHouseRepository.findById(type);
-        if(typeHouseOptional.isPresent()){
+        Optional<TypeHouse> typeHouseOptional = typeHouseRepository.findById(type);
+        if (typeHouseOptional.isPresent()) {
             return ResponseEntity.ok(houseRepository.findAllByTypeHouse(typeHouseOptional.get()));
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Type non trouvé");
         }
     }

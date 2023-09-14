@@ -12,11 +12,11 @@ import java.util.List;
 @Hidden
 public interface FavorisService {
 
-    ResponseEntity<?> addFavoris(Favoris favoris);
+    ResponseEntity<String> addFavoris(Favoris favoris);
 
-    ResponseEntity<?> updateFavoris(Favoris favoris);
+    ResponseEntity<String> updateFavoris(Favoris favoris);
 
-    ResponseEntity<?> deleteFavoris(Favoris favoris);
+    ResponseEntity<String> deleteFavoris(Favoris favoris);
 
     Favoris getFavorisById(int id);
 

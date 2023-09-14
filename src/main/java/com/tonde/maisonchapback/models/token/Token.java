@@ -4,7 +4,10 @@ package com.tonde.maisonchapback.models.token;
 import com.tonde.maisonchapback.models.workflows.user.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data

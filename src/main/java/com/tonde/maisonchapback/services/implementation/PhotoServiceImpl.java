@@ -1,5 +1,7 @@
 package com.tonde.maisonchapback.services.implementation;
 
+import com.tonde.maisonchapback.exceptions.ApiError;
+import com.tonde.maisonchapback.exceptions.CustomRestControllerHandler;
 import com.tonde.maisonchapback.models.workflows.House;
 import com.tonde.maisonchapback.models.workflows.Photo;
 import com.tonde.maisonchapback.models.workflows.user.User;
@@ -17,7 +19,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,62 +32,61 @@ public class PhotoServiceImpl implements PhotoService {
     private final PhotoRepository photoRepository;
     private final HouseRepository houseRepository;
     private final UserRepository userRepository;
+
     @Override
-
-    public ResponseEntity<?> addPhotos(List<MultipartFile> photoFiles, int houseId) throws IOException {
+    public ResponseEntity<List<String>> addPhotos(List<MultipartFile> photoFiles, int houseId) throws IOException {
         House house = houseRepository.findById(houseId).orElse(null);
-        if(house == null){
-            return ResponseEntity.badRequest().body("Maison non trouvée");
+        if (house == null) {
+            return ResponseEntity.badRequest().body(Collections.emptyList());
         }
-       try {
-           boolean finish = false;
-           int count = 0;
-           System.out.println("Hello from add photos");
-           System.out.println("Multipart files: "+photoFiles);
 
-           for (MultipartFile photoFile : photoFiles) {
-               // Récupérer les données de la photo à partir du MultipartFile
-               byte[] photoData = photoFile.getBytes();
-               System.out.println("photo data: "+ Arrays.toString(photoData));
+        List<String> successfulPhotoUrls = new ArrayList<>();
+        List<String> failedPhotos = new ArrayList<>();
+        try {
+            for (MultipartFile photoFile : photoFiles) {
+                byte[] photoData = photoFile.getBytes();
+                String fileName = photoFile.getOriginalFilename();
 
-               // Générer un chemin de fichier unique pour chaque photo
-               String fileName = photoFile.getOriginalFilename();
-               String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
-               Path filePath = Paths.get("src/main/resources/photos/" + uniqueFileName);
+                String uniqueFileName = savePhotoAndGetUniqueFileName(photoData, fileName, house);
+                if (uniqueFileName != null) {
+                    successfulPhotoUrls.add(uniqueFileName);
+                } else {
+                    failedPhotos.add(fileName);
+                }
+            }
 
-               // Sauvegarder les données de la photo dans le dossier de ressources
-               Files.write(filePath, photoData);
+            if (!failedPhotos.isEmpty()) {
+                return ResponseEntity.badRequest().body(failedPhotos);
+            }
 
-
-
-                // Créer une nouvelle photo
-                Photo photo = new Photo();
-                photo.setUrl(uniqueFileName);
-                photo.setHouse(house);
-                System.out.println("house id: "+house.getId());
-                photoRepository.save(photo);
-
-               count++;
-
-
-
-           }
-
-           if(count == photoFiles.size()){
-               finish = true;
-           }
-
-
-           return finish ? ResponseEntity.ok("Photos ajoutées avec succès") :
-                   ResponseEntity.badRequest().body("Erreur lors de l'ajout des photos");
-       }
-         catch (Exception e){
-              return ResponseEntity.badRequest().body("Erreur lors de l'ajout des photos");
-         }
+            return ResponseEntity.ok(successfulPhotoUrls);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Collections.emptyList());
+        }
     }
 
+    private String savePhotoAndGetUniqueFileName(byte[] photoData, String fileName, House house) {
+        try {
+            String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
+            Path filePath = Paths.get("src/main/resources/static/photos/%s".formatted(uniqueFileName));
+
+            Files.write(filePath, photoData);
+
+            Photo photo = new Photo();
+            photo.setUrl(uniqueFileName);
+            photo.setHouse(house);
+
+            photoRepository.save(photo);
+
+            return uniqueFileName;
+        } catch (Exception e) {
+            return null; // La sauvegarde a échoué
+        }
+    }
+
+
     @Override
-    public ResponseEntity<?> updatePhoto(Photo photo, MultipartFile photoFile) {
+    public ResponseEntity<?> updatePhoto(Photo photo, MultipartFile photoFile) throws RuntimeException, ApiError {
 
         try {
             Optional<Photo> photoOptional = photoRepository.findById(photo.getId());
@@ -96,46 +98,44 @@ public class PhotoServiceImpl implements PhotoService {
                 // Générer un chemin de fichier unique pour chaque photo
                 String fileName = photoFile.getOriginalFilename();
                 String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
-                Path filePath = Paths.get("src/main/resources/photos/" + uniqueFileName);
+                Path filePath = Paths.get("src/main/resources/static/photos/%s".formatted(uniqueFileName));
 
 
                 // Sauvegarder les données de la photo dans le dossier de ressources
                 Files.write(filePath, photoData);
 
                 //supprimer l'ancienne photo
-                Files.delete(Paths.get("src/main/resources/photos/" + photoOptional.get().getUrl()));
+                Files.delete(Paths.get("src/main/resources/static/photos/" + photoOptional.get().getUrl()));
 
                 //mettre à jour la photo
                 photoOptional.get().setUrl(uniqueFileName);
                 photoRepository.save(photoOptional.get());
                 return ResponseEntity.ok("Photo modifiée avec succès");
-            }
-            else{
+            } else {
                 return ResponseEntity.badRequest().body("Photo non trouvée");
             }
 
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new CustomRestControllerHandler().handleException(e);
         }
 
 
     }
+
     @Override
-    public ResponseEntity<?>  deletePhoto(int id) {
+    public ResponseEntity<String> deletePhoto(int id) {
         try {
             Optional<Photo> photoOptional = photoRepository.findById(id);
-            if(photoOptional.isPresent()){
+            if (photoOptional.isPresent()) {
                 //supprimer la photo
-                Files.delete(Paths.get("src/main/resources/photos/" + photoOptional.get().getUrl()));
+                Files.delete(Paths.get("src/main/resources/static/photos/" + photoOptional.get().getUrl()));
                 photoRepository.delete(photoOptional.get());
                 return ResponseEntity.ok("Photo supprimée avec succès");
-            }
-            else{
+            } else {
                 return ResponseEntity.badRequest().body("Photo non trouvée");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erreur lors de la suppression de la photo");
         }
 
@@ -161,10 +161,9 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public ResponseEntity<?> getAllByHouseUser(int userId) {
         Optional<User> userOptional = userRepository.findById(userId);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             return ResponseEntity.ok(photoRepository.findAllByHouseUser(userOptional.get()));
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Utilisateur non trouvé");
         }
     }

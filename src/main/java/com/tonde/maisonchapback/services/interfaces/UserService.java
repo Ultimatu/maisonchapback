@@ -25,14 +25,14 @@ public interface UserService {
 
     ResponseEntity<?> upgradeUserToStandard(int id, Abonnement abonnement);
 
-    ResponseEntity<?> upgradeUserToPremium(int id , Abonnement abonnement);
+    ResponseEntity<?> upgradeUserToPremium(int id, Abonnement abonnement);
 
-    ResponseEntity<?> upgradeUserToFree(int id , Abonnement abonnement);
+    ResponseEntity<?> upgradeUserToFree(int id, Abonnement abonnement);
 
-    ResponseEntity<?> updateProprioToStandard(int id , Abonnement abonnement);
+    ResponseEntity<?> updateProprioToStandard(int id, Abonnement abonnement);
 
-    ResponseEntity<?> updateProprioToPremium(int id , Abonnement abonnement);
+    ResponseEntity<?> updateProprioToPremium(int id, Abonnement abonnement);
 
-    ResponseEntity<?> updateProprioToFree(int id , Abonnement abonnement);
+    ResponseEntity<?> updateProprioToFree(int id, Abonnement abonnement);
 
 }

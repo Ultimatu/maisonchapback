@@ -33,5 +33,4 @@ public interface SearchService {
     ResponseEntity<?> searchByTitleAndDescription(String word1, String word2);
 
 
-
 }

@@ -3,7 +3,10 @@ package com.tonde.maisonchapback.models.workflows;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor
@@ -17,9 +20,16 @@ import lombok.*;
         description = "Photo model",
         requiredMode = Schema.RequiredMode.REQUIRED,
         implementation = Photo.class,
+        example = """
+                {
+                  "id": "integer",
+                  "house": "House",
+                  "url": "string",
+                  "description": "string"
+                }""",
         requiredProperties = {"id", "house", "url", "description"}
 )
-public class Photo{
+public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

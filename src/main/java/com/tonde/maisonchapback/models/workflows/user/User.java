@@ -1,15 +1,17 @@
 package com.tonde.maisonchapback.models.workflows.user;
 
 
-import com.tonde.maisonchapback.models.token.Token;
 import com.tonde.maisonchapback.models.roles.Role;
+import com.tonde.maisonchapback.models.token.Token;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import jakarta.validation.constraints.Email;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -40,10 +42,10 @@ import java.util.List;
                   "photoPath": "string"
                 }""",
         requiredProperties = {"nom", "prenom", "email", "phone", "adresse", "password", "role", "locked", "photoPath"}
-        
+
 )
 
-public class User implements UserDetails , Serializable {
+public class User implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,7 +66,7 @@ public class User implements UserDetails , Serializable {
     private String phone;
 
     @Column(nullable = false)
-    private String  adresse;
+    private String adresse;
 
     @Column(nullable = false)
     private String password;
@@ -81,7 +83,6 @@ public class User implements UserDetails , Serializable {
 
     @Column(nullable = false, columnDefinition = "varchar(1000) default 'default.png'")
     private String photoPath;
-
 
 
     @Override

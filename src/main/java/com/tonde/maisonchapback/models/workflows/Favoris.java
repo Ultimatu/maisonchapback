@@ -19,9 +19,16 @@ import lombok.NoArgsConstructor;
         description = "Favoris model",
         requiredMode = Schema.RequiredMode.REQUIRED,
         implementation = Favoris.class,
+        example = """
+                {
+                  "id": "integer",
+                  "house": "House",
+                  "user": "User"
+                }""",
+
         requiredProperties = {"id", "house", "user"}
 )
-public class Favoris  {
+public class Favoris {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -19,14 +19,14 @@ public class StatusServiceImpl implements StatusService {
     private final StatusRepository statusRepository;
 
     @Override
-    public ResponseEntity<?> getAllStatus(){
+    public ResponseEntity<?> getAllStatus() {
         return ResponseEntity.ok(statusRepository.findAll());
     }
 
     @Override
     public ResponseEntity<?> getStatusById(Integer id) {
         Optional<Status> status = statusRepository.findById(id);
-        if(status.isPresent()){
+        if (status.isPresent()) {
             return ResponseEntity.ok(status.get());
         }
         return ResponseEntity.badRequest().body("Status not found");
@@ -37,7 +37,7 @@ public class StatusServiceImpl implements StatusService {
         Optional<Status> statusOptional = statusRepository
                 .findByStatusAndDescription(status.getStatus(), status.getDescription());
 
-        if(statusOptional.isPresent()){
+        if (statusOptional.isPresent()) {
             return ResponseEntity.badRequest().body("Status already exist");
         }
         statusRepository.save(status);
@@ -48,7 +48,7 @@ public class StatusServiceImpl implements StatusService {
     @Override
     public ResponseEntity<?> updateStatus(Status status) {
         Optional<Status> statusOptional = statusRepository.findById(status.getId());
-        if(statusOptional.isPresent()){
+        if (statusOptional.isPresent()) {
             statusOptional.get().setStatus(status.getStatus());
             statusOptional.get().setDescription(status.getDescription());
             statusOptional.get().setUpdatedAt(LocalDateTime.now());
@@ -62,7 +62,7 @@ public class StatusServiceImpl implements StatusService {
     @Override
     public ResponseEntity<?> deleteStatus(Integer id) {
         Optional<Status> statusOptional = statusRepository.findById(id);
-        if(statusOptional.isPresent()){
+        if (statusOptional.isPresent()) {
             statusRepository.delete(statusOptional.get());
             return ResponseEntity.ok("Status deleted successfully");
         }

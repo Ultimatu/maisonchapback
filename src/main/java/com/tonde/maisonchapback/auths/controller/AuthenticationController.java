@@ -1,7 +1,6 @@
 package com.tonde.maisonchapback.auths.controller;
 
 
-
 import com.tonde.maisonchapback.auths.requests.AuthenticationRequest;
 import com.tonde.maisonchapback.auths.requests.RegisterRequest;
 import com.tonde.maisonchapback.auths.response.AuthenticationResponse;
@@ -33,11 +32,11 @@ public class AuthenticationController {
     private final CheckIfUserAlreadyExists check;
 
 
-   @Operation(
+    @Operation(
             summary = "Inscription d'un utilisateur",
             description = "Permet à un nouvel utilisateur de s'inscrire.",
-           tags = {"Authentification"},
-           responses = {
+            tags = {"Authentification"},
+            responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Inscription réussie",
@@ -58,7 +57,7 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body("Utilisateur existe");
         }
 
-        return ResponseEntity.ok( authentificationService.register(request));
+        return ResponseEntity.ok(authentificationService.register(request));
     }
 
     @Operation(
@@ -124,7 +123,6 @@ public class AuthenticationController {
     }
 
 
-
     @Operation(
             summary = "Déconnexion de l'utilisateur",
             tags = {"Authentification"},
@@ -138,7 +136,7 @@ public class AuthenticationController {
             }
     )
     @PostMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response){
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
         logoutService.logout(request, response, null);
     }
 

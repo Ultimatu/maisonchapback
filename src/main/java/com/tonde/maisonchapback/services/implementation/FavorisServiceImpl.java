@@ -20,40 +20,38 @@ public class FavorisServiceImpl implements FavorisService {
 
     private final FavorisRepository favorisRepository;
     private final UserRepository userRepository;
+
     @Override
-    public ResponseEntity<?> addFavoris(Favoris favoris) {
+    public ResponseEntity<String> addFavoris(Favoris favoris) {
         Optional<Favoris> favorisOptional = favorisRepository.findByHouseIdAndUser(favoris.getHouse().getId(), favoris.getUser());
-        if(favorisOptional.isPresent()){
+        if (favorisOptional.isPresent()) {
             return ResponseEntity.badRequest().body("Cette maison est déjà dans vos favoris");
-        }
-        else{
+        } else {
             favorisRepository.save(favoris);
             return ResponseEntity.ok("Maison ajoutée dans vos favoris");
         }
     }
 
     @Override
-    public ResponseEntity<?> updateFavoris(Favoris favoris) {
+    public ResponseEntity<String> updateFavoris(Favoris favoris) {
         Optional<Favoris> favorisOptional = favorisRepository.findById(favoris.getId());
-        if(favorisOptional.isPresent()){
+        if (favorisOptional.isPresent()) {
             favorisOptional.get().setUser(favoris.getUser());
             favorisOptional.get().setHouse(favoris.getHouse());
             favorisRepository.save(favorisOptional.get());
             return ResponseEntity.ok("Favoris modifié avec succès");
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Favoris non trouvé");
         }
     }
 
     @Override
-    public ResponseEntity<?> deleteFavoris(Favoris favoris) {
+    public ResponseEntity<String> deleteFavoris(Favoris favoris) {
         Optional<Favoris> favorisOptional = favorisRepository.findById(favoris.getId());
-        if(favorisOptional.isPresent()){
+        if (favorisOptional.isPresent()) {
             favorisRepository.delete(favorisOptional.get());
             return ResponseEntity.ok("Favoris supprimé avec succès");
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body("Favoris non trouvé");
         }
     }

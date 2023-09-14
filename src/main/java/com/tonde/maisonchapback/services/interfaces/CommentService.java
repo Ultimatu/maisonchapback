@@ -16,11 +16,11 @@ public interface CommentService {
 
     Comments getCommentById(int id);
 
-    ResponseEntity<?> addComment(Comments comments);
+    ResponseEntity<String> addComment(Comments comments);
 
-    ResponseEntity<?> updateComment(Comments comments);
+    ResponseEntity<String> updateComment(Comments comments);
 
-    ResponseEntity<?> deleteComment(int id);
+    ResponseEntity<String> deleteComment(int id);
 
     List<Comments> getAllCommentsByUserId(int userId);
 }

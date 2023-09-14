@@ -2,6 +2,7 @@ package com.tonde.maisonchapback.models.workflows;
 
 
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "_rates")
-public class Rates{
+@Schema(
+        name = "Rates",
+        description = "Rates model",
+        requiredMode = Schema.RequiredMode.REQUIRED,
+        implementation = Rates.class,
+        example = """
+                {
+                  "id": "integer",
+                  "rate": "string",
+                  "description": "string",
+                  "house": "House",
+                  "user": "User"
+                }""",
+        requiredProperties = {"id", "rate", "description", "house", "user"}
+)
+public class Rates {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

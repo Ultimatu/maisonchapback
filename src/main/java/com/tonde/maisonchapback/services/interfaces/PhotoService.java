@@ -1,5 +1,6 @@
 package com.tonde.maisonchapback.services.interfaces;
 
+import com.tonde.maisonchapback.exceptions.ApiError;
 import com.tonde.maisonchapback.models.workflows.Photo;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public interface PhotoService {
 
     ResponseEntity<?> addPhotos(List<MultipartFile> photoFiles, int houseId) throws IOException;
 
-    ResponseEntity<?> updatePhoto(Photo photo, MultipartFile photoFile);
+    ResponseEntity<?> updatePhoto(Photo photo, MultipartFile photoFile) throws RuntimeException, ApiError;
 
     ResponseEntity<?> deletePhoto(int id);
 

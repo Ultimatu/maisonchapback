@@ -22,6 +22,15 @@ import java.time.LocalDateTime;
         description = "Comments model",
         requiredMode = Schema.RequiredMode.REQUIRED,
         implementation = Comments.class,
+        example = """
+                {
+                  "id": "integer",
+                  "house": "House",
+                  "user": "User",
+                  "comment": "string",
+                  "dateCreation": "LocalDateTime",
+                  "dateModification": "LocalDateTime"
+                }""",
         requiredProperties = {"id", "house", "user", "comment", "dateCreation"}
 
 )
@@ -43,12 +52,11 @@ public class Comments {
     @Column(nullable = false)
     private String comment;
 
-    @Column(nullable = false , columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
     private LocalDateTime dateCreation;
 
     @Column(columnDefinition = "TIMESTAMP", name = "date_modification")
     private LocalDateTime dateModification;
-
 
 
 }

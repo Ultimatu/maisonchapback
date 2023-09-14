@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Hidden
 public interface FavorisRepository extends JpaRepository<Favoris, Integer> {
-    Optional<Favoris> findByHouseIdAndUser(Integer house_id, User user);
+    Optional<Favoris> findByHouseIdAndUser(Integer houseid, User user);
 
     List<Favoris> findAllByUser(User user);
 

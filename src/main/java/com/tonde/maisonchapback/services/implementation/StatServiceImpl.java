@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Service
 @Hidden
-public class StatServiceImpl  implements StatsService {
+public class StatServiceImpl implements StatsService {
     @Override
     public ResponseEntity<List<Statistique>> getAllStats() {
         return null;

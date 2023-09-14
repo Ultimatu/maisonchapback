@@ -5,30 +5,32 @@ import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Hidden
 public interface HouseService {
 
-    ResponseEntity<?> getAllHouses();
+    ResponseEntity<List<House>> getAllHouses();
 
-    ResponseEntity<?> getHouseById(int id);
-
-
-    ResponseEntity<?> addHouse(House house);
-
-    ResponseEntity<?> updateHouse(House house);
-
-    ResponseEntity<?> deleteHouse(int house);
-
-    ResponseEntity<?> getAllRentingHouses();
-
-    ResponseEntity<?> getAllSellingHouses();
+    ResponseEntity<House> getHouseById(int id);
 
 
-    ResponseEntity<?> getAllHousesByUserId(int userId);
+    ResponseEntity<String> addHouse(House house);
 
-    ResponseEntity<?> getAllHousesByStatus(int status);
+    ResponseEntity<String> updateHouse(House house);
 
-    ResponseEntity<?> getAllHousesByDisponibility(String disponibility);
+    ResponseEntity<String> deleteHouse(int house);
+
+    ResponseEntity<List<House>> getAllRentingHouses();
+
+    ResponseEntity<List<House>> getAllSellingHouses();
+
+
+    ResponseEntity<List<House>> getAllHousesByUserId(int userId);
+
+    ResponseEntity<List<House>> getAllHousesByStatus(int status);
+
+    ResponseEntity<List<House>> getAllHousesByDisponibility(String disponibility);
 
 }

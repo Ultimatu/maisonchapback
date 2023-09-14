@@ -23,6 +23,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final HouseRepository houseRepository;
     private final UserRepository userRepository;
+
     @Override
     public ResponseEntity<List<Reservation>> getAllReservations() {
         return reservationRepository.findAll().isEmpty() ? null : ResponseEntity.ok(reservationRepository.findAll());
@@ -36,10 +37,10 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ResponseEntity<?> createReservation(Reservation reservation) {
+    public ResponseEntity<String> createReservation(Reservation reservation) {
         Optional<Reservation> optional = reservationRepository
                 .findByHouseIdAndUser(reservation.getHouse().getId(), reservation.getUser());
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             return ResponseEntity.badRequest().body("Reservation already exists");
         }
         reservationRepository.save(reservation);
@@ -47,9 +48,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ResponseEntity<?> updateReservation(Reservation reservation) {
+    public ResponseEntity<String> updateReservation(Reservation reservation) {
         Optional<Reservation> optional = reservationRepository.findById(reservation.getId());
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             Reservation reservation1 = optional.get();
             reservation1.setHouse(reservation.getHouse());
             reservation1.setStartDate(reservation.getStartDate());
@@ -64,7 +65,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ResponseEntity<?> deleteReservation(int id) {
         Optional<Reservation> optional = reservationRepository.findById(id);
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             reservationRepository.delete(optional.get());
             return ResponseEntity.ok("Reservation deleted");
         }
@@ -74,7 +75,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ResponseEntity<?> getReservationByHouseId(int id) {
         Optional<House> optional = houseRepository.findById(id);
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             return reservationRepository.findByHouse(optional.get()).isEmpty() ? null : ResponseEntity.ok(reservationRepository.findByHouse(optional.get()));
         }
         return ResponseEntity.badRequest().body("Impossible to find this house");
@@ -91,7 +92,7 @@ public class ReservationServiceImpl implements ReservationService {
     public ResponseEntity<?> getReservationByHouseIdAndUserId(int houseId, int userId) {
         Optional<House> optionalHouse = houseRepository.findById(houseId);
         Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalHouse.isPresent() && optionalUser.isPresent()){
+        if (optionalHouse.isPresent() && optionalUser.isPresent()) {
             Optional<Reservation> optionalReservation = reservationRepository.findByHouseIdAndUser(houseId, optionalUser.get());
             return optionalReservation.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().body(null));
         }

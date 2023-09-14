@@ -2,6 +2,7 @@ package com.tonde.maisonchapback.models.workflows;
 
 
 import com.tonde.maisonchapback.models.workflows.user.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,25 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "_messages")
-
+@Schema(
+        name = "Message",
+        description = "Message model",
+        requiredMode = Schema.RequiredMode.REQUIRED,
+        implementation = Message.class,
+        example = """
+                {
+                  "id": "integer",
+                  "receiver": "User",
+                  "sender": "User",
+                  "content": "string",
+                  "subject": "string",
+                  "status": "string",
+                  "response": "string",
+                  "dateResponse": "LocalDateTime",
+                  "sentAt": "LocalDateTime"
+                }""",
+        requiredProperties = {"id", "receiver", "sender", "content", "subject", "status", "sentAt"}
+)
 public class Message {
 
     @Id
@@ -32,7 +51,7 @@ public class Message {
     private User sender;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String message;
+    private String content;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String subject;
@@ -46,7 +65,7 @@ public class Message {
     @Column(columnDefinition = "TIMESTAMP", name = "date_response")
     private LocalDateTime dateResponse;
 
-    @Column(nullable = false , columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "sent_at")
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "sent_at")
     private LocalDateTime sentAt;
 
 }

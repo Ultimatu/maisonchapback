@@ -22,6 +22,7 @@ public class AbonnementServiceImpl implements AbonnementService {
 
     private final AbonnementRepository repository;
     private final UserRepository userRepository;
+
     @Override
     public List<Abonnement> getAllAbonnements() {
 
@@ -45,14 +46,12 @@ public class AbonnementServiceImpl implements AbonnementService {
     @Override
     public ResponseEntity<String> updateAbonnement(Abonnement abonnement) {
         Optional<Abonnement> abonnement1 = repository.findById(abonnement.getId());
-        if(abonnement1.isPresent()){
-            if (Objects.equals(abonnement.getEtat(), "actif") && Objects.equals(abonnement1.get().getEtat(), "actif") && Objects.equals(abonnement1.get().getType(), abonnement.getType())){
+        if (abonnement1.isPresent()) {
+            if (Objects.equals(abonnement.getEtat(), "actif") && Objects.equals(abonnement1.get().getEtat(), "actif") && Objects.equals(abonnement1.get().getType(), abonnement.getType())) {
                 return ResponseEntity.badRequest().body("Abonnement déjà actif");
-            }
-            else if (Objects.equals(abonnement.getEtat(), "inactif") && Objects.equals(abonnement1.get().getEtat(), "inactif") && Objects.equals(abonnement1.get().getType(), abonnement.getType())){
+            } else if (Objects.equals(abonnement.getEtat(), "inactif") && Objects.equals(abonnement1.get().getEtat(), "inactif") && Objects.equals(abonnement1.get().getType(), abonnement.getType())) {
                 return ResponseEntity.badRequest().body("Abonnement déjà inactif");
-            }
-            else{
+            } else {
                 abonnement1.get().setEtat(abonnement.getEtat());
                 abonnement1.get().setType(abonnement.getType());
                 abonnement1.get().setDateCreation(abonnement.getDateCreation());
@@ -73,7 +72,7 @@ public class AbonnementServiceImpl implements AbonnementService {
     @Override
     public ResponseEntity<String> deleteAbonnement(int id) {
         Optional<Abonnement> abonnement = repository.findById(id);
-        if(abonnement.isPresent()){
+        if (abonnement.isPresent()) {
             repository.delete(abonnement.get());
             return ResponseEntity.ok("Abonnement supprimé avec succès");
         }

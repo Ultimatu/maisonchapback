@@ -1,7 +1,6 @@
 package com.tonde.maisonchapback.auths.requests;
 
 
-
 import com.tonde.maisonchapback.models.roles.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
