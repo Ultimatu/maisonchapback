@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/search")
+@RequestMapping("/api/public/search")
 @CrossOrigin(origins = "http://localhost:4200")
 public class SearchController {
 

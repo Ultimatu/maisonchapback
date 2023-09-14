@@ -32,6 +32,7 @@ public class AuthenticationController {
     private final CheckIfUserAlreadyExists check;
 
 
+
     @Operation(
             summary = "Inscription d'un utilisateur",
             description = "Permet à un nouvel utilisateur de s'inscrire.",

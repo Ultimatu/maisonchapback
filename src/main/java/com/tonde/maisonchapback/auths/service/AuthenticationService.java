@@ -71,6 +71,9 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
+        if (user == null) {
+            throw new BadCredentialsException("Bad credentials");
+        }
         var savedUser = repository.save(user);
 
         var jwtToken = jwtService.generateToken(user);
@@ -125,6 +128,9 @@ public class AuthenticationService {
                 .expired(false)
                 .revoked(false)
                 .build();
+        if (token == null) {
+            throw new BadCredentialsException("Bad credentials");
+        }
 
         tokenRepository.save(token);
     }
@@ -171,6 +177,10 @@ public class AuthenticationService {
                         .accessToken(jwtToken)
                         .refreshToken(newRefreshToken)
                         .build();
+                if (authResponse == null) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+                    return;
+                }
 
                 new ObjectMapper()
                         .writeValue(
@@ -182,6 +192,5 @@ public class AuthenticationService {
 
         }
     }
-
 
 }
