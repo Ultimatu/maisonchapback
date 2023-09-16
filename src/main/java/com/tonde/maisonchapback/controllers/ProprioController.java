@@ -2,12 +2,12 @@ package com.tonde.maisonchapback.controllers;
 
 
 import com.tonde.maisonchapback.exceptions.CustomLogger;
-import com.tonde.maisonchapback.models.workflows.House;
-import com.tonde.maisonchapback.models.workflows.Photo;
-import com.tonde.maisonchapback.models.workflows.Reservation;
-import com.tonde.maisonchapback.services.implementation.HouseServiceImpl;
-import com.tonde.maisonchapback.services.implementation.PhotoServiceImpl;
-import com.tonde.maisonchapback.services.implementation.ReservationServiceImpl;
+import com.tonde.maisonchapback.domains.House;
+import com.tonde.maisonchapback.domains.Photo;
+import com.tonde.maisonchapback.domains.Reservation;
+import com.tonde.maisonchapback.services.impl.HouseServiceImpl;
+import com.tonde.maisonchapback.services.impl.PhotoServiceImpl;
+import com.tonde.maisonchapback.services.impl.ReservationServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

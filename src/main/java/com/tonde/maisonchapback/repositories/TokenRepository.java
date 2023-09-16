@@ -1,6 +1,6 @@
 package com.tonde.maisonchapback.repositories;
 
-import com.tonde.maisonchapback.models.token.Token;
+import com.tonde.maisonchapback.domains.Token;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

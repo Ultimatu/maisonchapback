@@ -1,7 +1,7 @@
 package com.tonde.maisonchapback.controllers;
 
 
-import com.tonde.maisonchapback.services.implementation.SearchServiceImpl;
+import com.tonde.maisonchapback.services.impl.SearchServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

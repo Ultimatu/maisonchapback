@@ -1,9 +1,9 @@
 package com.tonde.maisonchapback.repositories;
 
-import com.tonde.maisonchapback.models.workflows.House;
-import com.tonde.maisonchapback.models.workflows.Status;
-import com.tonde.maisonchapback.models.workflows.TypeHouse;
-import com.tonde.maisonchapback.models.workflows.user.User;
+import com.tonde.maisonchapback.domains.House;
+import com.tonde.maisonchapback.domains.Status;
+import com.tonde.maisonchapback.domains.TypeHouse;
+import com.tonde.maisonchapback.domains.User;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

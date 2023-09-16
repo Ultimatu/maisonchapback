@@ -1,7 +1,7 @@
 package com.tonde.maisonchapback.repositories;
 
-import com.tonde.maisonchapback.models.workflows.Comments;
-import com.tonde.maisonchapback.models.workflows.user.User;
+import com.tonde.maisonchapback.domains.Comments;
+import com.tonde.maisonchapback.domains.User;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.data.jpa.repository.JpaRepository;
 

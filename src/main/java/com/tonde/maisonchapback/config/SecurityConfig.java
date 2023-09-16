@@ -14,8 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import static com.tonde.maisonchapback.models.roles.Permission.*;
-import static com.tonde.maisonchapback.models.roles.Role.ADMIN;
+import static com.tonde.maisonchapback.domains.enums.Permission.*;
+import static com.tonde.maisonchapback.domains.enums.Role.ADMIN;
 import static org.springframework.http.HttpMethod.*;
 
 @Configuration

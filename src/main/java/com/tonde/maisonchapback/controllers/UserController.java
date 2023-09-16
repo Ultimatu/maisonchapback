@@ -1,9 +1,9 @@
 package com.tonde.maisonchapback.controllers;
 
 
-import com.tonde.maisonchapback.models.workflows.*;
-import com.tonde.maisonchapback.models.workflows.user.User;
-import com.tonde.maisonchapback.services.implementation.*;
+import com.tonde.maisonchapback.domains.*;
+import com.tonde.maisonchapback.domains.User;
+import com.tonde.maisonchapback.services.impl.*;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

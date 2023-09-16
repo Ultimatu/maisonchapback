@@ -1,6 +1,6 @@
 package com.tonde.maisonchapback.checker;
 
-import com.tonde.maisonchapback.auths.requests.RegisterRequest;
+import com.tonde.maisonchapback.requests.RegisterRequest;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;

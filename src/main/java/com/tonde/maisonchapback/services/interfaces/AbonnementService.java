@@ -1,6 +1,6 @@
 package com.tonde.maisonchapback.services.interfaces;
 
-import com.tonde.maisonchapback.models.workflows.Abonnement;
+import com.tonde.maisonchapback.domains.Abonnement;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
