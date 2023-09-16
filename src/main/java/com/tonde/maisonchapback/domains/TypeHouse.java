@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -44,10 +44,10 @@ public class TypeHouse {
     private String description;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
-    private LocalDateTime dateCreation;
+    private Instant dateCreation;
 
     @Column(columnDefinition = "TIMESTAMP", name = "updated_at")
-    private LocalDateTime updatedAt;
+    private Instant dateModification;
 
 
 }

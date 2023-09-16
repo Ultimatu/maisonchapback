@@ -1,7 +1,11 @@
 package com.tonde.maisonchapback.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tonde.maisonchapback.exceptions.BadCredentialsException;
+import com.tonde.maisonchapback.exceptions.CustomLogger;
 import com.tonde.maisonchapback.repositories.TokenRepository;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +21,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -44,12 +50,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwt);
+        CustomLogger.log("INFO", "Extracting username from jwt...");
+        try {
+            userEmail = jwtService.extractUsername(jwt);
+        }
+        catch (Exception e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Invalid token");
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            String errorMessage = objectMapper.writeValueAsString(errorResponse);
+
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write(errorMessage);
+            return;
+        }
+        CustomLogger.log("INFO", "Extracted username: " + userEmail);
+
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             boolean isTokenValid = tokenRepository.findByToken(jwt)
                     .map(t -> !t.isExpired() && !t.isRevoked())
                     .orElse(false);
+            CustomLogger.log("WARN", "isTokenValid: " + isTokenValid);
             if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,

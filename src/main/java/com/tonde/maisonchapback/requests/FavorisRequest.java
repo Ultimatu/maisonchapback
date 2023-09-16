@@ -1,8 +1,11 @@
 package com.tonde.maisonchapback.requests;
 
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
@@ -10,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public class FavorisRequest {
 
-   @Column(nullable = false)
+    @Column(nullable = false)
     private Integer idHouse;
 
     @Column(nullable = false)

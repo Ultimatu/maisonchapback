@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -29,7 +29,8 @@ public class StatusServiceImpl implements StatusService {
         if (status.isPresent()) {
             return ResponseEntity.ok(status.get());
         }
-        return ResponseEntity.badRequest().body("Status not found");
+        ResponseEntity<String> statusNotFound = ResponseEntity.badRequest().body("Status not found");
+        return statusNotFound;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class StatusServiceImpl implements StatusService {
         if (statusOptional.isPresent()) {
             statusOptional.get().setStatus(status.getStatus());
             statusOptional.get().setDescription(status.getDescription());
-            statusOptional.get().setUpdatedAt(LocalDateTime.now());
+            statusOptional.get().setUpdatedAt(Instant.now());
             statusRepository.save(statusOptional.get());
             return ResponseEntity.ok("Status updated successfully");
         }

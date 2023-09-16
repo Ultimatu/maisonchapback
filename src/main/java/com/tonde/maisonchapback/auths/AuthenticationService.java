@@ -1,16 +1,16 @@
 package com.tonde.maisonchapback.auths;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tonde.maisonchapback.requests.AuthenticationRequest;
-import com.tonde.maisonchapback.requests.RegisterRequest;
 import com.tonde.maisonchapback.config.JwtService;
-import com.tonde.maisonchapback.exceptions.BadCredentialsException;
-import com.tonde.maisonchapback.domains.enums.Role;
 import com.tonde.maisonchapback.domains.Token;
-import com.tonde.maisonchapback.domains.enums.TokenType;
 import com.tonde.maisonchapback.domains.User;
+import com.tonde.maisonchapback.domains.enums.Role;
+import com.tonde.maisonchapback.domains.enums.TokenType;
+import com.tonde.maisonchapback.exceptions.BadCredentialsException;
 import com.tonde.maisonchapback.repositories.TokenRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
+import com.tonde.maisonchapback.requests.AuthenticationRequest;
+import com.tonde.maisonchapback.requests.RegisterRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

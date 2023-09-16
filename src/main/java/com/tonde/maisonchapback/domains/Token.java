@@ -2,7 +2,6 @@ package com.tonde.maisonchapback.domains;
 
 
 import com.tonde.maisonchapback.domains.enums.TokenType;
-import com.tonde.maisonchapback.domains.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

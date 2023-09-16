@@ -1,10 +1,12 @@
 package com.tonde.maisonchapback.services.impl;
 
 
-import com.tonde.maisonchapback.domains.enums.Role;
 import com.tonde.maisonchapback.domains.Abonnement;
 import com.tonde.maisonchapback.domains.User;
+import com.tonde.maisonchapback.domains.enums.Role;
+import com.tonde.maisonchapback.exceptions.BadCredentialsException;
 import com.tonde.maisonchapback.repositories.UserRepository;
+import com.tonde.maisonchapback.services.constant.ConstantCenter;
 import com.tonde.maisonchapback.services.interfaces.AbonnementService;
 import com.tonde.maisonchapback.services.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final AbonnementService abonnementService;
+    private ConstantCenter constantCenter;
 
     @Override
     public ResponseEntity<List<User>> getAllUsers() {
@@ -41,7 +44,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         }
-        return ResponseEntity.badRequest().body("User not found");
+        return ResponseEntity.badRequest().body(ConstantCenter.USER_NOT_FOUND);
     }
 
     @Override
@@ -95,7 +98,7 @@ public class UserServiceImpl implements UserService {
 
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new BadCredentialsException("Impossible de modifier la photo");
         }
 
 

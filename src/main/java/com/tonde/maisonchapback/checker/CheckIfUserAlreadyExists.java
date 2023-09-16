@@ -1,7 +1,7 @@
 package com.tonde.maisonchapback.checker;
 
-import com.tonde.maisonchapback.requests.RegisterRequest;
 import com.tonde.maisonchapback.repositories.UserRepository;
+import com.tonde.maisonchapback.requests.RegisterRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

@@ -1,10 +1,10 @@
 package com.tonde.maisonchapback.auths;
 
 
-import com.tonde.maisonchapback.requests.AuthenticationRequest;
-import com.tonde.maisonchapback.requests.RegisterRequest;
 import com.tonde.maisonchapback.checker.CheckIfUserAlreadyExists;
 import com.tonde.maisonchapback.config.LogoutService;
+import com.tonde.maisonchapback.requests.AuthenticationRequest;
+import com.tonde.maisonchapback.requests.RegisterRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -28,7 +28,6 @@ public class AuthenticationController {
     private final AuthenticationService authentificationService;
     private final LogoutService logoutService;
     private final CheckIfUserAlreadyExists check;
-
 
 
     @Operation(

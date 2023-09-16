@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +57,7 @@ public class TypeHouseServiceImpl implements TypeHouseService {
             TypeHouse typeHouse1 = typeHouseOptional.get();
             typeHouse1.setType(typeHouse.getType());
             typeHouse1.setDescription(typeHouse.getDescription());
-            typeHouse1.setUpdatedAt(LocalDateTime.now());
+            typeHouse1.setDateModification(Instant.from(LocalDateTime.now()));
             typeHouseRepository.save(typeHouse1);
             return ResponseEntity.ok("Type updated");
         }

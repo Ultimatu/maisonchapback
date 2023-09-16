@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -53,12 +53,12 @@ public class Abonnement {
     private String etat;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "date_debut")
-    private LocalDateTime dateDebut;
+    private Instant dateDebut;
     @Column(columnDefinition = "TIMESTAMP", name = "date_fin")
-    private LocalDateTime dateFin;
+    private Instant dateFin;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
-    private LocalDateTime dateCreation;
+    private Instant dateCreation;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_ID_Abonnement"))

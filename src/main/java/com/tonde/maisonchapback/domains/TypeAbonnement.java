@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,10 +46,10 @@ public class TypeAbonnement {
     private String access;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
-    private java.time.LocalDateTime dateCreation;
+    private Instant dateCreation;
 
     @Column(columnDefinition = "TIMESTAMP", name = "updated_at")
-    private java.time.LocalDateTime updatedAt;
+    private Instant updatedAt;
 
 
 }

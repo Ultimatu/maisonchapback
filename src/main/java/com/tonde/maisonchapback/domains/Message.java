@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @NoArgsConstructor
 @Data
@@ -62,9 +62,9 @@ public class Message {
     private String response;
 
     @Column(columnDefinition = "TIMESTAMP", name = "date_response")
-    private LocalDateTime dateResponse;
+    private Instant dateResponse;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "sent_at")
-    private LocalDateTime sentAt;
+    private Instant sentAt;
 
 }

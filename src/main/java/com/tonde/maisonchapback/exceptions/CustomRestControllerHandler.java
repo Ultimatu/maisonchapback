@@ -1,5 +1,6 @@
 package com.tonde.maisonchapback.exceptions;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +20,7 @@ public class CustomRestControllerHandler extends ResponseEntityExceptionHandler 
                 .message("Erreur interne du serveur")
                 .build();
     }
+
 
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -130,7 +132,7 @@ public class CustomRestControllerHandler extends ResponseEntityExceptionHandler 
                 .build();
     }
 
-    @ExceptionHandler(io.jsonwebtoken.ExpiredJwtException.class)
+    @ExceptionHandler(ExpiredJwtException.class)
     @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Token Expired")
     public ApiError handleJsonWebException(org.springframework.security.authentication.AuthenticationServiceException e) {
         return ApiError
@@ -142,6 +144,7 @@ public class CustomRestControllerHandler extends ResponseEntityExceptionHandler 
 
 
     }
+
 
 
 }

@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -43,9 +43,9 @@ public class Status {
     private String description;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
-    private LocalDateTime dateCreation;
+    private Instant dateCreation;
 
     @Column(columnDefinition = "TIMESTAMP", name = "updated_at")
-    private LocalDateTime updatedAt;
+    private Instant updatedAt;
 
 }

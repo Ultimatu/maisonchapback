@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @AllArgsConstructor
@@ -52,10 +52,10 @@ public class Comments {
     private String comment;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "created_at")
-    private LocalDateTime dateCreation;
+    private Instant dateCreation;
 
     @Column(columnDefinition = "TIMESTAMP", name = "date_modification")
-    private LocalDateTime dateModification;
+    private Instant dateModification;
 
 
 }
