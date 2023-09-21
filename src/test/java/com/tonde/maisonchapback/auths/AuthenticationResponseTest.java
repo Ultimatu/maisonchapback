@@ -10,6 +10,7 @@ class AuthenticationResponseTest {
 
     @BeforeEach
     void setUp() {
+
     }
 
     @AfterEach

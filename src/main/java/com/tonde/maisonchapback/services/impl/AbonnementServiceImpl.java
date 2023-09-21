@@ -5,7 +5,9 @@ import com.tonde.maisonchapback.domains.Abonnement;
 import com.tonde.maisonchapback.domains.User;
 import com.tonde.maisonchapback.repositories.AbonnementRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
+import com.tonde.maisonchapback.services.dto.AbonnementDTO;
 import com.tonde.maisonchapback.services.interfaces.AbonnementService;
+import com.tonde.maisonchapback.services.mappers.AbonnementMapper;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +24,12 @@ public class AbonnementServiceImpl implements AbonnementService {
 
     private final AbonnementRepository repository;
     private final UserRepository userRepository;
+    private final AbonnementMapper abonnementMapper;
 
     @Override
-    public List<Abonnement> getAllAbonnements() {
+    public List<AbonnementDTO> getAllAbonnements() {
 
-        return repository.findAll();
+        return abonnementMapper.toDto(repository.findAll());
     }
 
     @Override

@@ -4,10 +4,11 @@ import com.tonde.maisonchapback.domains.User;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 @Hidden
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Serializable> {
 
 
     Optional<User> findByEmail(String username);

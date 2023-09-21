@@ -1,8 +1,10 @@
 spring:
+  mvc:
+    static-path-pattern: /**
   datasource:
-    username: ultimatum
-    password: ultimatum
-    url: jdbc:mysql://localhost:3306/maison_chap
+    username: root
+    password:
+    url: jdbc:mysql://localhost:3307/maison_chap
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
         poolName: Hikari
@@ -18,6 +20,9 @@ spring:
       ddl-auto: update
     show-sql: true
     open-in-view: false
+    properties:
+      hibernate:
+          dialect: org.hibernate.dialect.MySQL8Dialect
   application:
     name: maison-chap
   servlet:
@@ -41,20 +46,34 @@ spring:
             enable: true
   messages:
     basename: i18n/messages
+
   thymeleaf:
-    cache: false
+    cache: true
     mode: HTML
     encoding: UTF-8
     servlet:
       content-type: text/html
-
+  banner:
+    location: banner.txt
 server:
     port: 8080
 
 application:
+  frontend:
+    url: http://192.168.190.216:4200
+    login:
+      endpoint: /login
+    renew-account:
+      endpoint: /renew-validation
   security:
     jwt:
       secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
+file:
+  upload-dir: src/main/resources/static/uploads
+
+mail:
+    from: memorial@ultimatumworkspace.works
+    baseUrl: http://192.168.190.216:8080

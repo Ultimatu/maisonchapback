@@ -2,10 +2,8 @@ package com.tonde.maisonchapback.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tonde.maisonchapback.exceptions.BadCredentialsException;
 import com.tonde.maisonchapback.exceptions.CustomLogger;
 import com.tonde.maisonchapback.repositories.TokenRepository;
-import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        if (request.getServletPath().contains("/api/v1/auth")) {
+        if (request.getServletPath().contains("/api/auth")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -57,6 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         catch (Exception e) {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "Invalid token");
+            errorResponse.put("url", "api/auth/authenticate");
 
             ObjectMapper objectMapper = new ObjectMapper();
             String errorMessage = objectMapper.writeValueAsString(errorResponse);

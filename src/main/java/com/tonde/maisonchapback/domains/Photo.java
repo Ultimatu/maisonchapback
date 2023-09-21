@@ -1,16 +1,17 @@
 package com.tonde.maisonchapback.domains;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 
 @NoArgsConstructor
-@Data
 @AllArgsConstructor
 @Builder
 @Entity
@@ -19,7 +20,6 @@ import lombok.NoArgsConstructor;
         name = "Photo",
         description = "Photo model",
         requiredMode = Schema.RequiredMode.REQUIRED,
-        implementation = Photo.class,
         example = """
                 {
                   "id": "integer",
@@ -29,13 +29,14 @@ import lombok.NoArgsConstructor;
                 }""",
         requiredProperties = {"id", "house", "url", "description"}
 )
-public class Photo {
+public class Photo  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "house_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_HOUSE_ID_Photo"))
     private House house;
 
@@ -47,4 +48,35 @@ public class Photo {
     private String description;
 
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

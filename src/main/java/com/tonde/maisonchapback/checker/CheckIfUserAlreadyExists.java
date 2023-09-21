@@ -26,8 +26,13 @@ public class CheckIfUserAlreadyExists {
     private final UserRepository repository;
 
     public boolean alreadyExist(RegisterRequest request) {
-        logger.info("Checking if user exists...");
+        logger.info("Checking if user exists By email and phone...");
 
         return repository.existsByEmailOrPhone(request.getEmail(), request.getPhone());
+    }
+
+    public boolean alreadyExist(Integer id) {
+        logger.info("Checking if user exists by id...");
+        return repository.existsById(id);
     }
 }

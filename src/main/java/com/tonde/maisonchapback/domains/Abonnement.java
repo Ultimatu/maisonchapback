@@ -1,16 +1,15 @@
 package com.tonde.maisonchapback.domains;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,13 +32,17 @@ import java.time.Instant;
                 }""",
         requiredProperties = {"typeAbonnement", "duree", "type", "etat", "dateDebut", "dateFin", "dateCreation", "user"}
 )
-public class Abonnement {
+public class Abonnement implements java.io.Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(
+            value = {"abonnements", "houses", "comments", "reservations", "rates", "statistiques", "favoris", "messages" },
+            allowSetters = true
+    )
     @JoinColumn(name = "type_abonnement_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_TYPE_ABONNEMENT_ID_Abonnement"))
     private TypeAbonnement typeAbonnement;
 
@@ -64,6 +67,77 @@ public class Abonnement {
     @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_ID_Abonnement"))
     private User user;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public TypeAbonnement getTypeAbonnement() {
+        return typeAbonnement;
+    }
+
+    public void setTypeAbonnement(TypeAbonnement typeAbonnement) {
+        this.typeAbonnement = typeAbonnement;
+    }
+
+    public String getDuree() {
+        return duree;
+    }
+
+    public void setDuree(String duree) {
+        this.duree = duree;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public Instant getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Instant dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Instant getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Instant dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public Instant getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Instant dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
 
 

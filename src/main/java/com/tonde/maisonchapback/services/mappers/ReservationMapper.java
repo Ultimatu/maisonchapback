@@ -1,34 +1,36 @@
 package com.tonde.maisonchapback.services.mappers;
 
+import com.tonde.maisonchapback.domains.House;
 import com.tonde.maisonchapback.domains.Reservation;
+import com.tonde.maisonchapback.domains.User;
+import com.tonde.maisonchapback.services.dto.HouseDTO;
 import com.tonde.maisonchapback.services.dto.ReservationDTO;
-import org.mapstruct.*;
+import com.tonde.maisonchapback.services.dto.UserDTO;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
-import java.util.List;
+
 
 
 /**
  * Mapper for the entity {@link Reservation} and its DTO {@link ReservationDTO}.
  */
+
 @Mapper(componentModel = "spring")
 public interface ReservationMapper extends EntityMapper<ReservationDTO, Reservation> {
+    @Mapping(target = "house", source = "house", qualifiedByName = "houseId")
+    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
+    ReservationDTO toDto(Reservation s);
 
-    @Override
-    @Mapping(target = "id", ignore = true)
-        // Ignorer l'ID lors de la conversion
-    Reservation toEntity(ReservationDTO dto);
+    @Named("houseId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    HouseDTO toDtoHouseId(House house);
 
-    @Override
-    ReservationDTO toDto(Reservation entity);
-
-    @Override
-    List<Reservation> toEntity(List<ReservationDTO> dtoList);
-
-    @Override
-    List<ReservationDTO> toDto(List<Reservation> entityList);
-
-    @Override
-    @Named("partialUpdate")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget Reservation entity, ReservationDTO dto);
+    @Named("userId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    UserDTO toDtoUserId(User user);
 }

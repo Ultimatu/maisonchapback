@@ -11,9 +11,9 @@ import java.util.List;
 @Hidden
 public interface HouseService {
 
-    ResponseEntity<List<House>> getAllHouses();
+    List<House> getAllHouses();
 
-    ResponseEntity<House> getHouseById(int id);
+    House getHouseById(int id);
 
 
     ResponseEntity<String> addHouse(House house);
@@ -22,15 +22,15 @@ public interface HouseService {
 
     ResponseEntity<String> deleteHouse(int house);
 
-    ResponseEntity<List<House>> getAllRentingHouses();
+    List<House> getAllRentingHouses();
 
-    ResponseEntity<List<House>> getAllSellingHouses();
+    List<House> getAllSellingHouses();
 
 
-    ResponseEntity<List<House>> getAllHousesByUserId(int userId);
+    List<House> getAllHousesByUserId(int userId);
 
-    ResponseEntity<List<House>> getAllHousesByStatus(int status);
+    List<House> getAllHousesByStatus(int status);
 
-    ResponseEntity<List<House>> getAllHousesByDisponibility(String disponibility);
+    List<House> getAllHousesByDisponibility(String disponibility);
 
 }

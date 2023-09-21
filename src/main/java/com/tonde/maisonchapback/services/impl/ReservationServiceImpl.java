@@ -38,6 +38,10 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ResponseEntity<String> createReservation(Reservation reservation) {
+        House house = houseRepository.findById(reservation.getHouse().getId()).orElseThrow(null);
+        User user = userRepository.findById(reservation.getUser().getId()).orElseThrow(null);
+        reservation.setUser(user);
+        reservation.setHouse(house);
         Optional<Reservation> optional = reservationRepository
                 .findByHouseIdAndUser(reservation.getHouse().getId(), reservation.getUser());
         if (optional.isPresent()) {

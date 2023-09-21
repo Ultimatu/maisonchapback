@@ -7,9 +7,13 @@ public class CustomLogger {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomLogger.class);
 
-
     private CustomLogger() {
+        // Empêche l'instanciation de cette classe
         throw new IllegalStateException("Erreur interne du serveur");
+    }
+
+    public static Logger getLogger(Class<?> callingClass) {
+        return LoggerFactory.getLogger(callingClass);
     }
 
     public static void log(String type, String message) {

@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final AbonnementService abonnementService;
-    private ConstantCenter constantCenter;
 
     @Override
     public ResponseEntity<List<User>> getAllUsers() {
@@ -58,6 +57,7 @@ public class UserServiceImpl implements UserService {
             user1.setPhotoPath(user.getPhotoPath());
             user1.setAdresse(user.getAdresse());
             user1.setPhone(user.getPhone());
+            user1.setLangkey(user.getLangkey());
             userRepository.save(user1);
             return ResponseEntity.ok("User updated successfully");
         }

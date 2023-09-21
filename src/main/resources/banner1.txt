@@ -1,0 +1,8 @@
+
+
+${AnsiColor.BRIGHT_RED}  _____   ____   ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}   _      ${AnsiStyle.BOLD}${AnsiColor.GREEN}    ____    _____
+${AnsiColor.BRIGHT_RED} /__ __\ /  _ \  ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}  / \  /| ${AnsiStyle.BOLD}${AnsiColor.GREEN}   /  _ \  /  __/
+${AnsiColor.BRIGHT_RED}   / \   | / \|  ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}  | |\ || ${AnsiStyle.BOLD}${AnsiColor.GREEN}   | | \|  |  \
+${AnsiColor.BRIGHT_RED}   | |   | \_/|  ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}  | | \|| ${AnsiStyle.BOLD}${AnsiColor.GREEN}   | |_/|  |  /_
+${AnsiColor.BRIGHT_RED}   \_/   \____/  ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}  \_/  \| ${AnsiStyle.BOLD}${AnsiColor.GREEN}   \____/  \____\
+

@@ -1,0 +1,20 @@
+
+            ${AnsiBackground.BLACK}██╗   ██╗██╗  ████████╗██╗███╗   ███╗ █████╗ ████████╗██╗   ██╗███╗   ███╗
+            ${AnsiBackground.BLACK}██║   ██║██║  ╚══██╔══╝██║████╗ ████║██╔══██╗╚══██╔══╝██║   ██║████╗ ████║
+            ${AnsiBackground.BLACK}██║   ██║██║     ██║   ██║██╔████╔██║███████║   ██║   ██║   ██║██╔████╔██║
+            ${AnsiBackground.BLACK}██║   ██║██║     ██║   ██║██║╚██╔╝██║██╔══██║   ██║   ██║   ██║██║╚██╔╝██║
+            ${AnsiBackground.BLACK}╚██████╔╝███████╗██║   ██║██║ ╚═╝ ██║██║  ██║   ██║   ╚██████╔╝██║ ╚═╝ ██║
+            ${AnsiBackground.BLACK} ╚═════╝ ╚══════╝╚═╝   ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝
+
+
+
+            ${AnsiColor.BRIGHT_RED}  Present  ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}  the     ${AnsiStyle.BOLD}${AnsiColor.GREEN}    best real estate  app named  ${AnsiColor.BRIGHT_RED}  "  ${AnsiColor.BRIGHT_YELLOW}   ${AnsiColor.BRIGHT_RED}  "
+            ${AnsiBackground.BLACK} ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}   ███╗   ███╗${AnsiColor.BRIGHT_RED} █████╗ ██╗${AnsiColor.YELLOW}███████╗${AnsiColor.BRIGHT_RED} ██████╗ ███╗   ██╗${AnsiColor.BRIGHT_YELLOW} ██████╗██╗  ██╗${AnsiColor.BRIGHT_RED} █████╗ ${AnsiColor.BRIGHT_YELLOW}██████╗
+            ${AnsiBackground.BLACK} ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}   ████╗ ████║${AnsiColor.BRIGHT_RED}██╔══██╗██║${AnsiColor.YELLOW}██╔════╝${AnsiColor.BRIGHT_RED}██╔═══██╗████╗  ██║${AnsiColor.BRIGHT_YELLOW}██╔════╝██║  ██║${AnsiColor.BRIGHT_RED}██╔══██╗${AnsiColor.BRIGHT_YELLOW}██╔══██╗
+            ${AnsiBackground.BLACK} ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}   ██╔████╔██║${AnsiColor.BRIGHT_RED}███████║██║${AnsiColor.YELLOW}███████╗${AnsiColor.BRIGHT_RED}██║   ██║██╔██╗ ██║${AnsiColor.BRIGHT_YELLOW}██║     ███████║${AnsiColor.BRIGHT_RED}███████║${AnsiColor.BRIGHT_YELLOW}██████╔╝
+            ${AnsiBackground.BLACK} ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}   ██║╚██╔╝██║${AnsiColor.BRIGHT_RED}██╔══██║██║${AnsiColor.YELLOW}╚════██║${AnsiColor.BRIGHT_RED}██║   ██║██║╚██╗██║${AnsiColor.BRIGHT_YELLOW}██║     ██╔══██║${AnsiColor.BRIGHT_RED}██╔══██║${AnsiColor.BRIGHT_YELLOW}██╔═══╝
+            ${AnsiBackground.BLACK} ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}   ██║ ╚═╝ ██║${AnsiColor.BRIGHT_RED}██║  ██║██║${AnsiColor.YELLOW}███████║${AnsiColor.BRIGHT_RED}╚██████╔╝██║ ╚████║${AnsiColor.BRIGHT_YELLOW}╚██████╗██║  ██║${AnsiColor.BRIGHT_RED}██║  ██║${AnsiColor.BRIGHT_YELLOW}██║
+            ${AnsiBackground.BLACK} ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}   ╚═╝     ╚═╝${AnsiColor.BRIGHT_RED}╚═╝  ╚═╝╚═╝${AnsiColor.YELLOW}╚══════╝${AnsiColor.BRIGHT_RED} ╚═════╝ ╚═╝  ╚═══╝${AnsiColor.BRIGHT_YELLOW} ╚═════╝╚═╝  ╚═╝${AnsiColor.BRIGHT_RED}╚═╝  ╚═╝${AnsiColor.BRIGHT_YELLOW}╚═╝
+            ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}  for  ${AnsiColor.BRIGHT_RED}  you  ${AnsiColor.YELLOW}${AnsiStyle.ITALIC}  .
+
+

@@ -6,7 +6,6 @@ import com.tonde.maisonchapback.repositories.CommentRepository;
 import com.tonde.maisonchapback.repositories.HouseRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.services.interfaces.CommentService;
-import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Hidden
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
@@ -26,9 +24,10 @@ public class CommentServiceImpl implements CommentService {
 
     private final HouseRepository houseRepository;
 
+
     @Override
     public List<Comments> getAllComments() {
-        return commentRepository.findAll().isEmpty() ? null : commentRepository.findAll();
+        return commentRepository.findAll();
     }
 
     @Override
@@ -39,14 +38,17 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public ResponseEntity<String> addComment(Comments comments) {
+
+
         commentRepository.save(comments);
-        return ResponseEntity.ok("Commentaire ajouté avec succès");
+        return ResponseEntity.ok("Commentaire ajouté");
     }
 
     @Override
     public ResponseEntity<String> updateComment(Comments comments) {
         Optional<Comments> comments1 = commentRepository.findById(comments.getId());
         if (comments1.isPresent()) {
+
             comments1.get().setDateModification(comments.getDateModification());
             comments1.get().setUser(comments.getUser());
             comments1.get().setHouse(comments.getHouse());

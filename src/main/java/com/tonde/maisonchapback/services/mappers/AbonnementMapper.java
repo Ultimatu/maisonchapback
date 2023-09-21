@@ -13,11 +13,12 @@ import org.mapstruct.Named;
 
 /**
  * Mapper for the entity {@link Abonnement} and its DTO {@link AbonnementDTO}.
- */
+
+*/
 @Mapper(componentModel = "spring")
 public interface AbonnementMapper extends EntityMapper<AbonnementDTO, Abonnement> {
-    @Mapping(target = "typeAbonnement", source = "typeAbonnement", qualifiedByName = "typeAbonnementId")
-    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
+    @Mapping(target = "typeAbonnementDTO", source = "typeAbonnement", qualifiedByName = "typeAbonnementId")
+    @Mapping(target = "userDTO", source = "user", qualifiedByName = "userId")
     AbonnementDTO toDto(Abonnement s);
 
     @Named("typeAbonnementId")
@@ -25,7 +26,7 @@ public interface AbonnementMapper extends EntityMapper<AbonnementDTO, Abonnement
     @Mapping(target = "id", source = "id")
     TypeAbonnementDTO toDtoTypeAbonnementId(TypeAbonnement typeAbonnement);
 
-    @Named("UserId")
+    @Named("userId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     UserDTO toDtoUserId(User user);

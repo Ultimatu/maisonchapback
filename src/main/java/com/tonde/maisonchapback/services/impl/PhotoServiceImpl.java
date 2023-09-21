@@ -4,6 +4,7 @@ import com.tonde.maisonchapback.domains.House;
 import com.tonde.maisonchapback.domains.Photo;
 import com.tonde.maisonchapback.domains.User;
 import com.tonde.maisonchapback.exceptions.ApiError;
+import com.tonde.maisonchapback.exceptions.CustomLogger;
 import com.tonde.maisonchapback.exceptions.CustomRestControllerHandler;
 import com.tonde.maisonchapback.repositories.HouseRepository;
 import com.tonde.maisonchapback.repositories.PhotoRepository;
@@ -11,6 +12,8 @@ import com.tonde.maisonchapback.repositories.UserRepository;
 import com.tonde.maisonchapback.services.interfaces.PhotoService;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +36,10 @@ public class PhotoServiceImpl implements PhotoService {
     private final HouseRepository houseRepository;
     private final UserRepository userRepository;
 
+    @Value("${file.upload-dir}")
+    private String uploadPath;
+
+
     @Override
     public ResponseEntity<List<String>> addPhotos(List<MultipartFile> photoFiles, int houseId) throws IOException {
         House house = houseRepository.findById(houseId).orElse(null);
@@ -47,15 +54,19 @@ public class PhotoServiceImpl implements PhotoService {
                 byte[] photoData = photoFile.getBytes();
                 String fileName = photoFile.getOriginalFilename();
 
-                String uniqueFileName = savePhotoAndGetUniqueFileName(photoData, fileName, house);
+                String uniqueFileName = savePhotoAndGetUniqueFileName(photoData, fileName, house.getId());
                 if (uniqueFileName != null) {
+
+                    CustomLogger.log("INFO", "Photo sauvegarder: " + uniqueFileName);
                     successfulPhotoUrls.add(uniqueFileName);
                 } else {
-                    failedPhotos.add(fileName);
+                    failedPhotos.add("Ce fichier n'est pas sauvegardé: " + fileName);
+                    CustomLogger.log("ERROR", "Ce fichier n'est pas sauvegardé: " + fileName);
                 }
             }
 
             if (!failedPhotos.isEmpty()) {
+                CustomLogger.log("ERROR", "Failed photos: " + failedPhotos);
                 return ResponseEntity.badRequest().body(failedPhotos);
             }
 
@@ -64,25 +75,37 @@ public class PhotoServiceImpl implements PhotoService {
             return ResponseEntity.badRequest().body(Collections.emptyList());
         }
     }
+    private String savePhotoAndGetUniqueFileName(byte[] photoData, String fileName, int id) {
+        House house = houseRepository.findById(id).orElse(null);
+        assert house != null;
 
-    private String savePhotoAndGetUniqueFileName(byte[] photoData, String fileName, House house) {
         try {
-            String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
-            Path filePath = Paths.get("src/main/resources/static/photos/%s".formatted(uniqueFileName));
+            String filePath = Paths.get(uploadPath).toString();
+            Path path = Paths.get(filePath);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+            String fileExtension = FilenameUtils.getExtension(fileName);
+            String newFileName = System.currentTimeMillis() + "." + fileExtension;
 
-            Files.write(filePath, photoData);
+            Path targetLocation = Paths.get(path.toString(), newFileName);
 
-            Photo photo = new Photo();
-            photo.setUrl(uniqueFileName);
-            photo.setHouse(house);
 
-            photoRepository.save(photo);
+            Files.write(targetLocation, photoData);
+            CustomLogger.log("INFO", "Photo saving 22: " + newFileName);
+            String description = "Photo de la maison " + house.getTitle();
 
-            return uniqueFileName;
+            photoRepository.saveAll(newFileName, description, house.getId());
+            return newFileName;
+
+
         } catch (Exception e) {
-            return null; // La sauvegarde a échoué
+
+            CustomLogger.log("ERROR", "Erreur lors de la sauvegarde de la photo: " + e);
+            return null; // Retournez null pour indiquer une erreur
         }
     }
+
 
 
     @Override

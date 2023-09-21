@@ -2,7 +2,6 @@ package com.tonde.maisonchapback.controllers;
 
 
 import com.tonde.maisonchapback.domains.House;
-import com.tonde.maisonchapback.domains.Photo;
 import com.tonde.maisonchapback.domains.Reservation;
 import com.tonde.maisonchapback.exceptions.CustomLogger;
 import com.tonde.maisonchapback.services.impl.HouseServiceImpl;
@@ -178,146 +177,6 @@ public class ProprioController {
     }
 
 
-    @Operation(
-            tags = "Proprio API",
-            summary = "Récupérer une maison par son id",
-            description = "Récupérer une maison par son id",
-            operationId = "getHouseById",
-            method = "GET",
-            responses = {
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "200",
-                            description = "Maison récupérée avec succès",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            ),
-                            useReturnTypeSchema = true
-                    ),
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "400",
-                            description = "Erreur lors de la récupération de la maison",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            )
-                    ),
-            },
-            security = {
-                    @io.swagger.v3.oas.annotations.security.SecurityRequirement(
-                            name = "bearerAuth",
-                            scopes = {"read", "write"}
-                    )
-            },
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Maison à récupérer par son id",
-                    required = true,
-                    content = @io.swagger.v3.oas.annotations.media.Content(
-                            mediaType = "application/json",
-                            schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    ref = "#/components/schemas/House"
-                            )
-                    )
-            )
-    )
-
-    @GetMapping("/getAllHousesByUserId")
-    public ResponseEntity<List<House>> getAllHousesByUserId(int userId) {
-        return houseService.getAllHousesByUserId(userId);
-    }
-
-
-    @Operation(
-            tags = "Proprio API",
-            summary = "Récupérer une maison par son status",
-            description = "Récupérer une maison par son status",
-            operationId = "getAllHousesByStatus",
-            method = "GET",
-            responses = {
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "200",
-                            description = "Maison récupérée avec succès",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            ),
-                            useReturnTypeSchema = true
-                    ),
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "400",
-                            description = "Erreur lors de la récupération de la maison",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            )
-                    ),
-            },
-            security = {
-                    @io.swagger.v3.oas.annotations.security.SecurityRequirement(
-                            name = "bearerAuth",
-                            scopes = {"read", "write"}
-                    )
-            },
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Maison à récupérer par son status",
-                    required = true,
-                    content = @io.swagger.v3.oas.annotations.media.Content(
-                            mediaType = "application/json",
-                            schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    ref = "#/components/schemas/House"
-                            )
-                    )
-            )
-    )
-    public ResponseEntity<List<House>> getAllHousesByStatus(int status) {
-        return houseService.getAllHousesByStatus(status);
-    }
-
-
-    //by disponibility
-
-    @Operation(
-            tags = "Proprio API",
-            summary = "Récupérer une maison par sa disponibilité",
-            description = "Récupérer une maison par sa disponibilité",
-            operationId = "getAllHousesByDisponibility",
-            method = "GET",
-            responses = {
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "200",
-                            description = "Maison récupérée avec succès",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            ),
-                            useReturnTypeSchema = true
-                    ),
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "400",
-                            description = "Erreur lors de la récupération de la maison",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            )
-                    ),
-            },
-            security = {
-                    @io.swagger.v3.oas.annotations.security.SecurityRequirement(
-                            name = "bearerAuth",
-                            scopes = {"read", "write"}
-                    )
-            },
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Maison à récupérer par sa disponibilité",
-                    required = true,
-                    content = @io.swagger.v3.oas.annotations.media.Content(
-                            mediaType = "application/json",
-                            schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    ref = "#/components/schemas/House"
-                            )
-                    )
-            )
-    )
-    @GetMapping("/getAllHousesByDisponibility")
-
-    public ResponseEntity<List<House>> getAllHousesByDisponibility(String disponibility) {
-        return houseService.getAllHousesByDisponibility(disponibility);
-    }
-
 
 
     /*
@@ -374,7 +233,6 @@ public class ProprioController {
     ) throws IOException {
         CustomLogger.log("INFO", "Starting add photos controller service");
 
-
         return photoService.addPhotos(List.of(files), houseId);
     }
 
@@ -425,86 +283,13 @@ public class ProprioController {
     }
 
 
-    @Operation(
-            tags = "Proprio API",
-            summary = "Récupérer une photo par l'id de la maison",
-            description = "Récupérer une photo par l'id de la maison",
-            operationId = "getAllPhotosByHouseId",
-            method = "GET",
-            responses = {
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "200",
-                            description = "Photo récupérée avec succès",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            ),
-                            useReturnTypeSchema = true
-                    ),
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "400",
-                            description = "Erreur lors de la récupération de la photo",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            )
-                    ),
-            },
-            security = {
-                    @io.swagger.v3.oas.annotations.security.SecurityRequirement(
-                            name = "bearerAuth",
-                            scopes = {"read", "write"}
-                    )
-            },
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Photo à récupérer par l'id de la maison",
-                    required = true,
-                    content = @io.swagger.v3.oas.annotations.media.Content(
-                            mediaType = "multipart/form-data",
-                            schema = @io.swagger.v3.oas.annotations.media.Schema(
-                                    ref = "#/components/schemas/Photo"
-                            )
-                    )
-            )
-    )
 
-    @GetMapping("/getAllPhotosByHouseId")
-    public List<Photo> getAllPhotosByHouseId(int houseId) {
-        return photoService.getAllPhotosByHouseId(houseId);
-    }
 
     /*
      *                      Reservation APIs Section
      */
 
-    @Operation(
-            tags = "Proprio API",
-            summary = "Ajouter une réservation",
-            description = "Ajouter une réservation",
-            operationId = "addReservation",
-            method = "POST",
-            responses = {
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "200",
-                            description = "Réservation ajoutée avec succès",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            ),
-                            useReturnTypeSchema = true
-                    ),
-                    @io.swagger.v3.oas.annotations.responses.ApiResponse(
-                            responseCode = "401",
-                            description = "Erreur lors de l'ajout de la réservation",
-                            content = @io.swagger.v3.oas.annotations.media.Content(
-                                    mediaType = "application/json"
-                            )
-                    ),
-            }
 
-    )
-    @PostMapping("/addReservation")
-    public ResponseEntity<String> addReservation(@RequestBody Reservation reservation) {
-        return reservationService.createReservation(reservation);
-
-    }
 
 
     //update reservation

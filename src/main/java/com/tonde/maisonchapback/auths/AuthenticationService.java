@@ -2,22 +2,29 @@ package com.tonde.maisonchapback.auths;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tonde.maisonchapback.config.JwtService;
+import com.tonde.maisonchapback.domains.AccountActivation;
 import com.tonde.maisonchapback.domains.Token;
 import com.tonde.maisonchapback.domains.User;
 import com.tonde.maisonchapback.domains.enums.Role;
 import com.tonde.maisonchapback.domains.enums.TokenType;
 import com.tonde.maisonchapback.exceptions.BadCredentialsException;
+import com.tonde.maisonchapback.exceptions.CustomLogger;
+import com.tonde.maisonchapback.repositories.AccountActivationRepository;
 import com.tonde.maisonchapback.repositories.TokenRepository;
 import com.tonde.maisonchapback.repositories.UserRepository;
+import com.tonde.maisonchapback.requests.AccountActivationRequest;
 import com.tonde.maisonchapback.requests.AuthenticationRequest;
 import com.tonde.maisonchapback.requests.RegisterRequest;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.tonde.maisonchapback.services.constant.ConstantCenter;
+import com.tonde.maisonchapback.services.mail.KeyGenerator;
+import com.tonde.maisonchapback.services.mail.MailService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,43 +32,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Validated
-@Schema(
-        name = "AuthenticationService",
-        description = "Authentication service",
-
-        oneOf = AuthenticationService.class,
-        example = """
-                {
-                  "register": "AuthenticationResponse",
-                  "authenticate": "AuthenticationResponse",
-                  "savedUserToken": "void",
-                  "revokeAllUserTokens": "void",
-                  "refreshToken": "void"
-                }""",
-        implementation = AuthenticationService.class
-
-)
 public class AuthenticationService {
 
+
     private final UserRepository repository;
+    private final AccountActivationRepository activationRepository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final MailService mailService;
 
 
-    public AuthenticationResponse register(@Valid RegisterRequest request)
+    public ResponseEntity<Object> register(@Validated RegisterRequest request)
             throws BadCredentialsException {
-        //verifier s'il a un role vide si oui, on lui attribue le role USER
         if (request.getRole() == null) {
             request.setRole(Role.FREE_USER);
         }
 
-        var user = User.builder()
+        User user = User.builder()
                 .nom(request.getNom())
                 .prenom(request.getPrenom())
                 .email(request.getEmail())
@@ -71,18 +65,67 @@ public class AuthenticationService {
                 .role(request.getRole())
                 .build();
         if (user == null) {
-            throw new BadCredentialsException("Bad credentials");
+            throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
         }
-        var savedUser = repository.save(user);
 
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-        savedUserToken(savedUser, jwtToken);
+        repository.save(user);
+        String key = KeyGenerator.generateUniqueKey();
+        var accountCred = AccountActivation
+                .builder()
+                .key(key)
+                .userId(user.getId())
+                .expirationAt(LocalDateTime.now().plusMinutes(10))
+                .createdAt(LocalDateTime.now())
+                .isUsed(false)
+                        .build();
+        activationRepository.save(accountCred);
+        mailService.sendActivationEmail(user, key);
+        CustomLogger.log("INFO", "mail sended to user");
 
-        return AuthenticationResponse.builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+        return ResponseEntity.status(201).body(ConstantCenter.ACCOUNT_CREATED);
+
+    }
+
+
+    public boolean activateAccount(
+            @Valid
+            AccountActivationRequest request
+    ) {
+        Optional<User> user = repository.findById(request.getUserId());
+        if (user.isEmpty()) {
+            throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
+        }
+        Optional<AccountActivation> activation = activationRepository.findByUserIdAndKey(request.getUserId(), request.getKey());
+
+        if (activation.isEmpty()) {
+            throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
+        }
+
+
+        if (activation.get().isUsed()) {
+            throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
+        }
+        if (activation.get().isExpired()) {
+            activationRepository.delete(activation.get());
+            String key = KeyGenerator.generateUniqueKey();
+            var accountCred = AccountActivation
+                    .builder()
+                    .key(key)
+                    .userId(user.get().getId())
+                    .expirationAt(LocalDateTime.now().plusMinutes(10))
+                    .createdAt(LocalDateTime.now())
+                    .isUsed(false)
+                    .build();
+            activationRepository.save(accountCred);
+            return false;
+        }
+
+        user.get().setActive(true);
+        activation.get().setUsed(true);
+        activationRepository.save(activation.get());
+        repository.save(user.get());
+
+        return true;
 
     }
 
@@ -98,8 +141,13 @@ public class AuthenticationService {
                             request.getPassword()
                     )
             );
+
+            Optional<User> user = repository.findByEmail(request.getEmail());
+            if (user.isEmpty()) {
+                throw new BadCredentialsException(ConstantCenter.PENDING_ACCOUNT);
+            }
         } catch (Exception e) {
-            throw new BadCredentialsException("Bad credentials");
+            throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
         }
         var user = repository.findByEmail(request.getEmail()).orElseThrow(null);
         var jwtToken = jwtService.generateToken(user);
@@ -120,7 +168,7 @@ public class AuthenticationService {
             @NonNull String jwtToken
     ) {
 
-        var token = Token.builder()
+        Token token = Token.builder()
                 .user(user)
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)
@@ -128,7 +176,7 @@ public class AuthenticationService {
                 .revoked(false)
                 .build();
         if (token == null) {
-            throw new BadCredentialsException("Bad credentials");
+            throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
         }
 
         tokenRepository.save(token);
@@ -156,7 +204,7 @@ public class AuthenticationService {
         final String userEmail;
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ConstantCenter.INVALID_TOKEN);
             return;
         }
         refreshToken = authHeader.substring(7);
@@ -172,12 +220,13 @@ public class AuthenticationService {
                 revokeAllUserTokens(user);
                 savedUserToken(user, jwtToken);
 
-                var authResponse = AuthenticationResponse.builder()
+                AuthenticationResponse authResponse = AuthenticationResponse.builder()
                         .accessToken(jwtToken)
                         .refreshToken(newRefreshToken)
                         .build();
+
                 if (authResponse == null) {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ConstantCenter.INVALID_TOKEN);
                     return;
                 }
 

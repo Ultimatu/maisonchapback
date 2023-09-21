@@ -30,14 +30,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain apiSecurity(HttpSecurity http) throws Exception {
-        String managementApiPattern = "/api/v1/management/**";
-        String adminApiPattern = "/api/v1/admin/**";
+        String managementApiPattern = "/api/management/**";
+        String adminApiPattern = "/api/admin/**";
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((auth) -> auth
+                .authorizeHttpRequests(
+                        ( auth
+                        ) -> auth
                         .requestMatchers(
-                                "/api/v1/auth/***",
+                                "static/**",
+                                "down/**",
+                                "/api/auth/***",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -76,7 +80,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
-                        .logoutUrl("/api/v1/auth/logout")
+                        .logoutUrl("/api/auth/logout")
                         .addLogoutHandler(logoutHandler)
                         .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> SecurityContextHolder.clearContext()));
 

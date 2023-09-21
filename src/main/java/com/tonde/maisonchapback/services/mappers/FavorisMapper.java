@@ -1,35 +1,39 @@
+
 package com.tonde.maisonchapback.services.mappers;
 
 import com.tonde.maisonchapback.domains.Favoris;
+import com.tonde.maisonchapback.domains.House;
+import com.tonde.maisonchapback.domains.User;
 import com.tonde.maisonchapback.services.dto.FavorisDTO;
-import org.mapstruct.*;
+import com.tonde.maisonchapback.services.dto.HouseDTO;
+import com.tonde.maisonchapback.services.dto.UserDTO;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
-import java.util.List;
 
 
 /**
  * Mapper for the entity {@link Favoris} and its DTO {@link FavorisDTO}.
  */
-@Mapper(componentModel = "spring")
 
+
+@Mapper(componentModel = "spring")
 public interface FavorisMapper extends EntityMapper<FavorisDTO, Favoris> {
 
-    @Override
-    @Mapping(target = "id", ignore = true)
-        // Ignorer l'ID lors de la conversion
-    Favoris toEntity(FavorisDTO dto);
+    @Mapping(target = "house", source = "house", qualifiedByName = "houseId")
+    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
+    FavorisDTO toDto(Favoris s);
 
-    @Override
-    FavorisDTO toDto(Favoris entity);
+    @Named("houseId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    HouseDTO toDtoHouseId(House house);
 
-    @Override
-    List<Favoris> toEntity(List<FavorisDTO> dtoList);
-
-    @Override
-    List<FavorisDTO> toDto(List<Favoris> entityList);
-
-    @Override
-    @Named("partialUpdate")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget Favoris entity, FavorisDTO dto);
+    @Named("userId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    UserDTO toDtoUserId(User user);
 }
+

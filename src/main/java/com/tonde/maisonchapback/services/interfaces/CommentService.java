@@ -1,17 +1,25 @@
 package com.tonde.maisonchapback.services.interfaces;
 
 import com.tonde.maisonchapback.domains.Comments;
-import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-@Service
-@Hidden
+
+
+
+/**
+ * Service Interface for managing {@link com.tonde.maisonchapback.domains.Comments}.
+ */
+
 public interface CommentService {
 
+
+    /**
+     *
+     * @return List
+     */
     List<Comments> getAllComments();
 
     Comments getCommentById(int id);

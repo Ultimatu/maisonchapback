@@ -1,33 +1,46 @@
+
 package com.tonde.maisonchapback.services.mappers;
 
 import com.tonde.maisonchapback.domains.House;
+import com.tonde.maisonchapback.domains.Status;
+import com.tonde.maisonchapback.domains.TypeHouse;
+import com.tonde.maisonchapback.domains.User;
 import com.tonde.maisonchapback.services.dto.HouseDTO;
-import org.mapstruct.*;
+import com.tonde.maisonchapback.services.dto.StatusDTO;
+import com.tonde.maisonchapback.services.dto.TypeHouseDTO;
+import com.tonde.maisonchapback.services.dto.UserDTO;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
-import java.util.List;
+
 
 /**
  * Mapper for the entity {@link House} and its DTO {@link HouseDTO}.
  */
+
+
 @Mapper(componentModel = "spring")
 public interface HouseMapper extends EntityMapper<HouseDTO, House> {
+    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
+    @Mapping(target = "typeHouse", source = "typeHouse", qualifiedByName = "typeHouseId")
+    @Mapping(target = "statusHouse", source = "statusHouse", qualifiedByName = "statusId")
+    HouseDTO toDto(House s);
 
-    @Override
-    @Mapping(target = "id", ignore = true)
-        // Ignorer l'ID lors de la conversion
-    House toEntity(HouseDTO dto);
+    @Named("userId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    UserDTO toDtoUserId(User user);
 
-    @Override
-    HouseDTO toDto(House entity);
+    @Named("typeHouseId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    TypeHouseDTO toDtoTypeHouseId(TypeHouse typeHouse);
 
-    @Override
-    List<House> toEntity(List<HouseDTO> dtoList);
-
-    @Override
-    List<HouseDTO> toDto(List<House> entityList);
-
-    @Override
-    @Named("partialUpdate")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget House entity, HouseDTO dto);
+    @Named("statusId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    StatusDTO toDtoStatusId(Status status);
 }
+

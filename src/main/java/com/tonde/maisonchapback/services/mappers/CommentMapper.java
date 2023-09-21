@@ -1,34 +1,36 @@
 package com.tonde.maisonchapback.services.mappers;
 
 import com.tonde.maisonchapback.domains.Comments;
+import com.tonde.maisonchapback.domains.House;
+import com.tonde.maisonchapback.domains.User;
 import com.tonde.maisonchapback.services.dto.CommentDTO;
-import org.mapstruct.*;
+import com.tonde.maisonchapback.services.dto.HouseDTO;
+import com.tonde.maisonchapback.services.dto.UserDTO;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
-import java.util.List;
 
 /**
  * Mapper for the entity {@link Comments} and its DTO called {@link CommentDTO}.
- */
+
+
+*/
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper extends EntityMapper<CommentDTO, Comments> {
+    @Mapping(target = "house", source = "house", qualifiedByName = "houseId")
+    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
+    CommentDTO toDto(Comments s);
 
-    @Override
-    @Mapping(target = "id", ignore = true)
-        // Ignorer l'ID lors de la conversion
-    Comments toEntity(CommentDTO dto);
+    @Named("houseId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    HouseDTO toDtoHouseId(House house);
 
-    @Override
-    CommentDTO toDto(Comments entity);
-
-    @Override
-    List<Comments> toEntity(List<CommentDTO> dtoList);
-
-    @Override
-    List<CommentDTO> toDto(List<Comments> entityList);
-
-    @Override
-    @Named("partialUpdate")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget Comments entity, CommentDTO dto);
+    @Named("userId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    UserDTO toDtoUserId(User user);
 }

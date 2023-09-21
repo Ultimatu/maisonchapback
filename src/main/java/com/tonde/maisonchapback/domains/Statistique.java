@@ -50,4 +50,44 @@ public class Statistique {
     @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_ID_Statistique"))
     private User user;
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNbrvisite() {
+        return nbrvisite;
+    }
+
+    public void setNbrvisite(String nbrvisite) {
+        this.nbrvisite = nbrvisite;
+    }
+
+    public String getNbrLike() {
+        return nbrLike;
+    }
+
+    public void setNbrLike(String nbrLike) {
+        this.nbrLike = nbrLike;
+    }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "http://localhost:4200")
-@PreAuthorize("hasRole('ROLE_FREE_USER') or hasRole('ROLE_STANDARD_USER') or hasRole('ROLE_PREMIUM_USER')")
+@PreAuthorize("hasAuthority('ROLE_FREE_USER') or hasAuthority('ROLE_STANDARD_USER') or hasAuthority('ROLE_PREMIUM_USER')")
 public class UserController {
 
     /*
@@ -128,7 +128,9 @@ public class UserController {
             parameters = {
                     @io.swagger.v3.oas.annotations.Parameter(name = "id", description = "Id de l'utilisateur", required = true)
             },
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Utilisateur à mettre à jour", required = true)
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Utilisateur à mettre à jour", required = true
+              )
 
     )
     @PutMapping("/{id}/upgrade-user/standard")
@@ -297,7 +299,7 @@ public class UserController {
 
     )
     @PostMapping("/{id}/comments")
-    public ResponseEntity<?> addComment(@RequestBody Comments comments) {
+    public ResponseEntity<?> addComment(@RequestBody Comments comments, @PathVariable int id) {
         return commentService.addComment(comments);
     }
 
@@ -377,7 +379,7 @@ public class UserController {
 
     @PostMapping("/{id}/favoris")
     @PreAuthorize("hasRole('ROLE_STANDARD_PROPRIO') or hasRole('ROLE_PREMIUM_PROPRIO') or hasRole('ROLE_STANDARD_USER') or hasRole('ROLE_PREMIUM_USER')")
-    public ResponseEntity<?> addtoFavoris(@PathVariable int id, @RequestBody @Valid Favoris favoris) {
+    public ResponseEntity<?> addToFavoris(@PathVariable int id, @RequestBody @Valid Favoris favoris) {
         return favorisService.addFavoris(favoris);
     }
 
@@ -506,8 +508,8 @@ public class UserController {
 
     )
     @GetMapping("/house/{id}")
-    public ResponseEntity<?> getHouseByIdAndGetPhotoByHouseId(@PathVariable int id) {
-        ResponseEntity<?> house = houseService.getHouseById(1);
+    public Map<String, Object> getHouseByIdAndGetPhotoByHouseId(@PathVariable int id) {
+        House house = houseService.getHouseById(1);
 
         List<Photo> photos = photoService.getAllPhotosByHouseId(1);
 
@@ -515,7 +517,7 @@ public class UserController {
         response.put("house", house);
         response.put("photos", photos);
 
-        return ResponseEntity.ok(response);
+        return response;
 
     }
 

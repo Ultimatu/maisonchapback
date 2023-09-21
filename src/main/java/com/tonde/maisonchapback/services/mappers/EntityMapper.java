@@ -4,7 +4,6 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
  * @param <D> - DTO type parameter.
  * @param <E> - Entity type parameter.
  */
-@Service
 public interface EntityMapper<D, E> {
     E toEntity(D dto);
 

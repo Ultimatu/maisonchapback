@@ -5,18 +5,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@EntityScan
 @Table(name = "_type_house")
 @Schema(
         name = "TypeHouse",
@@ -31,7 +29,9 @@ import java.time.Instant;
                 }""",
         requiredProperties = {"id", "type", "description"}
 )
-public class TypeHouse {
+public class TypeHouse implements Serializable{
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,4 +50,43 @@ public class TypeHouse {
     private Instant dateModification;
 
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Instant getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Instant dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public Instant getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(Instant dateModification) {
+        this.dateModification = dateModification;
+    }
 }
