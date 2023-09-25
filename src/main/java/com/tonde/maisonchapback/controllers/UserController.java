@@ -4,10 +4,16 @@ package com.tonde.maisonchapback.controllers;
 import com.tonde.maisonchapback.domains.*;
 import com.tonde.maisonchapback.services.impl.*;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,8 +58,8 @@ public class UserController {
 
     //get user by id
     @Operation(
-            summary = "Récupérer un utilisateur par son id",
-            description = "Récupérer un utilisateur par son id",
+            summary = "Récupérer les données de l'utilisateur connecté",
+            description = "Récupérer les données de l'utilisateur connecté",
             tags = {"Utilisateurs"},
             responses = {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Utilisateur trouvé"),
@@ -66,9 +72,25 @@ public class UserController {
 
     )
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable int id) {
-        return userService.getUserById(id);
+    @GetMapping("/my-details")
+    public ResponseEntity<User> getUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            if (!(authentication.getPrincipal() instanceof User user)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
+            String userEmail = user.getUsername(); // C'est l'adresse email de l'utilisateur connecté
+
+            User user1 = userService.getconnectedUser(userEmail);
+
+            if (user1 != null) {
+                return ResponseEntity.ok(user);
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @Operation(
@@ -130,7 +152,7 @@ public class UserController {
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Utilisateur à mettre à jour", required = true
-              )
+            )
 
     )
     @PutMapping("/{id}/upgrade-user/standard")

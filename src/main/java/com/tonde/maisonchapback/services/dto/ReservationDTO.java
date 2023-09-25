@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.time.Instant;
 
 
-
 public class ReservationDTO implements Serializable {
     private Integer id;
 

@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.time.Instant;
 
 
-
 public class TypeHouseDTO implements Serializable {
 
     private Integer id;

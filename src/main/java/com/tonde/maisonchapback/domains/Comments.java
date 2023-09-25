@@ -41,7 +41,7 @@ public class Comments implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(
-            value = { "user", "typeHouse", "status", "comments", "photos", "reservations", "rates", "statistiques", "favoris" },
+            value = {"user", "typeHouse", "status", "comments", "photos", "reservations", "rates", "statistiques", "favoris"},
             allowSetters = true
     )
     @JoinColumn(name = "house_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_HOUSE_ID_Comment"))
@@ -50,7 +50,7 @@ public class Comments implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(
-            value = {"abonnements", "houses", "comments", "reservations", "rates", "statistiques", "favoris", "messages" },
+            value = {"abonnements", "houses", "comments", "reservations", "rates", "statistiques", "favoris", "messages"},
             allowSetters = true
     )
     @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_ID_Comment"))

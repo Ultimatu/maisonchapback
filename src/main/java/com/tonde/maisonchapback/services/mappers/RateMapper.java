@@ -1,4 +1,3 @@
-
 package com.tonde.maisonchapback.services.mappers;
 
 import com.tonde.maisonchapback.domains.House;
@@ -13,11 +12,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 
-
 /**
  * Mapper for the entity {@link com.tonde.maisonchapback.domains.Rates} and its DTO {@link RateDTO}.
-
-*/
+ */
 @Mapper(componentModel = "spring")
 public interface RateMapper extends EntityMapper<RateDTO, Rates> {
     @Mapping(target = "house", source = "house", qualifiedByName = "houseId")

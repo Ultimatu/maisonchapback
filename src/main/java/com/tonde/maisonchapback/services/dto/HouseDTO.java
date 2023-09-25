@@ -49,6 +49,7 @@ public class HouseDTO implements Serializable {
     private StatusDTO statusHouse;
 
     private List<PhotoDTO> photos;
+
     public Integer getId() {
         return id;
     }
@@ -162,7 +163,7 @@ public class HouseDTO implements Serializable {
     }
 
     public StatusDTO getStatusHouse() {
-        return statusHouse ;
+        return statusHouse;
     }
 
     public void setStatusHouse(StatusDTO status) {

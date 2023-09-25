@@ -6,12 +6,12 @@ import com.tonde.maisonchapback.domains.User;
 import com.tonde.maisonchapback.domains.enums.Role;
 import com.tonde.maisonchapback.exceptions.BadCredentialsException;
 import com.tonde.maisonchapback.repositories.UserRepository;
-import com.tonde.maisonchapback.services.constant.ConstantCenter;
 import com.tonde.maisonchapback.services.interfaces.AbonnementService;
 import com.tonde.maisonchapback.services.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,12 +38,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> getUserById(int id) {
+    public ResponseEntity<User> getUserById(int id) {
         Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        }
-        return ResponseEntity.badRequest().body(ConstantCenter.USER_NOT_FOUND);
+        return user.map(ResponseEntity::ok).orElse(null);
+    }
+
+    @Override
+    public User getconnectedUser(String email){
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.orElse(null);
+
     }
 
     @Override
@@ -105,13 +109,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> deleteUser(int id) {
+    public void deleteUser(int id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
             userRepository.deleteById(id);
-            return ResponseEntity.ok("User deleted successfully");
+
         }
-        return ResponseEntity.badRequest().body("User not found");
     }
 
     @Override

@@ -32,7 +32,7 @@ import java.time.Instant;
                 }""",
         requiredProperties = {"typeAbonnement", "duree", "type", "etat", "dateDebut", "dateFin", "dateCreation", "user"}
 )
-public class Abonnement implements java.io.Serializable{
+public class Abonnement implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class Abonnement implements java.io.Serializable{
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(
-            value = {"abonnements", "houses", "comments", "reservations", "rates", "statistiques", "favoris", "messages" },
+            value = {"abonnements", "houses", "comments", "reservations", "rates", "statistiques", "favoris", "messages"},
             allowSetters = true
     )
     @JoinColumn(name = "type_abonnement_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_TYPE_ABONNEMENT_ID_Abonnement"))

@@ -15,13 +15,14 @@ public interface UserService {
 
     ResponseEntity<List<User>> getAllUsers();
 
-    ResponseEntity<?> getUserById(int id);
+    ResponseEntity<User> getUserById(int id);
 
     ResponseEntity<?> updateUser(int id, User user);
 
     ResponseEntity<?> updatePhoto(int id, MultipartFile file);
+    void deleteUser(int id);
 
-    ResponseEntity<?> deleteUser(int id);
+    User getconnectedUser( String email);
 
     ResponseEntity<?> upgradeUserToStandard(int id, Abonnement abonnement);
 

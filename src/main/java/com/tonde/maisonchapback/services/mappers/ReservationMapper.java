@@ -12,8 +12,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 
-
-
 /**
  * Mapper for the entity {@link Reservation} and its DTO {@link ReservationDTO}.
  */

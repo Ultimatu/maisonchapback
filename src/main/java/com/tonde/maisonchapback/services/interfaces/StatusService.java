@@ -6,18 +6,20 @@ import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Hidden
 public interface StatusService {
 
 
-    ResponseEntity<?> getAllStatus();
+    List<Status> getAllStatus();
 
-    ResponseEntity<?> getStatusById(Integer id);
+    Status getStatusById(Integer id);
 
-    ResponseEntity<?> createStatus(Status status);
+    ResponseEntity<Status> createStatus(Status status);
 
-    ResponseEntity<?> updateStatus(Status status);
+    ResponseEntity<Status> updateStatus(Status status);
 
-    ResponseEntity<?> deleteStatus(Integer id);
+    void deleteStatus(Integer id);
 }

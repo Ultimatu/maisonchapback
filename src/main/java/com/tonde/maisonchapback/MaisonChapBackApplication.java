@@ -32,12 +32,9 @@ public class MaisonChapBackApplication {
                 "\n----------------------------------------------------------\n\t" +
                         "Application is running! Access URLs:\n\t" +
                         "Local: \t\thttp://localhost:8080/swagger-ui.html\n\t" +
-                        "External: \thttp://"+hostAddress+":8080/swagger-ui.html\n\t"
+                        "External: \thttp://" + hostAddress + ":8080/swagger-ui.html\n\t"
         );
     }
-
-
-
 
 
 }

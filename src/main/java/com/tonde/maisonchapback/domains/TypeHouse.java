@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -29,8 +28,7 @@ import java.time.Instant;
                 }""",
         requiredProperties = {"id", "type", "description"}
 )
-public class TypeHouse implements Serializable{
-
+public class TypeHouse implements Serializable {
 
 
     @Id

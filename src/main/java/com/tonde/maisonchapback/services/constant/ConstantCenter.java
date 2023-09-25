@@ -2,7 +2,7 @@ package com.tonde.maisonchapback.services.constant;
 
 
 @SuppressWarnings("all")
-public final class ConstantCenter{
+public final class ConstantCenter {
 
 
     public static final String BAD_CREDENTIALS = "Bad credentials";
@@ -52,7 +52,7 @@ public final class ConstantCenter{
     public static final String INVALID_TOKEN = "Invalid token";
     public static final String ACCOUNT_CREATED = "Votre compte a été créé avec succès, veuillez vérifier votre boîte de réception pour activer votre compte";
     public static final String PENDING_ACCOUNT = "Veuillez activer votre compte";
-    public static final String JSON_CONTENT_TYPE =  "application/json";
+    public static final String JSON_CONTENT_TYPE = "application/json";
 
     private ConstantCenter() {
     }

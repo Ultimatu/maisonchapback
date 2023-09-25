@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.time.Instant;
 
 
-
 public class TypeAbonnementDTO implements Serializable {
     private Integer id;
 

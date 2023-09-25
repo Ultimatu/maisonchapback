@@ -31,7 +31,7 @@ import java.io.Serializable;
 )
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Favoris  implements Serializable {
+public class Favoris implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class Favoris  implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(
-            value = { "user", "typeHouse", "status", "comments", "photos", "reservations", "rates", "statistiques", "favoris" },
+            value = {"user", "typeHouse", "status", "comments", "photos", "reservations", "rates", "statistiques", "favoris"},
             allowSetters = true
     )
     @JoinColumn(name = "house_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_HOUSE_ID_Favoris"))
@@ -48,7 +48,7 @@ public class Favoris  implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(
-            value = {"abonnements", "houses", "comments", "reservations", "rates", "statistiques", "favoris", "messages" },
+            value = {"abonnements", "houses", "comments", "reservations", "rates", "statistiques", "favoris", "messages"},
             allowSetters = true
     )
     @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_USER_ID_Favoris"))

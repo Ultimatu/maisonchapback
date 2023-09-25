@@ -2,7 +2,10 @@ package com.tonde.maisonchapback.requests;
 
 
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
@@ -23,8 +26,6 @@ public class PasswordResetRequest {
     public boolean isPasswordMatch() {
         return password.equals(confirmPassword);
     }
-
-
 
 
 }

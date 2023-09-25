@@ -35,8 +35,6 @@ public class UserMapper {
     }
 
 
-
-
     public User userFromId(Integer id) {
         if (id == null) {
             return null;

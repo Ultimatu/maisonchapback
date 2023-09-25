@@ -4,7 +4,7 @@ spring:
   datasource:
     username: root
     password:
-    url: jdbc:mysql://localhost:3307/maison_chap
+    url: jdbc:mysql://localhost:3306/maison_chap
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
         poolName: Hikari

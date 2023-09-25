@@ -83,7 +83,7 @@ public class HouseServiceImpl implements HouseService {
             }
             }*/
 
-            return houseRepository.findAll();
+        return houseRepository.findAll();
 
     }
 

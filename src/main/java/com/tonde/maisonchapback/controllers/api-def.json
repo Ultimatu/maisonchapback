@@ -20,29 +20,28 @@
   "item": [
     {
       "name": "Utilisateurs",
-      "description":"Les endpoints pour les opérations sur les utilisateurs",
+      "description": "Les endpoints pour les opérations sur les utilisateurs",
       "item": [
         {
           "name": "Récupérer un utilisateur par son id",
           "request": {
             "method": "GET",
-            "url":  "{{base_url}}/user/{id}",
+            "url": "{{base_url}}/user/{id}",
             "description": "Récupérer un utilisateur par son id",
-            "header": 
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "Authorization": "Bearer {{token}}"
-              }
+            "header": {
+              "key": "Content-Type",
+              "value": "application/json",
+              "Authorization": "Bearer {{token}}"
+            }
           }
         },
         {
           "name": "Mettre à jour un utilisateur",
           "request": {
             "method": "PUT",
-            "url":  "{{base_url}}/user/{id}",
+            "url": "{{base_url}}/user/{id}",
             "description": "Mettre à jour un utilisateur",
-            "header":{
+            "header": {
               "key": "Content-Type",
               "value": "application/json",
               "Authorization": "Bearer {{token}}"
@@ -51,8 +50,6 @@
               "mode": "raw",
               "json": "{\n\t\"nom\": \"nom\",\n\t\"prenom\": \"prenom\",\n\t\"email\": \"email\",\n\t\"password\": \"password\",\n\t\"phone\": \"phone\",\n\t\"adresse\": \"adresse\",\n\t\"role\": \"role\",\n\t\"photoPath\": \"photo\"\n}"
             }
-
-
           }
         },
         {
@@ -65,8 +62,7 @@
               "value": "application/json",
               "Authorization": "Bearer {{token}}"
             },
-            "body":{
-
+            "body": {
             }
           }
         },
@@ -74,40 +70,35 @@
           "name": "Mettre à jour un utilisateur en premium",
           "request": {
             "method": "PUT",
-            "url":  "{{base_url}}/user/{id}/upgrade-user/premium"
-
+            "url": "{{base_url}}/user/{id}/upgrade-user/premium"
           }
         },
         {
           "name": "Mettre à jour un utilisateur en gratuit",
           "request": {
             "method": "PUT",
-            "url":  "{{base_url}}/user/{id}/upgrade-user/free"
-
+            "url": "{{base_url}}/user/{id}/upgrade-user/free"
           }
         },
         {
           "name": "Mettre à jour un propriétaire en standard",
           "request": {
             "method": "PUT",
-            "url":  "{{base_url}}/user/{id}/upgrade-proprio/standard"
-
+            "url": "{{base_url}}/user/{id}/upgrade-proprio/standard"
           }
         },
         {
           "name": "Mettre à jour un propriétaire en premium",
           "request": {
             "method": "PUT",
-            "url":  "{{base_url}}/user/{id}/upgrade-proprio/premium"
-
+            "url": "{{base_url}}/user/{id}/upgrade-proprio/premium"
           }
         },
         {
           "name": "Mettre à jour un propriétaire en gratuit",
           "request": {
             "method": "PUT",
-            "url":  "{{base_url}}/user/{id}/upgrade-proprio/free"
-
+            "url": "{{base_url}}/user/{id}/upgrade-proprio/free"
           }
         },
         {
@@ -115,7 +106,6 @@
           "request": {
             "method": "PUT",
             "url": "{{base_url}}/user/{id}/update-photo"
-
           }
         }
       ]
@@ -127,35 +117,30 @@
           "name": "Mettre à jour un favoris",
           "request": {
             "method": "PUT",
-            "url":  "{{base_url}}/user/{id}/favoris"
-
+            "url": "{{base_url}}/user/{id}/favoris"
           }
         },
         {
           "name": "Ajouter un favoris",
           "request": {
             "method": "POST",
-            "url":  "{{base_url}}/user/{id}/favoris"
-
+            "url": "{{base_url}}/user/{id}/favoris"
           }
         },
         {
           "name": "Récupérer tous les favoris d'un utilisateur",
           "request": {
             "method": "GET",
-            "url":  "{{base_url}}/user/user/{userId}"
-
+            "url": "{{base_url}}/user/user/{userId}"
           }
         },
         {
           "name": "Supprimer un favoris",
           "request": {
             "method": "DELETE",
-            "url":  "{{base_url}}/user/{id}/favoris"
-
+            "url": "{{base_url}}/user/{id}/favoris"
           }
         }
-
       ]
     },
     {
@@ -165,32 +150,28 @@
           "name": "Récupérer tous les commentaires",
           "request": {
             "method": "GET",
-            "url":  "{{base_url}}/user/{id}/comments"
-
+            "url": "{{base_url}}/user/{id}/comments"
           }
         },
         {
           "name": "Mettre à jour un commentaire",
           "request": {
             "method": "PUT",
-            "url":  "{{base_url}}/user/{id}/comments"
-
+            "url": "{{base_url}}/user/{id}/comments"
           }
         },
         {
           "name": "Ajouter un commentaire",
           "request": {
             "method": "POST",
-            "url":  "{{base_url}}/user/{id}/comments"
-
+            "url": "{{base_url}}/user/{id}/comments"
           }
         },
         {
           "name": "Supprimer un commentaire",
           "request": {
             "method": "DELETE",
-            "url":  "{{base_url}}/user/{id}/comments"
-
+            "url": "{{base_url}}/user/{id}/comments"
           }
         }
       ]
@@ -200,27 +181,24 @@
       "item": [
         {
           "name": "Recuperer toutes les maisons",
-            "request": {
-                "method": "GET",
-                "url":  "{{base_url}}/public/houses/all"
-
-            }
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/public/houses/all"
+          }
         },
         {
           "name": "Recuperer les masions en vente",
-            "request": {
-                "method": "GET",
-                "url":  "{{base_url}}/public/houses/selling"
-
-            }
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/public/houses/selling"
+          }
         },
         {
           "name": "Recuperer les masions en location",
-            "request": {
-                "method": "GET",
-                "url":  "{{base_url}}/public/houses/renting"
-
-            }
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/public/houses/renting"
+          }
         }
       ]
     },

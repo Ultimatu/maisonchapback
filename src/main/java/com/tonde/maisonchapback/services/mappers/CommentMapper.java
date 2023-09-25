@@ -14,9 +14,7 @@ import org.mapstruct.Named;
 
 /**
  * Mapper for the entity {@link Comments} and its DTO called {@link CommentDTO}.
-
-
-*/
+ */
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper extends EntityMapper<CommentDTO, Comments> {

@@ -15,7 +15,7 @@ import java.nio.file.Paths;
  * This class is responsible for loading a file as a resource from the specified upload directory.
  */
 @Service
-public class RessourceLoader{
+public class RessourceLoader {
 
     @Value("${file.upload-dir}")
     private String uploadPath;

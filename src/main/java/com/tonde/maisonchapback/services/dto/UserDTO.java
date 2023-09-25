@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Pattern;
 import java.io.Serializable;
 
 
-
 public class UserDTO implements Serializable {
 
     private Integer id;
@@ -41,7 +40,6 @@ public class UserDTO implements Serializable {
     private String photoPath;
 
     private String langkey;
-
 
 
     public UserDTO() {

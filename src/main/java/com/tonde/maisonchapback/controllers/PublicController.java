@@ -17,11 +17,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/public/houses")
 @CrossOrigin(origins = "http://localhost:4200")
-public class PublicController{
+public class PublicController {
 
     private final HouseServiceImpl houseService;
     private final PhotoServiceImpl photoService;
-
 
 
     @GetMapping("/all")
@@ -147,7 +146,7 @@ public class PublicController{
     )
 
     @GetMapping("/by-user/{userId}")
-    public List<House> getAllHousesByUserId(@PathVariable  int userId) {
+    public List<House> getAllHousesByUserId(@PathVariable int userId) {
         return houseService.getAllHousesByUserId(userId);
     }
 
@@ -240,9 +239,9 @@ public class PublicController{
                     )
             )
     )
-    @GetMapping("/dispo/{dispo}")
-    public List<House> getAllHousesByDisponibility(@PathVariable String dispo) {
-        return houseService.getAllHousesByDisponibility(dispo);
+    @GetMapping("/state/{status}")
+    public List<House> getAllHousesByDisponibility(@PathVariable String status) {
+        return houseService.getAllHousesByDisponibility(status);
     }
 
 

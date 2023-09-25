@@ -22,7 +22,6 @@ public class CustomRestControllerHandler extends ResponseEntityExceptionHandler 
     }
 
 
-
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = org.springframework.http.HttpStatus.BAD_REQUEST, reason = "Bad Request")
     public ApiError handleIllegalArgumentException(IllegalArgumentException e) {
@@ -144,7 +143,6 @@ public class CustomRestControllerHandler extends ResponseEntityExceptionHandler 
 
 
     }
-
 
 
 }

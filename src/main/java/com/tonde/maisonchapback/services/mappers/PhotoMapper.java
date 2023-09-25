@@ -10,15 +10,13 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 
-
 /**
  * Mapper for the entity {@link Photo} and its DTO {@link PhotoDTO}.
-
-*/
+ */
 
 @Mapper(componentModel = "spring")
 public interface PhotoMapper extends EntityMapper<PhotoDTO, Photo> {
- @Mapping(target = "house", source = "house", qualifiedByName = "houseId")
+    @Mapping(target = "house", source = "house", qualifiedByName = "houseId")
     PhotoDTO toDto(Photo s);
 
     @Named("houseId")

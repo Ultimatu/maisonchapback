@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
-
 public class RateDTO implements Serializable {
 
     private Integer id;
@@ -17,6 +16,7 @@ public class RateDTO implements Serializable {
     private String description;
 
     private HouseDTO house;
+    private UserDTO user;
 
     public UserDTO getUser() {
         return user;
@@ -25,8 +25,6 @@ public class RateDTO implements Serializable {
     public void setUser(UserDTO user) {
         this.user = user;
     }
-
-    private UserDTO user;
 
     public Integer getId() {
         return id;

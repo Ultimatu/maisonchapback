@@ -6,20 +6,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Hidden
 public interface TypeHouseService {
 
-    ResponseEntity<List<TypeHouse>> getAllTypeHouse();
+    List<TypeHouse> getAllTypeHouse();
 
-    ResponseEntity<TypeHouse> getTypeHouseById(int id);
+    Optional<TypeHouse> getTypeHouseById(int id);
 
-    ResponseEntity<?> createTypeHouse(TypeHouse typeHouse);
+    ResponseEntity<TypeHouse> createTypeHouse(TypeHouse typeHouse);
 
-    ResponseEntity<?> updateTypeHouse(TypeHouse typeHouse);
+    ResponseEntity<TypeHouse> updateTypeHouse(TypeHouse typeHouse);
 
-    ResponseEntity<?> deleteTypeHouse(int id);
+    void deleteTypeHouse(int id);
 
 
 }

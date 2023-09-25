@@ -51,8 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         CustomLogger.log("INFO", "Extracting username from jwt...");
         try {
             userEmail = jwtService.extractUsername(jwt);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "Invalid token");
             errorResponse.put("url", "api/auth/authenticate");

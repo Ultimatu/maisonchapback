@@ -13,8 +13,7 @@ import org.mapstruct.Named;
 
 /**
  * Mapper for the entity {@link Abonnement} and its DTO {@link AbonnementDTO}.
-
-*/
+ */
 @Mapper(componentModel = "spring")
 public interface AbonnementMapper extends EntityMapper<AbonnementDTO, Abonnement> {
     @Mapping(target = "typeAbonnementDTO", source = "typeAbonnement", qualifiedByName = "typeAbonnementId")

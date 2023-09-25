@@ -18,7 +18,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -32,11 +31,10 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
+    private static final String MESSAGE = "message";
     private final AuthenticationService authentificationService;
     private final LogoutService logoutService;
     private final CheckIfUserAlreadyExists check;
-    private static final String MESSAGE = "message";
-
     @Value("${application.frontend.url}")
     private String frontendUrl;
 
@@ -45,7 +43,6 @@ public class AuthenticationController {
 
     @Value("${application.frontend.renew-account.endpoint}")
     private String renewAccountEndpoint;
-
 
 
     @Operation(

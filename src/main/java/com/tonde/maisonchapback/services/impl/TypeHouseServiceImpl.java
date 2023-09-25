@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,56 +22,50 @@ public class TypeHouseServiceImpl implements TypeHouseService {
     private final TypeHouseRepository typeHouseRepository;
 
     @Override
-    public ResponseEntity<List<TypeHouse>> getAllTypeHouse() {
+    public List<TypeHouse> getAllTypeHouse() {
         List<TypeHouse> typeHouseList = typeHouseRepository.findAll();
         if (typeHouseList.isEmpty()) {
-            return ResponseEntity.badRequest().body(null);
+            return Collections.emptyList();
         }
-        return ResponseEntity.ok(typeHouseList);
+        return typeHouseList;
     }
 
     @Override
-    public ResponseEntity<TypeHouse> getTypeHouseById(int id) {
-        return typeHouseRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(
-                        () -> ResponseEntity
-                                .badRequest()
-                                .body(null));
+    public Optional<TypeHouse> getTypeHouseById(int id) {
+        return typeHouseRepository.findById(id);
     }
 
     @Override
-    public ResponseEntity<?> createTypeHouse(TypeHouse typeHouse) {
+    public ResponseEntity<TypeHouse> createTypeHouse(TypeHouse typeHouse) {
         Optional<TypeHouse> typeHouseOptional = typeHouseRepository.findByTypeAndDescription(typeHouse.getType(), typeHouse.getDescription());
         if (typeHouseOptional.isPresent()) {
-            return ResponseEntity.badRequest().body("Type already exists");
+            return ResponseEntity.badRequest().body(null);
         }
-        typeHouseRepository.save(typeHouse);
-        return ResponseEntity.ok("Type created");
+
+        return ResponseEntity.ok(typeHouseRepository.save(typeHouse));
 
     }
 
     @Override
-    public ResponseEntity<?> updateTypeHouse(TypeHouse typeHouse) {
+    public ResponseEntity<TypeHouse> updateTypeHouse(TypeHouse typeHouse) {
         Optional<TypeHouse> typeHouseOptional = typeHouseRepository.findById(typeHouse.getId());
         if (typeHouseOptional.isPresent()) {
             TypeHouse typeHouse1 = typeHouseOptional.get();
             typeHouse1.setType(typeHouse.getType());
             typeHouse1.setDescription(typeHouse.getDescription());
             typeHouse1.setDateModification(Instant.from(LocalDateTime.now()));
-            typeHouseRepository.save(typeHouse1);
-            return ResponseEntity.ok("Type updated");
+
+            return ResponseEntity.ok(typeHouseRepository.save(typeHouse1));
         }
-        return ResponseEntity.badRequest().body("Impossible to update this type");
+        return ResponseEntity.badRequest().body(null);
     }
 
     @Override
-    public ResponseEntity<?> deleteTypeHouse(int id) {
+    public void deleteTypeHouse(int id) {
         Optional<TypeHouse> typeHouseOptional = typeHouseRepository.findById(id);
         if (typeHouseOptional.isPresent()) {
             typeHouseRepository.deleteById(id);
-            return ResponseEntity.ok("Type deleted");
+
         }
-        return ResponseEntity.badRequest().body("Impossible to delete this type");
     }
 }

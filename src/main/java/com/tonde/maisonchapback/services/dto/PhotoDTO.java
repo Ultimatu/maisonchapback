@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
-
 public class PhotoDTO implements Serializable {
 
     private Integer id;

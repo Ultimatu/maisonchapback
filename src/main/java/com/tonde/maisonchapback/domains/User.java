@@ -43,7 +43,7 @@ import java.util.List;
 
 )
 
-public class User implements UserDetails{
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,6 +100,10 @@ public class User implements UserDetails{
         return this.password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getUsername() {
         return this.email;
@@ -124,7 +128,6 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return this.active;
     }
-
 
     public Integer getId() {
         return id;
@@ -172,10 +175,6 @@ public class User implements UserDetails{
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Role getRole() {

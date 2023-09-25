@@ -2,7 +2,7 @@ package com.tonde.maisonchapback.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RequestResponseApi{
+public class RequestResponseApi {
     @JsonProperty("message")
     private String message;
     @JsonProperty("code")
@@ -18,12 +18,12 @@ public class RequestResponseApi{
         return message;
     }
 
-    public int getCode() {
-        return code;
-    }
-
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getCode() {
+        return code;
     }
 
     public void setCode(int code) {

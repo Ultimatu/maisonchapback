@@ -1,7 +1,10 @@
 package com.tonde.maisonchapback.domains;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "_accountKey")
-public class AccountActivation  implements Serializable {
+public class AccountActivation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +30,6 @@ public class AccountActivation  implements Serializable {
 
     @Column(name = "user_id", nullable = false)
     private Integer userId;
-
 
 
     @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -48,7 +50,6 @@ public class AccountActivation  implements Serializable {
         LocalDateTime now = LocalDateTime.now();
         return now.isAfter(expirationAt);
     }
-
 
 
 }

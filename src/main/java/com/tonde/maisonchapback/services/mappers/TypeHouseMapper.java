@@ -2,9 +2,7 @@ package com.tonde.maisonchapback.services.mappers;
 
 import com.tonde.maisonchapback.domains.TypeHouse;
 import com.tonde.maisonchapback.services.dto.TypeHouseDTO;
-import org.mapstruct.*;
-
-
+import org.mapstruct.Mapper;
 
 
 /**
@@ -12,4 +10,5 @@ import org.mapstruct.*;
  */
 
 @Mapper(componentModel = "spring")
-public interface TypeHouseMapper extends EntityMapper<TypeHouseDTO, TypeHouse> {}
+public interface TypeHouseMapper extends EntityMapper<TypeHouseDTO, TypeHouse> {
+}

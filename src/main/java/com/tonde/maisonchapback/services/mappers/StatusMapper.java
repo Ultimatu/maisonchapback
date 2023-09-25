@@ -2,8 +2,7 @@ package com.tonde.maisonchapback.services.mappers;
 
 import com.tonde.maisonchapback.domains.Status;
 import com.tonde.maisonchapback.services.dto.StatusDTO;
-import org.mapstruct.*;
-
+import org.mapstruct.Mapper;
 
 
 /**
@@ -11,4 +10,5 @@ import org.mapstruct.*;
  */
 
 @Mapper(componentModel = "spring")
-public interface StatusMapper extends EntityMapper<StatusDTO, Status> {}
+public interface StatusMapper extends EntityMapper<StatusDTO, Status> {
+}

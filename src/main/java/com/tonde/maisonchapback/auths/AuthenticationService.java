@@ -77,7 +77,7 @@ public class AuthenticationService {
                 .expirationAt(LocalDateTime.now().plusMinutes(10))
                 .createdAt(LocalDateTime.now())
                 .isUsed(false)
-                        .build();
+                .build();
         activationRepository.save(accountCred);
         mailService.sendActivationEmail(user, key);
         CustomLogger.log("INFO", "mail sended to user");

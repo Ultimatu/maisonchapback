@@ -75,6 +75,7 @@ public class PhotoServiceImpl implements PhotoService {
             return ResponseEntity.badRequest().body(Collections.emptyList());
         }
     }
+
     private String savePhotoAndGetUniqueFileName(byte[] photoData, String fileName, int id) {
         House house = houseRepository.findById(id).orElse(null);
         assert house != null;
@@ -105,7 +106,6 @@ public class PhotoServiceImpl implements PhotoService {
             return null; // Retournez null pour indiquer une erreur
         }
     }
-
 
 
     @Override

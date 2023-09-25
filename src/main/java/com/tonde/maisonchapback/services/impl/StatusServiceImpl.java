@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,54 +20,47 @@ public class StatusServiceImpl implements StatusService {
     private final StatusRepository statusRepository;
 
     @Override
-    public ResponseEntity<?> getAllStatus() {
-        return ResponseEntity.ok(statusRepository.findAll());
+    public List<Status> getAllStatus() {
+        return statusRepository.findAll();
     }
 
     @Override
-    public ResponseEntity<?> getStatusById(Integer id) {
+    public Status getStatusById(Integer id) {
         Optional<Status> status = statusRepository.findById(id);
-        if (status.isPresent()) {
-            return ResponseEntity.ok(status.get());
-        }
-        ResponseEntity<String> statusNotFound = ResponseEntity.badRequest().body("Status not found");
-        return statusNotFound;
+        return status.orElse(null);
+
     }
 
     @Override
-    public ResponseEntity<?> createStatus(Status status) {
+    public ResponseEntity<Status> createStatus(Status status) {
         Optional<Status> statusOptional = statusRepository
                 .findByStatusAndDescription(status.getStatus(), status.getDescription());
 
         if (statusOptional.isPresent()) {
-            return ResponseEntity.badRequest().body("Status already exist");
+            return null;
         }
-        statusRepository.save(status);
-        return ResponseEntity.ok("Status created successfully");
+
+        return ResponseEntity.ok(statusRepository.save(status));
 
     }
 
     @Override
-    public ResponseEntity<?> updateStatus(Status status) {
+    public ResponseEntity<Status> updateStatus(Status status) {
         Optional<Status> statusOptional = statusRepository.findById(status.getId());
         if (statusOptional.isPresent()) {
             statusOptional.get().setStatus(status.getStatus());
             statusOptional.get().setDescription(status.getDescription());
             statusOptional.get().setUpdatedAt(Instant.now());
-            statusRepository.save(statusOptional.get());
-            return ResponseEntity.ok("Status updated successfully");
+
+            return ResponseEntity.ok(statusRepository.save(statusOptional.get()));
         }
 
-        return ResponseEntity.badRequest().body("Status not found");
+        return null;
     }
 
     @Override
-    public ResponseEntity<?> deleteStatus(Integer id) {
+    public void deleteStatus(Integer id) {
         Optional<Status> statusOptional = statusRepository.findById(id);
-        if (statusOptional.isPresent()) {
-            statusRepository.delete(statusOptional.get());
-            return ResponseEntity.ok("Status deleted successfully");
-        }
-        return ResponseEntity.badRequest().body("Status not found");
+        statusOptional.ifPresent(statusRepository::delete);
     }
 }

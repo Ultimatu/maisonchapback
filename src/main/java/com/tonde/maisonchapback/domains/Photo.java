@@ -29,7 +29,7 @@ import java.io.Serializable;
                 }""",
         requiredProperties = {"id", "house", "url", "description"}
 )
-public class Photo  implements Serializable {
+public class Photo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

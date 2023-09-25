@@ -2,9 +2,7 @@ package com.tonde.maisonchapback.services.mappers;
 
 import com.tonde.maisonchapback.domains.TypeAbonnement;
 import com.tonde.maisonchapback.services.dto.TypeAbonnementDTO;
-import org.mapstruct.*;
-
-
+import org.mapstruct.Mapper;
 
 
 /**
@@ -12,5 +10,6 @@ import org.mapstruct.*;
  */
 
 @Mapper(componentModel = "spring")
-public interface TypeAbonnementMapper extends EntityMapper<TypeAbonnementDTO, TypeAbonnement> {}
+public interface TypeAbonnementMapper extends EntityMapper<TypeAbonnementDTO, TypeAbonnement> {
+}
 

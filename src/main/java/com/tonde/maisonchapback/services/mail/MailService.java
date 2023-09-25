@@ -4,11 +4,9 @@ import com.tonde.maisonchapback.domains.User;
 import com.tonde.maisonchapback.exceptions.CustomLogger;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,26 +14,22 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 @Service
 public class MailService {
 
-    private final Logger log = LoggerFactory.getLogger(MailService.class);
-
     private static final String USER = "user";
     private static final String BASE_URL = "baseUrl";
-
-
+    private final Logger log = LoggerFactory.getLogger(MailService.class);
+    private final JavaMailSender javaMailSender;
+    private final SpringTemplateEngine templateEngine;
     @Value("${mail.from}")
     private String fromAddress;
-
     @Value("${mail.baseUrl}")
     private String baseUrl;
-
-    private  final JavaMailSender javaMailSender;
-    private final SpringTemplateEngine templateEngine;
 
     public MailService(JavaMailSender javaMailSender, SpringTemplateEngine templateEngine) {
         this.javaMailSender = javaMailSender;
@@ -74,7 +68,7 @@ public class MailService {
             log.debug("Email doesn't exist for user '{}'", user.getEmail());
             return;
         }
-        CustomLogger.log("INFO", "Sending email to '{}'"+ user.getEmail());
+        CustomLogger.log("INFO", "Sending email to '{}'" + user.getEmail());
         Locale locale = Locale.forLanguageTag(user.getLangkey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
@@ -102,7 +96,6 @@ public class MailService {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title", key);
     }
-
 
 
 }

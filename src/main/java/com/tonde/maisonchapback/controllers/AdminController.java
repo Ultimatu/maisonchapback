@@ -20,14 +20,13 @@ public class AdminController {
 
     /**
      * {code} GET /api/admin/authorities
+     *
      * @return List<String> tous les roles
      */
-   @GetMapping("authorities")
-   public List<String> roles(){
-         return List.of("ROLE_ADMIN", "ROLE_FREE_USER", "ROLE_FREE_PROPRIO", "ROLE_PREMIUM_USER", "ROLE_STANDARD_USER", "ROLE_STANDARD_PROPRIO");
-   }
-
-
+    @GetMapping("authorities")
+    public List<String> roles() {
+        return List.of("ROLE_ADMIN", "ROLE_FREE_USER", "ROLE_FREE_PROPRIO", "ROLE_PREMIUM_USER", "ROLE_STANDARD_USER", "ROLE_STANDARD_PROPRIO");
+    }
 
 
 }
