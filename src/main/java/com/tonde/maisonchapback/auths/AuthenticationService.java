@@ -71,7 +71,7 @@ public class AuthenticationService {
         repository.save(user);
         String key = KeyGenerator.generateUniqueKey();
         String code = KeyGenerator.generateRandomCode();
-        var accountCred = AccountActivation
+        AccountActivation accountCred = AccountActivation
                 .builder()
                 .key(key)
                 .code(code)
