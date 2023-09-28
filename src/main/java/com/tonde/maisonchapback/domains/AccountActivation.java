@@ -24,6 +24,9 @@ public class AccountActivation implements Serializable {
     @Column(name = "activation_key", nullable = false)
     private String key;
 
+    @Column(name = "activation_code", nullable = true)
+    private String code;
+
     @Column(name = "is_used", nullable = false)
     private boolean isUsed;
 
@@ -39,9 +42,10 @@ public class AccountActivation implements Serializable {
     private LocalDateTime expirationAt;
 
 
-    public AccountActivation(String key, Integer userId) {
+    public AccountActivation(String key, Integer userId, String code) {
         this.key = key;
         this.userId = userId;
+        this.code = code;
         this.createdAt = LocalDateTime.now();
         this.expirationAt = LocalDateTime.now().plusMinutes(10);
     }

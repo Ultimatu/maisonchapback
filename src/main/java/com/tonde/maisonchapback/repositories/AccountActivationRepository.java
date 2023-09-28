@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface AccountActivationRepository extends JpaRepository<AccountActivation, Integer> {
 
     Optional<AccountActivation> findByUserIdAndKey(Integer userId, String key);
+
+    Optional<AccountActivation> findByUserIdAndCode(Integer id, String code);
 }

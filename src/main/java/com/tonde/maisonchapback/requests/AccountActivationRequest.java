@@ -20,4 +20,5 @@ public class AccountActivationRequest {
     @JsonProperty("userId")
     @Column(nullable = false)
     private Integer userId;
+
 }

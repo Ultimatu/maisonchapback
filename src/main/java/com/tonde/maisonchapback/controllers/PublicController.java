@@ -35,7 +35,6 @@ public class PublicController {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all renting houses.
      * @return the {@link ResponseEntity} with status {@code 404 (Not Found)} if no renting houses found.
-     * @return
      */
     @GetMapping("/renting")
 

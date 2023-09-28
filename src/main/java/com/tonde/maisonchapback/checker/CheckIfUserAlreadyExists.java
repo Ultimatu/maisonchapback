@@ -35,4 +35,9 @@ public class CheckIfUserAlreadyExists {
         logger.info("Checking if user exists by id...");
         return repository.existsById(id);
     }
+
+    public boolean alreadyExist(String email) {
+        logger.info("Checking if user exists by email...");
+        return repository.existsByEmail(email);
+    }
 }

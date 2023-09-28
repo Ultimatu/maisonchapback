@@ -2,6 +2,7 @@ package com.tonde.maisonchapback.controllers;
 
 
 import com.tonde.maisonchapback.domains.*;
+import com.tonde.maisonchapback.exceptions.CustomLogger;
 import com.tonde.maisonchapback.services.impl.*;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +26,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "http://localhost:4200")
-@PreAuthorize("hasAuthority('ROLE_FREE_USER') or hasAuthority('ROLE_STANDARD_USER') or hasAuthority('ROLE_PREMIUM_USER')")
 public class UserController {
 
     /*
@@ -76,6 +76,7 @@ public class UserController {
     public ResponseEntity<User> getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        CustomLogger.log("INFO", "Getting user details");
         if (authentication != null && authentication.isAuthenticated()) {
             if (!(authentication.getPrincipal() instanceof User user)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

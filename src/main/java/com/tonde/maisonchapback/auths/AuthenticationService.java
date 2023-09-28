@@ -70,16 +70,18 @@ public class AuthenticationService {
 
         repository.save(user);
         String key = KeyGenerator.generateUniqueKey();
+        String code = KeyGenerator.generateRandomCode();
         var accountCred = AccountActivation
                 .builder()
                 .key(key)
+                .code(code)
                 .userId(user.getId())
                 .expirationAt(LocalDateTime.now().plusMinutes(10))
                 .createdAt(LocalDateTime.now())
                 .isUsed(false)
                 .build();
         activationRepository.save(accountCred);
-        mailService.sendActivationEmail(user, key);
+        mailService.sendActivationEmail(user, key, code);
         CustomLogger.log("INFO", "mail sended to user");
 
         return ResponseEntity.status(201).body(ConstantCenter.ACCOUNT_CREATED);
@@ -106,17 +108,21 @@ public class AuthenticationService {
             throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
         }
         if (activation.get().isExpired()) {
-            activationRepository.delete(activation.get());
-            String key = KeyGenerator.generateUniqueKey();
-            var accountCred = AccountActivation
-                    .builder()
-                    .key(key)
-                    .userId(user.get().getId())
-                    .expirationAt(LocalDateTime.now().plusMinutes(10))
-                    .createdAt(LocalDateTime.now())
-                    .isUsed(false)
-                    .build();
-            activationRepository.save(accountCred);
+            //
+            // activationRepository.delete(activation.get());
+            // String key = KeyGenerator.generateUniqueKey();
+            // String code = KeyGenerator.generateRandomCode();
+            // var accountCred = AccountActivation
+            //         .builder()
+            //         .key(key)
+            //         .code(code)
+            //         .userId(user.get().getId())
+            //         .expirationAt(LocalDateTime.now().plusMinutes(10))
+            //         .createdAt(LocalDateTime.now())
+            //         .isUsed(false)
+            //         .build();
+            // activationRepository.save(accountCred);
+            // mailService.sendActivationEmail(user.get(), key, code);
             return false;
         }
 
@@ -127,6 +133,45 @@ public class AuthenticationService {
 
         return true;
 
+    }
+
+    public boolean activateAccountWithCode(String code, String email) {
+        Optional<User> userOptional = repository.findByEmail(email);
+        if (userOptional.isPresent() && !userOptional.get().isActive()){
+            Optional<AccountActivation> activation = activationRepository.findByUserIdAndCode(userOptional.get().getId(), code);
+            if (activation.isPresent() && !activation.get().isUsed()){
+                userOptional.get().setActive(true);
+                activation.get().setUsed(true);
+                activationRepository.save(activation.get());
+                repository.save(userOptional.get());
+                return true;
+            }
+            return false;
+
+        }
+        return false;
+
+    }
+
+    public String reGenerateCode(String email) {
+        Optional<User> userOptional = repository.findByEmail(email);
+        if (userOptional.isPresent() && !userOptional.get().isActive()){
+            Optional<AccountActivation> activation = activationRepository.findByUserIdAndCode(userOptional.get().getId(), null);
+            if (activation.isPresent() && !activation.get().isUsed() && activation.get().isExpired()){
+                String code = KeyGenerator.generateRandomCode();
+                String key = KeyGenerator.generateUniqueKey();
+                activation.get().setKey(key);
+                activation.get().setCode(code);
+                activation.get().setExpirationAt(LocalDateTime.now().plusMinutes(10));
+
+                activationRepository.save(activation.get());
+                mailService.sendActivationEmail(userOptional.get(), key, code);
+                return code;
+            }
+            return null;
+
+        }
+        return null;
     }
 
 
@@ -143,7 +188,7 @@ public class AuthenticationService {
             );
 
             Optional<User> user = repository.findByEmail(request.getEmail());
-            if (user.isEmpty()) {
+            if (user.isPresent() && !user.get().isActive()) {
                 throw new BadCredentialsException(ConstantCenter.PENDING_ACCOUNT);
             }
         } catch (Exception e) {
@@ -212,7 +257,7 @@ public class AuthenticationService {
 
         if (userEmail != null) {
             var user = this.repository.findByEmail(userEmail)
-                    .orElseThrow(); //var est une variable locale de type implicite
+                    .orElseThrow();
 
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var jwtToken = jwtService.generateToken(user);
@@ -241,4 +286,18 @@ public class AuthenticationService {
         }
     }
 
+
+    /**
+     * Cette fonction sera appélée dans un traitement asynchrone pour detecter si le compte est activé lors de la création du compte
+     * @param email email de l'utilisateur
+     * @return true si le compte est activé, false sinon
+     */
+
+    public Boolean checkIfAccountActivated(String email) {
+        Optional<User> user = repository.findByEmail(email);
+        if (user.isEmpty()) {
+            throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
+        }
+        return user.get().isActive();
+    }
 }

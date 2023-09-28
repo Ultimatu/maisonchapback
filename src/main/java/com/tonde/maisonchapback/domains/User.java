@@ -89,7 +89,6 @@ public class User implements UserDetails {
     private String photoPath;
 
 
-    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();

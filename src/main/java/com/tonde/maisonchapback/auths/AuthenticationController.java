@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -31,6 +34,8 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private static final String MESSAGE = "message";
     private final AuthenticationService authentificationService;
     private final LogoutService logoutService;
@@ -74,6 +79,7 @@ public class AuthenticationController {
             return ResponseEntity.status(403).body(errorResponse);
         }
 
+        logger.info("Registering user...");
         return ResponseEntity.ok(authentificationService.register(request));
     }
 
@@ -97,20 +103,116 @@ public class AuthenticationController {
     )
 
     @GetMapping("/activate")
-
     public RedirectView activate(@RequestParam("key") String key, @RequestParam("userId") Integer userId, HttpServletResponse response) {
         AccountActivationRequest request = new AccountActivationRequest();
         request.setKey(key);
         request.setUserId(userId);
 
         if (!check.alreadyExist(request.getUserId())) {
+            logger.info("User not found on activation");
             return new RedirectView(frontendUrl + loginEndpoint);
         }
+
 
         if (!authentificationService.activateAccount(request)) return new RedirectView(frontendUrl + loginEndpoint);
         else return new RedirectView(frontendUrl + renewAccountEndpoint);
 
     }
+
+    @Operation(
+            summary = "Activation du compte d'un utilisateur",
+            description = "Permet à un utilisateur d'activer son compte.",
+            tags = {"Authentification"},
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Activation réussie",
+                            content = @Content(schema = @Schema(implementation = Object.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Utilisateur non trouvé",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    )
+            }
+    )
+
+    @GetMapping("act-with-code")
+    public ResponseEntity<String> activateWithCode(@RequestParam("code") String code, @RequestParam("email") String email) {
+
+
+        if (!check.alreadyExist(email)) {
+            return ResponseEntity.status(404).body(ConstantCenter.USER_NOT_FOUND);
+        }
+
+        if (!authentificationService.activateAccountWithCode(code, email)) return ResponseEntity.status(404).body(ConstantCenter.USER_NOT_FOUND);
+        else return ResponseEntity.ok("Account activated");
+    }
+
+
+
+    @Operation(
+            summary = "Régénération du code d'activation",
+            description = "Permet à un utilisateur de régénérer son code d'activation.",
+            tags = {"Authentification"},
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Régénération réussie",
+                            content = @Content(schema = @Schema(implementation = Object.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Utilisateur non trouvé",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    )
+            }
+    )
+
+
+    @GetMapping("regenerate-code")
+    public ResponseEntity<String> reGenerateCode(@RequestParam("email") String email) {
+        if (!check.alreadyExist(email)) {
+            return ResponseEntity.status(404).body("User not found");
+        }
+
+        String code = authentificationService.reGenerateCode(email);
+        if (code == null) return ResponseEntity.status(404).body(ConstantCenter.USER_NOT_FOUND);
+        else return ResponseEntity.ok(code);
+
+    }
+
+
+    @Operation(
+            summary = "Vérification de l'activation du compte",
+            description = "Permet de vérifier si le compte d'un utilisateur est activé.",
+            tags = {"Authentification"},
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Vérification réussie",
+                            content = @Content(schema = @Schema(implementation = Object.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Utilisateur non trouvé",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    )
+            }
+    )
+    @GetMapping("check-if-account-activated")
+    public ResponseEntity<Map<String, Boolean>> checkIfAccountActivated(@RequestParam("email") String email) {
+        if (!check.alreadyExist(email)) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("activated", authentificationService.checkIfAccountActivated(email));
+        return ResponseEntity.ok(response);
+
+    }
+
+
 
     @Operation(
             summary = "Authentification d'un utilisateur",
@@ -172,7 +274,7 @@ public class AuthenticationController {
 
     @PostMapping("/refresh-token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        response.setHeader(HttpHeaders.CONTENT_TYPE, ConstantCenter.JSON_CONTENT_TYPE);
         authentificationService.refreshToken(request, response);
     }
 

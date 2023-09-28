@@ -63,7 +63,7 @@ public class MailService {
     }
 
     @Async
-    public void sendEmailFromTemplate(User user, String templateName, String titleKey, String key) {
+    public void sendEmailFromTemplate(User user, String templateName, String titleKey, String key, String code) {
         if (user.getEmail() == null) {
             log.debug("Email doesn't exist for user '{}'", user.getEmail());
             return;
@@ -73,6 +73,7 @@ public class MailService {
         Context context = new Context(locale);
         context.setVariable(USER, user);
         context.setVariable("key", key);
+        context.setVariable("code", code);
         context.setVariable(BASE_URL, baseUrl); // Utilisation de la base URL définie dans la configuration
         String content = templateEngine.process(templateName, context);
         String subject = "Activation de compte";
@@ -80,21 +81,21 @@ public class MailService {
     }
 
     @Async
-    public void sendActivationEmail(User user, String key) {
+    public void sendActivationEmail(User user, String key, String code) {
         log.debug("Sending activation email to '{}'", user.getEmail());
-        sendEmailFromTemplate(user, "mail/activationEmail", "email.activation.title", key);
+        sendEmailFromTemplate(user, "mail/activationEmail", "email.activation.title", key, code);
     }
 
     @Async
-    public void sendCreationEmail(User user, String key) {
+    public void sendCreationEmail(User user, String key, String code) {
         log.debug("Sending creation email to '{}'", user.getEmail());
-        sendEmailFromTemplate(user, "mail/creationEmail", "email.activation.title", key);
+        sendEmailFromTemplate(user, "mail/creationEmail", "email.activation.title", key, code);
     }
 
     @Async
-    public void sendPasswordResetMail(User user, String key) {
+    public void sendPasswordResetMail(User user, String key, String code) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
-        sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title", key);
+        sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title", key, code);
     }
 
 

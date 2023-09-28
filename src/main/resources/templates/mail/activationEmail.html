@@ -94,10 +94,13 @@
 <div class="container">
     <p class="lead">Salut, <span th:text="#{${user.nom}}"></span></p>
     <p class="lead-content">
-        Votre compte MaisonChapApp a été créé. Pour l'activer, veuillez cliquer sur le lien ci-dessous :
+        Votre compte MaisonChapApp a été créé avec succès. Pour l'activer, veuillez cliquer sur le lien ci-dessous ou entrez le code ci-dessous:
     </p>
     <p class="lead-link">
         <a class="btn btn-success" th:with="url=(@{|${baseUrl}/api/auth/activate?key=${key}&userId=${user.id}|})" th:href="${url}">Activer le compte</a>
+    </p>
+    <p class="lead-content">
+        Code d'activation: <span th:text="${code}"></span>
     </p>
     <p>
         <span>Cordialement,</span>
