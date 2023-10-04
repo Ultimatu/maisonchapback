@@ -32,8 +32,8 @@ spring:
   mail:
     host: smtp.titan.email
     port: 587
-    username: memorial@ultimatumworkspace.works
-    password: Marega@1
+    username: maisonchap@ultimatumworkspace.works
+    password: Ultima@1
     protocol: smtp
     properties:
       mail:
@@ -60,7 +60,7 @@ server:
 
 application:
   frontend:
-    url: http://192.168.190.216:4200
+    url: http://192.168.143.216:4200
     login:
       endpoint: /login
     renew-account:
@@ -75,5 +75,5 @@ file:
   upload-dir: src/main/resources/static/uploads
 
 mail:
-    from: memorial@ultimatumworkspace.works
-    baseUrl: http://192.168.190.216:8080
+    from: maisonchap@ultimatumworkspace.works
+    baseUrl: http://192.168.143.216:8080

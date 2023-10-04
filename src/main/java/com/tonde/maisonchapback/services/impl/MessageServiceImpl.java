@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class MessageServiceImpl implements MessageService {
     private final UserRepository userRepository;
 
     @Override
-    public ResponseEntity<?> sendMessage(Message message) {
+    public ResponseEntity<String> sendMessage(Message message) {
         try {
             messageRepository.save(message);
             return ResponseEntity.ok("Message envoyé avec succès");
@@ -32,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public ResponseEntity<?> receiveMessage(Message message) {
+    public ResponseEntity<String> receiveMessage(Message message) {
 
         //update response status
         Optional<Message> messageOptional = messageRepository.findById(message.getId());
@@ -48,7 +49,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public ResponseEntity<?> updateMessage(Message message) {
+    public ResponseEntity<String> updateMessage(Message message) {
         Optional<Message> messageOptional = messageRepository.findById(message.getId());
         if (messageOptional.isPresent()) {
             messageOptional.get().setSender(message.getSender());
@@ -65,7 +66,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public ResponseEntity<?> deleteMessage(int id) {
+    public ResponseEntity<String> deleteMessage(int id) {
         Optional<Message> messageOptional = messageRepository.findById(id);
         if (messageOptional.isPresent()) {
             messageRepository.delete(messageOptional.get());
@@ -76,40 +77,32 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public ResponseEntity<List<Message>> getAllMessages() {
-        return messageRepository.findAll().isEmpty() ? null : ResponseEntity.ok(messageRepository.findAll());
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
     }
 
     @Override
-    public ResponseEntity<?> getMessageById(int id) {
+    public Message getMessageById(int id) {
         Optional<Message> messageOptional = messageRepository.findById(id);
-        if (messageOptional.isPresent()) {
-            return ResponseEntity.ok(messageOptional.get());
-        } else {
-            return ResponseEntity.badRequest().body("Message non trouvé");
-        }
+        return messageOptional.orElse(null);
 
     }
 
     @Override
-    public ResponseEntity<?> getMessageBySender(int senderId) {
+    public List<Message> getMessageBySender(int senderId) {
         Optional<User> userOptional = userRepository.findById(senderId);
-        if (userOptional.isPresent()) {
-            return ResponseEntity.ok(messageRepository.findBySender(userOptional.get()));
+        if (!userOptional.isEmpty()) {
+            return messageRepository.findBySender(userOptional.get());
         } else {
-            return ResponseEntity.badRequest().body("Utilisateur non trouvé");
+            return new ArrayList<>();
         }
 
     }
 
     @Override
-    public ResponseEntity<?> getMessageByReceiver(int receiverId) {
+    public List<Message> getMessageByReceiver(int receiverId) {
         Optional<User> userOptional = userRepository.findById(receiverId);
-        if (userOptional.isPresent()) {
-            return ResponseEntity.ok(messageRepository.findByReceiver(userOptional.get()));
-        } else {
-            return ResponseEntity.badRequest().body("Utilisateur non trouvé");
-        }
+        return userOptional.map(messageRepository::findByReceiver).orElse(null);
 
     }
 }

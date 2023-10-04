@@ -3,7 +3,8 @@ package com.tonde.maisonchapback.auths;
 
 import com.tonde.maisonchapback.checker.CheckIfUserAlreadyExists;
 import com.tonde.maisonchapback.config.LogoutService;
-import com.tonde.maisonchapback.requests.AccountActivationRequest;
+import com.tonde.maisonchapback.controllers.ApiResp;
+import com.tonde.maisonchapback.exceptions.CustomLogger;
 import com.tonde.maisonchapback.requests.AuthenticationRequest;
 import com.tonde.maisonchapback.requests.RegisterRequest;
 import com.tonde.maisonchapback.services.constant.ConstantCenter;
@@ -18,15 +19,13 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -40,14 +39,6 @@ public class AuthenticationController {
     private final AuthenticationService authentificationService;
     private final LogoutService logoutService;
     private final CheckIfUserAlreadyExists check;
-    @Value("${application.frontend.url}")
-    private String frontendUrl;
-
-    @Value("${application.frontend.login.endpoint}")
-    private String loginEndpoint;
-
-    @Value("${application.frontend.renew-account.endpoint}")
-    private String renewAccountEndpoint;
 
 
     @Operation(
@@ -72,11 +63,8 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<Object> register(@Valid @RequestBody RegisterRequest request, HttpServletResponse response) {
         if (check.alreadyExist(request)) {
-            HashMap<String, String> errorResponse = new HashMap<>();
-            errorResponse.put(MESSAGE, "User already exists");
-            response.setStatus(403);
-            response.setHeader(HttpHeaders.CONTENT_TYPE, ConstantCenter.JSON_CONTENT_TYPE);
-            return ResponseEntity.status(403).body(errorResponse);
+
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiResp("Cet Numéro/Email est déjà utilisé"));
         }
 
         logger.info("Registering user...");
@@ -102,51 +90,18 @@ public class AuthenticationController {
             }
     )
 
-    @GetMapping("/activate")
-    public RedirectView activate(@RequestParam("key") String key, @RequestParam("userId") Integer userId, HttpServletResponse response) {
-        AccountActivationRequest request = new AccountActivationRequest();
-        request.setKey(key);
-        request.setUserId(userId);
-
-        if (!check.alreadyExist(request.getUserId())) {
-            logger.info("User not found on activation");
-            return new RedirectView(frontendUrl + loginEndpoint);
-        }
-
-
-        if (!authentificationService.activateAccount(request)) return new RedirectView(frontendUrl + loginEndpoint);
-        else return new RedirectView(frontendUrl + renewAccountEndpoint);
-
-    }
-
-    @Operation(
-            summary = "Activation du compte d'un utilisateur",
-            description = "Permet à un utilisateur d'activer son compte.",
-            tags = {"Authentification"},
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Activation réussie",
-                            content = @Content(schema = @Schema(implementation = Object.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "Utilisateur non trouvé",
-                            content = @Content(schema = @Schema(implementation = String.class))
-                    )
-            }
-    )
-
     @GetMapping("act-with-code")
-    public ResponseEntity<String> activateWithCode(@RequestParam("code") String code, @RequestParam("email") String email) {
-
-
+    public ResponseEntity<Object> activateWithCode(@RequestParam("code") String code, @RequestParam("email") String email) {
         if (!check.alreadyExist(email)) {
-            return ResponseEntity.status(404).body(ConstantCenter.USER_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResp("User not found"));
         }
 
-        if (!authentificationService.activateAccountWithCode(code, email)) return ResponseEntity.status(404).body(ConstantCenter.USER_NOT_FOUND);
-        else return ResponseEntity.ok("Account activated");
+        boolean response = authentificationService.activateAccountWithCode(code, email);
+        if (response) {
+            return ResponseEntity.ok(new ApiResp("Account activated"));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResp("Activation failed"));
+        }
     }
 
 
@@ -171,14 +126,14 @@ public class AuthenticationController {
 
 
     @GetMapping("regenerate-code")
-    public ResponseEntity<String> reGenerateCode(@RequestParam("email") String email) {
+    public ResponseEntity<Object> reGenerateCode(@RequestParam("email") String email) {
         if (!check.alreadyExist(email)) {
             return ResponseEntity.status(404).body("User not found");
         }
 
         String code = authentificationService.reGenerateCode(email);
-        if (code == null) return ResponseEntity.status(404).body(ConstantCenter.USER_NOT_FOUND);
-        else return ResponseEntity.ok(code);
+        if (code == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResp("Code generation failed"));
+        else return ResponseEntity.ok(new ApiResp("Code generated"));
 
     }
 
@@ -201,14 +156,15 @@ public class AuthenticationController {
             }
     )
     @GetMapping("check-if-account-activated")
-    public ResponseEntity<Map<String, Boolean>> checkIfAccountActivated(@RequestParam("email") String email) {
+    public ResponseEntity<Object> checkIfAccountActivated(@RequestParam("email") String email) {
         if (!check.alreadyExist(email)) {
-            return ResponseEntity.status(404).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResp("User not found"));
         }
+        //make thread who keep checking if account is activated
 
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("activated", authentificationService.checkIfAccountActivated(email));
-        return ResponseEntity.ok(response);
+        boolean response = authentificationService.checkIfAccountActivated(email);
+        if (!response) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResp("Account not activated"));
+        else return ResponseEntity.ok(new ApiResp("Account activated"));
 
     }
 

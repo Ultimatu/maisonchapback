@@ -50,10 +50,6 @@ public class UserController {
      */
 
 
-    /**
-     * @param id utilisateur id
-     * @return ResponseEntity
-     */
 
 
     //get user by id
@@ -71,7 +67,6 @@ public class UserController {
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Utilisateur à créer", required = true)
 
     )
-
     @GetMapping("/my-details")
     public ResponseEntity<User> getUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -707,7 +702,7 @@ public class UserController {
     )
     @GetMapping("/message/{id}")
     @PreAuthorize("hasRole('ROLE_STANDARD_PROPRIO') or hasRole('ROLE_PREMIUM_PROPRIO') or hasRole('ROLE_STANDARD_USER') or hasRole('ROLE_PREMIUM_USER')")
-    public ResponseEntity<?> getMessageById(@PathVariable int id) {
+    public Message getMessageById(@PathVariable int id) {
         return messageService.getMessageById(id);
     }
 
@@ -727,7 +722,7 @@ public class UserController {
 
     )
     @GetMapping("/message/user-receiver/{userId}")
-    public ResponseEntity<?> getAllMessagesByUserId(@PathVariable int userId) {
+    public List<Message> getAllMessagesByUserId(@PathVariable int userId) {
         return messageService.getMessageByReceiver(userId);
     }
 
@@ -747,7 +742,7 @@ public class UserController {
 
     )
     @GetMapping("/message/user-sender/{userId}")
-    public ResponseEntity<?> getAllMessagesBySenderId(@PathVariable int userId) {
+    public List<Message> getAllMessagesBySenderId(@PathVariable int userId) {
         return messageService.getMessageBySender(userId);
     }
 
@@ -768,7 +763,7 @@ public class UserController {
 
     )
     @PostMapping("/message")
-    public ResponseEntity<?> sendMessage(@RequestBody Message message) {
+    public ResponseEntity<String> sendMessage(@RequestBody Message message) {
         return messageService.sendMessage(message);
     }
 
@@ -810,7 +805,7 @@ public class UserController {
 
     )
     @DeleteMapping("/message/{id}")
-    public ResponseEntity<?> deleteMessage(@PathVariable int id) {
+    public ResponseEntity<String> deleteMessage(@PathVariable int id) {
         return messageService.deleteMessage(id);
     }
 

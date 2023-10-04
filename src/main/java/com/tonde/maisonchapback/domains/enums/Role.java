@@ -20,7 +20,8 @@ public enum Role {
             Set.of(
                     USER_READ,
                     USER_UPDATE,
-                    USER_FREE
+                    USER_FREE,
+                    ROLE_FREE_USER
             )
     ),
     FREE_PROPRIO(
@@ -28,7 +29,9 @@ public enum Role {
                     PROPRIO_CREATE,
                     PROPRIO_UPDATE,
                     PROPRIO_READ,
-                    PROPRIO_DELETE
+                    PROPRIO_DELETE,
+                    PROPRIO_FREE,
+                    ROLE_FREE_PROPRIO
             )
     ),
 
@@ -41,7 +44,8 @@ public enum Role {
                     READ_MESSAGE,
                     DELETE_MESSAGE,
                     FAVORIS_ACCESS,
-                    ACTIVE_NOTIFICATION
+                    ACTIVE_NOTIFICATION,
+                    ROLE_PREMIUM_USER
 
             )
     ),
@@ -52,7 +56,8 @@ public enum Role {
                     USER_UPDATE,
                     USER_FREE,
                     FAVORIS_ACCESS,
-                    ACTIVE_NOTIFICATION
+                    ACTIVE_NOTIFICATION,
+                    ROLE_STANDARD_USER
             )
     ),
     STANDARD_PROPRIO(
@@ -64,7 +69,9 @@ public enum Role {
                     FAVORIS_ACCESS,
                     READ_MESSAGE,
                     USER_STANDARD,
-                    USER_FREE
+                    USER_FREE,
+                    DELETE_MESSAGE,
+                    ROLE_STANDARD_PROPRIO
             )
     ),
     PREMIUM_PROPRIO(
@@ -80,7 +87,8 @@ public enum Role {
                     READ_MESSAGE,
                     DELETE_MESSAGE,
                     FAVORIS_ACCESS,
-                    ACTIVE_NOTIFICATION
+                    ACTIVE_NOTIFICATION,
+                    ROLE_PREMIUM_PROPRIO
             )
     ), ADMIN(
             Set.of(
@@ -103,9 +111,10 @@ public enum Role {
                     USER_FREE,
                     SEND_MESSAGE,
                     READ_MESSAGE,
-                    DELETE_MESSAGE
-
-
+                    DELETE_MESSAGE,
+                    FAVORIS_ACCESS,
+                    ACTIVE_NOTIFICATION,
+                    ROLE_ADMIN
             )
     );
 

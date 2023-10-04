@@ -145,4 +145,15 @@ public class CustomRestControllerHandler extends ResponseEntityExceptionHandler 
     }
 
 
+    @ExceptionHandler(org.eclipse.angus.mail.util.MailConnectException.class)
+    @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE, reason = "Impossible de se connecter au serveur de mail")
+    public ApiError handleBadCredentialsException(org.eclipse.angus.mail.util.MailConnectException e) {
+        return ApiError.builder()
+                .message("Impossible de se connecter au serveur de mail")
+                .errors(List.of(e.getMessage()))
+                .status(org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE)
+                .build();
+    }
+
+
 }

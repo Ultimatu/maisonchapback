@@ -145,11 +145,14 @@ public class AuthenticationService {
                 activationRepository.save(activation.get());
                 repository.save(userOptional.get());
                 return true;
+            }else{
+                return false;
             }
+        }
+        else {
             return false;
 
         }
-        return false;
 
     }
 
@@ -187,12 +190,13 @@ public class AuthenticationService {
                     )
             );
 
-            Optional<User> user = repository.findByEmail(request.getEmail());
-            if (user.isPresent() && !user.get().isActive()) {
-                throw new BadCredentialsException(ConstantCenter.PENDING_ACCOUNT);
-            }
         } catch (Exception e) {
             throw new BadCredentialsException(ConstantCenter.BAD_CREDENTIALS);
+        }
+        Optional<User> user1 = repository.findByEmail(request.getEmail());
+        if (user1.isPresent() && !user1.get().isActive()) {
+            reGenerateCode(user1.get().getEmail());
+            throw new  BadCredentialsException(ConstantCenter.PENDING_ACCOUNT);
         }
         var user = repository.findByEmail(request.getEmail()).orElseThrow(null);
         var jwtToken = jwtService.generateToken(user);

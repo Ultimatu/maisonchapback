@@ -5,27 +5,29 @@ import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @Hidden
 public interface MessageService {
 
-    ResponseEntity<?> sendMessage(Message message);
+    ResponseEntity<String> sendMessage(Message message);
 
-    ResponseEntity<?> receiveMessage(Message message);
+    ResponseEntity<String> receiveMessage(Message message);
 
-    ResponseEntity<?> updateMessage(Message message);
+    ResponseEntity<String> updateMessage(Message message);
 
-    ResponseEntity<?> deleteMessage(int id);
+    ResponseEntity<String> deleteMessage(int id);
 
 
-    ResponseEntity<?> getAllMessages();
+    List<Message> getAllMessages();
 
-    ResponseEntity<?> getMessageById(int id);
+    Message getMessageById(int id);
 
-    ResponseEntity<?> getMessageBySender(int senderId);
+    List<Message> getMessageBySender(int senderId);
 
-    ResponseEntity<?> getMessageByReceiver(int receiverId);
+    List<Message> getMessageByReceiver(int receiverId);
 
 
 }

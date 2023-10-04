@@ -41,8 +41,16 @@ public enum Permission {
 
     FAVORIS_ACCESS("access:favoris_access"),
 
-    ACTIVE_NOTIFICATION("access:active_notification");
+    ACTIVE_NOTIFICATION("access:active_notification"),
 
+    ROLE_ADMIN("ROLE_ADMIN"),
+    ROLE_FREE_USER("ROLE_FREE_USER"),
+    ROLE_FREE_PROPRIO("ROLE_FREE_PROPRIO"),
+    ROLE_PREMIUM_USER("ROLE_PREMIUM_USER"),
+    ROLE_STANDARD_USER("ROLE_STANDARD_USER"),
+    ROLE_STANDARD_PROPRIO("ROLE_STANDARD_PROPRIO"),
+
+    ROLE_PREMIUM_PROPRIO("ROLE_PREMIUM_PROPRIO");
 
     @Getter
     private final String permission;

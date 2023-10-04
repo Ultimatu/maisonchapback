@@ -17,27 +17,25 @@ import java.io.IOException;
 @RequestMapping("/")
 public class RessourceLoaderController {
 
-    private final RessourceLoader uploadPath;
+    private final RessourceLoader loader;
 
-    public RessourceLoaderController(RessourceLoader uploadPath) {
-        this.uploadPath = uploadPath;
+    public RessourceLoaderController(RessourceLoader loader) {
+        this.loader = loader;
     }
 
     @GetMapping("down/{filename:.+}")
     public ResponseEntity<Resource> downloadFile(HttpServletRequest request, @PathVariable String filename) {
         CustomLogger.log("INFO", "File requested " + filename);
-        Resource resource = uploadPath.loadFileAsResource(filename);
-        CustomLogger.log("INFO", "File found " + filename);
+        Resource resource = loader.loadFileAsResource(filename);
 
-        // Try to determine file's content type
         String contentType = null;
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+            CustomLogger.log("INFO", "File founded " + contentType);
         } catch (IOException ex) {
             CustomLogger.log("ERROR", "Could not determine file type.");
         }
 
-        // Fallback to the default content type if type could not be determined
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
@@ -47,4 +45,5 @@ public class RessourceLoaderController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+
 }
