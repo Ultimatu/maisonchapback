@@ -17,7 +17,5 @@ Ce projet est un projet de location de maison. Il permet aux utilisateurs de con
 - Spring Devtools
 - Spring Test
 
-## Architecture
 
-[![Architecture](./Mcd.drawio)](./Mcd.drawio)
 
